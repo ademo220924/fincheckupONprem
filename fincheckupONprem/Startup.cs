@@ -22,7 +22,6 @@ using fincheckup.ApiClients.Models.Aggregated;
 using fincheckup.ApiClients.Models.SignOperation;
 using fincheckup.ApiClients.Services.Base;
 using fincheckup.StartupConfigurations;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace fincheckup
 {

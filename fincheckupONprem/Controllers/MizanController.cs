@@ -47,7 +47,7 @@ public class MizanController : Controller
 
     public async Task<JsonResult> moodUploadMznCkeckPDFUpdate(XMlook pageIndex)
     {
-        var response = await _mizanApiClient.MoodUploadMznCkeckPDFUpdateAsync(new MoodUploadMznCkeckPDFUpdateRequest { XMlook = pageIndex },
+        var response = await _mizanApiClient.MoodUploadMznCkeckPDFUpdateAsync(new MoodUploadMznCkeckPDFUpdateRequest() { XMlook = pageIndex },
             CancellationToken.None);
 
         return response.IsSuccess
@@ -59,7 +59,14 @@ public class MizanController : Controller
 
     public async Task<JsonResult> moodUploadMznCkeckPDF(XMlook pageIndex)
     {
-        var response = await _mizanApiClient.(new  { XMlook = pageIndex },
+        var response = await _mizanApiClient.MoodUploadMznCkeckAsync(new MoodUploadMznCkeckRequest
+            {
+                Id = pageIndex.id,
+                Caption = pageIndex.Caption,
+                File = pageIndex.file,
+                Ide = Convert.ToInt64(pageIndex.ide),
+                Idexml = Convert.ToInt64(pageIndex.idexml)
+            },
             CancellationToken.None);
 
         return response.IsSuccess

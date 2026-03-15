@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+
 namespace fincheckup.ApiClients.Models.Requests.Mizan;
 
 public class MoodUploadMznCkeckRequest
 {
-    public object File { get; set; }
+    public List<IFormFile> File { get; set; }
     public long Id { get; set; }
     public long Ide { get; set; }
     public long Idexml { get; set; }
