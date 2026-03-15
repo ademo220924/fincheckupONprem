@@ -1,0 +1,106 @@
+﻿@page
+@using System.Threading
+@using DevExpress.AspNetCore
+@using DevExpress.DataAccess.ObjectBinding
+@using DevExpress.XtraReports.UI
+@using fincheckup.ApiClients.Models.Requests.Finance.UpBalanceAkt
+@using fincheckup.ApiClients.Services.Finance
+@using fincheckup.Report
+@model IndexModel
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Pages/Shared/_LayoutReport.cshtml";
+}
+
+@functions {
+    public class IndexModel(IFinanceUpBalanceAktApiClient apiClient) : PageModel
+    {
+        private readonly IFinanceUpBalanceAktApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public FinanceUpBalanceAktRequestInitialModel InitialModel;
+
+        public async Task OnGet(int nyear = 2021)
+        {
+            try
+            {
+                var response = await _apiClient.GetAsync(new FinanceUpBalanceAktOnGetRequest
+                {
+                    nyear = 2021
+                }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+
+    <script src="~/js/viewer.part.bundle.js"></script>
+    <style>
+        .dxrd-toolbar-item-3 {
+            display: none !important;
+        }
+
+        .dxrd-toolbar-item-4 {
+            display: none !important;
+        }
+
+        .dxrd-preview.dxrd-designer-wrapper .dxrd-toolbar-wrapper .dxrd-preview-pager.dxrd-toolbar-item {
+            display: none !important;
+        }
+
+        dxrd-toolbar-item-0 {
+            display: none !important;
+        }
+
+        .dx-shadow-right {
+            display: none;
+        }
+    </style>
+
+}
+
+@{
+    BalanceReportAktarma report = new BalanceReportAktarma();
+
+    ObjectDataSource objectDataSource = new ObjectDataSource();
+    objectDataSource.Name = "DataViewer";
+    objectDataSource.DataSource = Model.InitialModel.ncheck;
+
+
+
+    objectDataSource.Fill();
+    DetailReportBand detailReport1 = report.Bands["DetailReport"] as DetailReportBand;
+
+    report.xrLabelheader.Text = Model.InitialModel.header;
+
+    //if (Model.mainreporttext.TrialBalance == 0)
+    //{
+    //    report.FindControl("xrShape2", true).Visible = false;
+    //}
+    //else
+    //{
+    //    report.FindControl("xrShape1", true).Visible = false;
+    //}
+
+    detailReport1.DataSource = objectDataSource;
+    // report.DataSource = objectDataSource;
+    report.PrintingSystem.Document.Name = "Balance_raporlar";
+    @Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px").Bind(report)
+}
+
+@section Scripts{
+
+} 

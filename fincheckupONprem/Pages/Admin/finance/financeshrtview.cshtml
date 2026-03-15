@@ -1,0 +1,912 @@
+﻿@page
+@using System.Threading
+@using fincheckup.ApiClients.Models
+@using fincheckup.ApiClients.Models.Requests.Finance.FinanceHrtView
+@using fincheckup.ApiClients.Services.Finance
+
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinancea.cshtml";
+}
+
+
+
+@functions {
+    public class IndexModel(IFinanceHrtViewApiClient apiClient) : PageModel
+    {
+        private readonly IFinanceHrtViewApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public FinanceFinanceHrtViewRequestInitialModel InitialModel;
+
+        public async Task OnGet()
+        {
+            try
+            {
+                var response = await _apiClient.GetAsync(new FinanceFinanceHrtViewOnGetRequest(), CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data?.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetMarkupMarjinAsync(new FinanceFinanceHrtViewOnGetMarkupMarjinRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetMarkupMarjin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetEbitMarjin(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetEbitMarjinAsync(new FinanceFinanceHrtViewOnGetEbitMarjinRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetEbitMarjin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetWorkingCapital(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetWorkingCapitalAsync(new FinanceFinanceHrtViewOnGetWorkingCapitalRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetWorkingCapital");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetDonemselKarZarar(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetDonemselKarZararAsync(new FinanceFinanceHrtViewOnGetDonemselKarZararRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetDonemselKarZarar");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetRevenue(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetRevenueAsync(new FinanceFinanceHrtViewOnGetRevenueRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetRevenue");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        } 
+        
+        public async Task<JsonResult> OnGetGrossProfit(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetGrossProfitAsync(new FinanceFinanceHrtViewOnGetGrossProfitRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetGrossProfit");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetGraphZet(DataSourceLoadOptions options, int myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetGraphZetAsync(new FinanceFinanceHrtViewOnGetGraphZetRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                    return new JsonResult("Burada hata var finance/FinanceHrtView OnGetGraphZet");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public JsonResult OnGetGraphYear(int nyear)
+        {
+            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //HhvnUsers.SetYear(nyear, UserID);
+            //return new JsonResult("ok");
+            return new JsonResult("Entegrasyon eksik finance/FinanceHrtView OnGetGraphYear");
+        }
+        
+        public JsonResult OnGetGraphComp(int ncompid)
+        {
+            //if (ncompid < 1)
+            //{
+            //    return new JsonResult("nok");
+            //
+            //}
+            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //
+            //if (HhvnUsers.CheckUser(ncompid, UserID))
+            //{
+            //    UserCompany.Update_UserDefault(UserID, ncompid);
+            //}
+            //
+            //
+            //return new JsonResult("ok");
+            return new JsonResult("Entegrasyon eksik finance/FinanceHrtView OnGetGraphComp");
+        }
+    }
+}
+        @section Styles {
+    <script src="~/assets/js/bootstrap.js"></script>
+    <script src="~/js/flexfont.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            var counter = 0;
+
+
+
+
+        });
+
+    </script>
+    <style>
+        .chkcoll {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+
+        @@media (min-width: 64em) {
+            .tttt {
+                font-size: 0.7em;
+                line-height: 1.8;
+            }
+        }
+
+        @@media (min-width: 85.375em) {
+            .tttt {
+                font-size: 0.8em;
+            }
+        }
+
+        @@media (min-width: 120em) {
+            .tttt {
+                font-size: 1em;
+            }
+        }
+
+        @@media (min-width: 160em) {
+            .tttt {
+                font-size: 1.1em;
+            }
+        }
+
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        .dx-overlay-content.dx-popup-fullscreen.dx-resizable.dx-popup-fullscreen-width {
+            transform: translate(0) !important;
+        }
+
+        #grdContainerBulten .shrt {
+            max-height: 55px
+        }
+
+
+        #grdContainerBulten .dx-datagrid-rowsview .dx-row {
+            max-height: 55px
+        }
+
+        .l-blue {
+            background: #fff !important;
+            color: black !important;
+        }
+    </style>
+}
+<section class="content home" id="employee">
+    @(Html.DevExtreme().LoadPanel()
+        .ID("loadPanel")
+        .ShadingColor("rgba(0,0,0,0.4)")
+        .Position(p => p.Of("#employee"))
+        .Visible(false)
+        .ShowIndicator(true)
+        .ShowPane(true)
+        .Shading(true)
+        .HideOnOutsideClick(false)
+        .OnShown("loadPanel_shown")
+        )
+
+    <input type="hidden" style="display:none" id="txtmyear" value="@Model.InitialModel.CurrentUser.SelectedYear" />
+    <input type="hidden" style="display:none" id="txtmcomp" value="@Model.InitialModel.CompID" />
+    <input type="hidden" style="display:none" id="txtyearcount" value="@Model.InitialModel.YearCount" />
+    <input type="hidden" style="display:none" id="txtcompcount" value="@Model.InitialModel.CompCount" />
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Finansal Özet Paneli</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Finansal Özet Paneli</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-6" style="text-align:left">
+
+                                            @(Html.DevExtreme().SelectBox()
+                                                .DataSource(Model.InitialModel.myearResult).ID("slctYear").OnInitialized("selectYear_Initialized")
+                                                .DisplayExpr("MText").OnSelectionChanged("selectYear_valueChanged")
+                                                .ValueExpr("MYear").Width(105)
+                                                )
+                                        </div>
+                                        <div class="col-6" style="text-align:right">
+
+                                        
+                                            @(Html.DevExtreme().TextBox()
+                                                .Value(Model.InitialModel.CompName).ReadOnly(true)
+                                                )
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12 col-lg-12">
+                <div class="row clearfix">
+                    <div class="col-md-6 col-lg-2 chkcoll">
+                        <div class="card">
+                            <div class="body  l-blue ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="margin-0 tttt1">Revenue </h4>
+                                        <h6 class="tttt3">Gelirler</h6>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="max-height: 49px; min-height: 49px; overflow-y: hidden; overflow-x: hidden ">
+
+                                    <div class="col-4 left-side">
+                                        <span class="tttt" style="text-align:left">Tüm Yıl</span>
+
+
+
+                                    </div>
+                                    <div class="col-8 right-side" style="text-align:right">
+                                        <span class="tttt" style="text-align:right">@Model.InitialModel.NetRevenue.EntryCountTotal</span>
+
+
+
+                                    </div>
+                                 
+                                    <div class="col-12" style="min-height:15px !important;">
+                                   
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 chkcoll">
+                        <div class="card">
+                            <div class="body  l-blue ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="margin-0 tttt1">Gross Profit</h4>
+                                        <h6 class="tttt3">Brüt Kar &Zarar</h6>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="max-height: 49px; min-height: 49px; overflow-y: hidden; overflow-x: hidden ">
+
+                                    <div class="col-4 left-side">
+                                        <span class="tttt" style="text-align:left"> Tüm Yıl</span>
+
+
+
+                                    </div>
+                                    <div class="col-8 right-side" style="text-align:right">
+                                        <span class="tttt" style="text-align:right">@Model.InitialModel.NetGrossProfit.EntryCountTotal / @Model.InitialModel.RetValGross</span>
+
+
+
+                                    </div>
+                                  
+                                    <div class="col-12" style="min-height:15px !important;">
+                                
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 chkcoll">
+                        <div class="card">
+                            <div class="body  l-blue ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="margin-0 tttt1">EBIT</h4>
+                                        <h6 class="tttt3">FAALİYET KAR ZARAR</h6>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="max-height: 49px; min-height: 49px; overflow-y: hidden; overflow-x: hidden ">
+
+                                    <div class="col-4 left-side">
+                                        <span class="tttt" style="text-align:left">Tüm Yıl</span>
+
+
+
+                                    </div>
+                                    <div class="col-8 right-side" style="text-align:right">
+                                        <span class="tttt" style="text-align:right">@Model.InitialModel.NetEbitMarjin.EntryCountTotal</span>
+
+
+
+                                    </div>
+                                  
+                                    <div class="col-12" style="min-height:15px !important;">
+                                       
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 chkcoll">
+                        <div class="card">
+                            <div class="body   l-blue ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="margin-0 tttt1">Finansal Borçlar</h4>
+                                        <h6 class="tttt3">Banka Kredileri</h6>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="max-height: 49px; min-height: 49px; overflow-y: hidden; overflow-x: hidden ">
+
+                                    <div class="col-4 left-side">
+                                        <span class="tttt" style="text-align:left">Tüm Yıl</span>
+
+
+
+                                    </div>
+                                    <div class="col-8 right-side" style="text-align:right">
+                                        <span class="tttt" style="text-align:right">@Model.InitialModel.NetFinancialDebit.EntryCountTotal</span>
+
+
+
+                                    </div>
+                                
+                                    <div class="col-12" style="min-height:15px !important;">
+                                        
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-6 col-lg-2 chkcoll">
+                        <div class="card">
+                            <div class="body  l-blue ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="margin-0 tttt1">Working Capital</h4>
+                                        <h6 class="tttt3">İşletme Sermayesi</h6>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="max-height: 49px; min-height: 49px; overflow-y: hidden; overflow-x: hidden ">
+
+                                    <div class="col-4 left-side">
+                                        <span class="tttt" style="text-align:left">Tüm Yıl</span>
+
+
+
+                                    </div>
+                                    <div class="col-8 right-side" style="text-align:right">
+                                        <span class="tttt" style="text-align:right">@Model.InitialModel.NetWorkingCapital.EntryCountTotal</span>
+
+
+
+                                    </div>
+                                  
+                                    <div class="col-12" style="min-height:15px !important;">
+                                    
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 chkcoll">
+                        <div class="card">
+                            <div class="body  l-blue ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="margin-0 tttt1">Monthly Trend</h4>
+                                        <h6 class="tttt3">Cari Oran</h6>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="max-height: 49px; min-height: 49px; overflow-y: hidden; overflow-x: hidden ">
+
+                                    <div class="col-4 left-side">
+                                        <span class="tttt" style="text-align:left">Tüm Yıl</span>
+
+
+
+                                    </div>
+                                    <div class="col-8 right-side" style="text-align:right">
+                                        <span class="tttt" style="text-align:right">@Model.InitialModel.dashFinancialCariOran.December</span>
+
+
+
+                                    </div>
+                                    
+                                    <div class="col-12" style="min-height:15px !important;">
+                                        
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+
+                    <div class="col-12">
+
+                        <div class="card">
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div class="card">
+                                            <div class="body">
+                                                <div class="row">
+
+                                                    <div class="col-6">
+                                                        @(Html.DevExtreme().Chart().ID("chaRevenue").CommonSeriesSettings(s => s.ArgumentField("DocumentMonthTr").Color("#4f7af6").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#4f7af6").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#4f7af6").Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                            {
+                                                                s.Add().ValueField("TotalGelir").Name("Revenue");
+                                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Gelirler").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "Revenue")).LoadParams(new { myear = new JS("function() {return tyear; }"), compid = new JS("function() {return mcompid; }") }))
+                                                            )
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @(Html.DevExtreme().Chart()
+                                                            .ID("chartzz")
+                                                            .CommonSeriesSettings(s => s
+                                                            .ArgumentField("DocumentMonthTr")
+                                                            .Type(SeriesType.StackedBar)
+                                                            )
+                                                            .Series(s =>
+                                                            {
+                                                                s.Add().ValueField("KisaVadeBanka").Name("Kisa Vade Banka").Color("#4f7af6");
+                                                                s.Add().ValueField("UzunVadeBanka").Name("Uzun Vade Banka").Color("#eb3d9b"); ;
+                                                                s.Add().ValueField("KisaVadeMali").Name("Kisa Vade Mali").Color("#7ac7fd"); ;
+                                                                s.Add().ValueField("UzunVadeMali").Name("Uzun Vade Mali").Color("#4547cc"); ;
+                                                            })
+                                                            .Legend(l => l
+                                                            .VerticalAlignment(VerticalEdge.Bottom)
+                                                            .HorizontalAlignment(HorizontalAlignment.Center)
+                                                            .ItemTextPosition(Position.Top)
+                                                            )
+                                                            .ValueAxis(a => a
+                                                            .Add()
+                                                            .Title(t => t.Text("milyon"))
+                                                            .Position(Position.Right)
+                                                            )
+                                                            .Title("Finansal Borçlar")
+                                                            .Export(e => e.Enabled(false))
+                                                            .Tooltip(t => t
+                                                            .Enabled(false)
+                                                            .Location(ChartTooltipLocation.Edge) 
+                                                            )
+                                                            .DataSource(Model.InitialModel.NetDashDepth)
+                                                            )
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="card">
+                                                        <div class="body">
+                                                            @(Html.DevExtreme().DataGrid<BWarn>() 
+                                                                    .ID("gridContainer").Paging(p => p.PageSize(10)).ColumnAutoWidth(true)
+                                                                    .ShowBorders(false).FilterRow(f => f.Visible(false)).ShowRowLines(true)
+                                                                    .RemoteOperations(true)
+                                                                    .Columns(columns =>
+                                                                    { 
+                                                                        columns.AddFor(m => m.ID).Visible(false);
+                                                                        columns.AddFor(m => m.Title).Caption("Erken Uyarı Kapsamı") ;
+
+                                                                        columns.Add().Caption("Durum")
+                                                                    .CssClass("dx-command-edit dx-command-edit-with-icons centerdiv")
+                                                                    .CellTemplate(@<text>
+                                                                <a href="#" class="btn btn-secondary btn-round btn-simple" title="Detail"><span class="dx-icon fa fa-info-circle" style="color:green"></span></a>
+                                                            </text>);
+
+                                                                    })
+                                                                .DataSource(Model.InitialModel.mreqList
+                                                                )
+                                                                )
+
+
+                                                            <div>
+                                                        <div>
+
+                                                    </div>
+                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="card">
+                                            <div class="body">
+
+                                                @(Html.DevExtreme().PieChart()
+                                                    .Series(s =>
+                                                    {
+                                                        s.Add().ArgumentField("AccountMainDescription").ValueField("December").Label(e => { e.Visible(false); e.Format("percent"); });
+                                                    })
+                                                    .Palette(VizPalette.SoftBlue)
+                                                    .SizeGroup("sizeGroupName")
+                                                    .Title("Özkaynak Oranı")
+                                                    .Legend(l => l
+                                                    .VerticalAlignment(VerticalEdge.Bottom)
+                                                    .HorizontalAlignment(HorizontalAlignment.Center)
+                                                    .ItemTextPosition(Position.Right)
+                                                    .RowCount(2)
+                                                    )
+                                                    .DataSource(Model.InitialModel.dashFinancialOzkaynakAktif)
+                                                    )
+                                            </div>
+
+                                        </div>
+                                        <br />
+                                        <div class="card">
+                                            <div class="body">
+
+                                                <table class="table m-b-0 table-hover">
+                                            
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Score</td>
+                                                            <td>@Model.InitialModel.RetValScore</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Likidite Oranı</td>
+                                                            <td>@Model.InitialModel.dDashReportMain.Where(x => x.TypeID == 33).Select(x => x.TumYil).FirstOrDefault().ToString("n2")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Nakit Oran</td>
+                                                            <td>@Model.InitialModel.dDashReportMain.Where(x => x.TypeID == 55).Select(x => x.TumYil).FirstOrDefault().ToString("n2")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Borç/Özsermaye Oranı</td>
+                                                            <td>@Model.InitialModel.dDashReportMain.Where(x => x.TypeID == 221).Select(x => x.TumYil).FirstOrDefault().ToString("n2")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Memzuç Doluluk Oranı</td>
+                                                            <td>--</td>
+                                                        </tr>
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+
+
+    <script>
+        var tyear = $("#txtmyear").val();
+        var mcompid = $("#txtmcomp").val();
+    </script>
+    <script>
+        function getLoadPanelInstance() {
+            return $("#loadPanel").dxLoadPanel("instance");
+        }
+        function loadPanel_shown(e) {
+            setTimeout(function () {
+                e.component.hide();
+            }, 7000);
+        }
+        var misready = "nok";
+        var chkReadyState = setInterval(function () {
+            if (document.readyState == "complete") {
+
+                clearInterval(chkReadyState);
+
+                misready = "ok";
+            }
+        }, 100);
+
+        function getselectYearInstance() {
+            return $("#slctYear").dxSelectBox("instance");
+        }
+       
+        function selectYear_Initialized() {
+            getselectYearInstance().option("value", parseInt($("#txtmyear").val()));
+            var chkco = parseInt($("#txtyearcount").val());
+
+            if (chkco < 2) {
+                getselectYearInstance().option("readOnly", true);
+            }
+
+
+        }
+
+   
+
+        function selectYear_valueChanged(data) {
+            var slctval = data.selectedItem.MYear;
+            var turl = '/admin/finance/dashbilanco?handler=GraphYear&nyear=' + slctval;
+
+            if (misready == "ok" && tyear.toString() != slctval.toString()) {
+                getLoadPanelInstance().show();
+                $.ajax({
+                    type: "GET",
+                    url: turl,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == "ok") {
+                            location.reload();
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+
+        }
+
+         
+
+        function onAppointmentFormOpening(e) {
+            const form = e.form;
+
+            var recurrenceEditor = form.getEditor("recurrenceRule");
+
+
+
+
+            $('.dx-appointment-form-switch').each(function () {
+                $(this).css("display", "none");
+
+
+
+            });
+        }
+
+
+        function onItemDelete(data) {
+            const popup = $("#employee-popup").dxPopup("instance");
+
+            var pageIndex = data.ID;
+            $.ajax({
+                url: "/JsonService/Main/GetHtml",
+                method: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(pageIndex),
+                success: function (dataz) {
+
+                    if (dataz == "nok") {
+                        swal.close();
+                        Swal.fire(
+                            'Hata!',
+                            'Bülten Yüklenemedi Bir Sorun Oluştu!',
+                            'error'
+                        )
+                    }
+                    else {
+                        var bodyText = dataz.Description;
+                        var titlea = dataz.Title;
+                        var titleb = dataz.SubTitle;
+                        var titlek = dataz.Kapsam;
+                        var titlet = dataz.DuzenleyenKurum;
+                        var titlez = dataz.YururlulukTarih;
+
+                        $("#txtitle").text(titlea);
+                        $("#txtitle1").val(titleb);
+                        $("#txtitle2").val(titlek);
+                        $("#txtitle3").val(titlet);
+                        $("#txtitle4").val(titlez);
+                        $("#textBlock").prop('innerHTML', bodyText);
+                        $("#largeModal").modal('show');
+                    }
+
+
+                }
+            });
+
+
+        }
+    </script>
+
+}

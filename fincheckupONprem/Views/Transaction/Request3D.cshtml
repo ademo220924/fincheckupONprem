@@ -1,0 +1,11 @@
+﻿@using Newtonsoft.Json
+
+@{
+    Layout = "";
+    var htmlContentData = JsonConvert.DeserializeObject(Model);
+}
+
+@model string
+
+
+@Html.Raw(htmlContentData)

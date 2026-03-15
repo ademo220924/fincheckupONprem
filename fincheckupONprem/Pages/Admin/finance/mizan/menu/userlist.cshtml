@@ -1,0 +1,161 @@
+﻿@page
+
+@using System.Threading
+@using fincheckup.ApiClients.Entities
+@using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.UserList
+@using fincheckup.ApiClients.Services.Finance
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
+}
+ 
+
+@functions {
+    public class IndexModel(IMizanMenuUserListApiClient apiClient) : PageModel
+    {
+        private readonly IMizanMenuUserListApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public MizanUserListRequestInitialModel InitialModel;
+
+
+        public async Task OnGet(int year = 2021)
+        {
+            var response = await _apiClient.GetAsync(new MizanUserListOnGetRequest
+            {
+                year= year
+            }, CancellationToken.None);
+
+            try
+            {
+
+                InitialModel = response.Data!.InitialModel;
+            }
+            catch
+            {
+                Console.WriteLine(response.ProblemDetails.Detail);
+                throw;
+            }
+
+        }
+
+        public async Task<JsonResult> OnGetSalerMain(DataSourceLoadOptions options, string dt1)
+        {
+            return new JsonResult("Burada hata var finance/mizan/menu/UserList/OnGetSalerMain");
+        }
+
+   
+        public async Task<JsonResult> OnGetPrio(DataSourceLoadOptions options)
+        {
+            return new JsonResult("Burada hata var finance/mizan/menu/UserList/OnGetPrio");
+        }
+
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.css">
+    <style>
+        #gridContainer .centerdiv {
+            text-align:center;
+        }
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        #chartxt {
+            max-height: 255px !important;
+        }
+    </style>
+}
+<section class="content home">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Kullanıcı Listesi</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Kullanıcı Listesi</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="row">
+
+                            @(Html.DevExtreme().DataGrid<HhvnUsers>().ColumnHidingEnabled(true)
+.ID("gridContainer").Paging(p => p.PageSize(10))
+.Pager(p => p
+.ShowPageSizeSelector(true)
+.AllowedPageSizes(new[] { 10, 25, 50, 100 })
+)
+.ShowBorders(true).FilterRow(f => f.Visible(false)).ShowRowLines(true)
+.RemoteOperations(true)
+.SearchPanel(s => s
+.Visible(true)
+.HighlightCaseSensitive(true)
+)
+.Editing(e => e.Mode(GridEditMode.Popup).UseIcons(true)
+)
+.Columns(columns => {
+
+columns.AddFor(m => m.Id).Visible(false);
+columns.AddFor(m => m.FullName).Caption("İsim").AllowHeaderFiltering(true);
+columns.AddFor(m => m.UserType).Caption("Rol").AllowHeaderFiltering(true);
+columns.AddFor(m => m.IsActive).Caption("Aktif Mi").AllowHeaderFiltering(true);
+columns.Add()
+.CssClass("dx-command-edit dx-command-edit-with-icons centerdiv")
+.CellTemplate(@<text>
+                                <a href="/admin/finance/mizan/menu/useredit?id=<%= data.ID %>" class="btn btn-secondary btn-round btn-simple" title="Detail"><span class="dx-icon fa fa-info-circle"></span></a>
+                   </text>);
+
+
+})
+        .DataSource(Model.InitialModel.mreqList
+        )
+    )
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+
+
+    <script>
+ 
+ 
+    </script>
+} 

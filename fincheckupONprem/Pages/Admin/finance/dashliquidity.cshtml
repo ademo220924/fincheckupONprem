@@ -1,0 +1,422 @@
+﻿@page
+@using System.Threading
+@using fincheckup.ApiClients.Models
+@using fincheckup.ApiClients.Models.Requests.Finance.DashLiquidity
+@using fincheckup.ApiClients.Services.Finance
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinancea.cshtml";
+}
+
+
+
+@functions {
+    public class IndexModel(IFinanceDashLiquidityApiClient apiClient) : PageModel
+    {
+        private readonly IFinanceDashLiquidityApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public FinanceDashLiquidityRequestInitialModel InitialModel;
+
+        public async Task OnGet()
+        {
+            try
+            {
+                var response = await _apiClient.GetAsync(new FinanceDashLiquidityOnGetRequest(), CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public JsonResult OnGetSalerMain(DataSourceLoadOptions options, string dt1)
+        {
+
+            //dt1 = "105";
+            //var winModelTlist = Data.Get_AllbyCsvID(dt1);
+            //return new JsonResult(DataSourceLoader.Load(winModelTlist, options));
+            return new JsonResult("Entegrasyon eksik finance/DashLiquidity OnGetSalerMain");
+
+        }
+
+        public JsonResult OnGetPrio(DataSourceLoadOptions options)
+        {
+
+            //return new JsonResult(DataSourceLoader.Load(ShedulerCL.PriorityResources, options));
+            return new JsonResult("Entegrasyon eksik finance/DashLiquidity OnGetPrio");
+        }
+        
+        public JsonResult OnGetGraphYear(int nyear)
+        {
+            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //HhvnUsers.SetYear(nyear, UserID);
+            //return new JsonResult("ok");
+            return new JsonResult("Entegrasyon eksik finance/DashLiquidity OnGetGraphYear");
+        }
+        
+        public JsonResult OnGetGraphComp(int ncompid)
+        {
+            //if (ncompid < 1)
+            //{
+            //    return new JsonResult("nok");
+            //
+            //}
+            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //if (!HhvnUsers.CheckUser(ncompid, UserID))
+            //{
+            //    return new JsonResult("ok");
+            //}
+            //
+            //UserCompany.Update_UserDefault(UserID, ncompid);
+            //
+            //return new JsonResult("ok");
+            return new JsonResult("Entegrasyon eksik finance/DashLiquidity OnGetGraphComp");
+        }
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.css">
+    <style>
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        #chartxt {
+            max-height: 255px !important;
+        }
+    </style>
+}
+<section class="content home" id="employee">
+    @(Html.DevExtreme().LoadPanel()
+        .ID("loadPanel")
+        .ShadingColor("rgba(0,0,0,0.4)")
+        .Position(p => p.Of("#employee"))
+        .Visible(false)
+        .ShowIndicator(true)
+        .ShowPane(true)
+        .Shading(true)
+        .HideOnOutsideClick(false)
+        .OnShown("loadPanel_shown")
+    )
+
+    <input type="hidden" style="display:none" id="txtmyear" value="@Model.InitialModel.CurrentUser.SelectedYear" />
+    <input type="hidden" style="display:none" id="txtmcomp" value="@Model.InitialModel.CompID" />
+    <input type="hidden" style="display:none" id="txtyearcount" value="@Model.InitialModel.YearCount" />
+    <input type="hidden" style="display:none" id="txtcompcount" value="@Model.InitialModel.CompCount" />
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Likidite Riski</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Likidite Riski</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-6" style="text-align:left">
+
+                                            @(Html.DevExtreme().SelectBox()
+                                                .DataSource(Model.InitialModel.myearResult).ID("slctYear").OnInitialized("selectYear_Initialized")
+                    .DisplayExpr("MText").OnSelectionChanged("selectYear_valueChanged")
+                    .ValueExpr("MYear").Width(105)
+                )
+                                        </div>
+                                        <div class="col-6" style="text-align:right">
+
+                                      
+                                            @(Html.DevExtreme().TextBox()
+                                                .Value(Model.InitialModel.CompName).ReadOnly(true)
+                            )
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-lg-3">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="card">
+                                        <div class="body l-blue overflowhidden" style="height: 100%;">
+
+                                            <div class="row" style="min-height:755px !important">
+                                                <div class="card p-b-5">
+                                                    <div class="body l-blue overflowhidden">
+                                                        <p class="m-b-0 font-23">Likidite Oranı (%)</p>
+                                                        <p class="m-b-0"><small>Yüzdesel Ortalama</small> </p>
+                                                        <h3 class="m-t-0 m-b-0">% @Model.InitialModel.NetIsletme</h3>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="card p-b-20 m-t-10" style="margin-top:-175px">
+
+
+                                                </div>
+                                                <div class="card p-b-20">
+
+
+
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-lg-9">
+                                <div class="row clearfix">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="card">
+                                            <div class="body">
+                                                <div class="row">
+                                                    @(Html.DevExtreme().DataGrid<DashBilancoView>().ColumnHidingEnabled(true).ID("grdContainerDefter").RemoteOperations(true)
+    .Scrolling(s => s
+        .Mode(GridScrollingMode.Virtual)
+        .RowRenderingMode(GridRowRenderingMode.Virtual)
+    )
+    .Paging(p => p.PageSize(100)).Export(e => e.Enabled(true))
+    .OnExporting("onExporting")
+    .ColumnAutoWidth(true)
+    .HeaderFilter(f => f.Visible(false))
+    .WordWrapEnabled(true)
+    .Height(440)
+                                                        .ShowBorders(true).DataSource(Model.InitialModel.nRequestList).Columns(columns =>
+    {
+        columns.AddFor(m => m.AccountMainDescription).Caption("KAYNAKLAR");
+        columns.AddFor(m => m.DebitCreditCode).Caption("DebitCreditCode").Visible(false).Width(0);
+        columns.AddFor(m => m.January).Caption("Ocak").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.February).Caption("Şubat").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.March).Caption("Mart").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.April).Caption("Nisan").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.May).Caption("Mayıs").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.June).Caption("Haziran").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.July).Caption("Temmuz").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.August).Caption("Ağustos").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.September).Caption("Eylül").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.October).Caption("Ekim").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.November).Caption("Kasım").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.December).Caption("Aralık").CssClass("centerdiv").Format(Format.FixedPoint);
+        columns.AddFor(m => m.GroupName)
+           .GroupIndex(0).Caption("");
+
+    }).Grouping(grouping => grouping.AutoExpandAll(true)).GroupPanel(groupPanel => groupPanel.Visible(false))
+                        )
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="body">
+
+                                                <div class="row">
+                                                    <div class="col-md-12 col-lg-12">
+
+                                                        @(Html.DevExtreme().Chart()
+    .ID("chart")
+    .CommonSeriesSettings(s => s
+        .ArgumentField("mText")
+        .Type(SeriesType.Spline)
+        .Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))
+    )
+    .ArgumentAxis(a => a
+        .ValueMarginsEnabled(false)
+        .DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.BetweenLabels)
+        .Grid(g => g.Visible(true))
+    )
+    .Crosshair(c => c
+        .Enabled(true)
+        .Color("#949494")
+        .Width(3)
+        .DashStyle(DashStyle.Dot)
+        .Label(l => l
+            .Visible(true)
+            .BackgroundColor("#949494")
+            .Font(f => f.Color("#fff").Size(12))
+        )
+    )
+    .Series(s => {
+        s.Add().ValueField("mValue").Name("Hydro-electric").ShowInLegend(false);
+    })
+    .Legend(l => l
+        .VerticalAlignment(VerticalEdge.Bottom)
+        .HorizontalAlignment(HorizontalAlignment.Center)
+        .ItemTextPosition(Position.Bottom)
+    ).Size(s => s.Height(335))
+    .Title(t => t
+        .Text("Likidite Riski")
+        .Subtitle(s => s.Text("(Aylık Plan)"))
+    )
+    .Export(e => e.Enabled(true))
+    .Tooltip(t => t.Enabled(true))
+                                                            .DataSource(Model.InitialModel.nRequestListViewChart)
+)
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+    <script src="/js/a_poly.js"></script>
+    <script src="/js/a_excel.js"></script>
+    <script src="/js/a_filesave.js"></script>
+
+    <script>
+        function onExporting(e) {
+            var workbook = new ExcelJS.Workbook();
+            var worksheet = workbook.addWorksheet('liquidity');
+
+            DevExpress.excelExporter.exportPivotGrid({
+                component: e.component,
+                worksheet: worksheet
+            }).then(function () {
+                workbook.xlsx.writeBuffer().then(function (buffer) {
+                    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'liquidity.xlsx');
+                });
+            });
+            e.cancel = true;
+        }
+    </script>
+
+
+    <script>
+        var tyear = $("#txtmyear").val();
+        var mcompid = $("#txtmcomp").val();
+    </script>
+    <script>
+        function getLoadPanelInstance() {
+            return $("#loadPanel").dxLoadPanel("instance");
+        }
+        function loadPanel_shown(e) {
+            setTimeout(function () {
+                e.component.hide();
+            }, 7000);
+        }
+        var misready = "nok";
+        var chkReadyState = setInterval(function () {
+            if (document.readyState == "complete") {
+
+                clearInterval(chkReadyState);
+
+                misready = "ok";
+            }
+        }, 100);
+
+        function getselectYearInstance() {
+            return $("#slctYear").dxSelectBox("instance");
+        }
+        
+        function selectYear_Initialized() {
+            getselectYearInstance().option("value", parseInt($("#txtmyear").val()));
+            var chkco = parseInt($("#txtyearcount").val());
+
+            if (chkco < 2) {
+                getselectYearInstance().option("readOnly", true);
+            }
+
+
+        }
+
+    
+
+        function selectYear_valueChanged(data) {
+            var slctval = data.selectedItem.MYear;
+            var turl = '/admin/finance/dashbilanco?handler=GraphYear&nyear=' + slctval;
+
+            if (misready == "ok" && tyear.toString() != slctval.toString()) {
+                getLoadPanelInstance().show();
+                $.ajax({
+                    type: "GET",
+                    url: turl,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == "ok") {
+                            location.reload();
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+
+        }
+
+        
+        var dt1 = "105";
+    </script>
+} 

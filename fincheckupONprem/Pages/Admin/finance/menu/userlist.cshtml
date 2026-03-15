@@ -1,0 +1,191 @@
+﻿@page
+
+@using System.Threading
+@using fincheckup.ApiClients.Entities
+@using fincheckup.ApiClients.Models.Requests.Finance.Menu.UserList
+@using fincheckup.ApiClients.Services.Finance
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinancea.cshtml";
+}
+
+
+@functions {
+    public class IndexModel(IFinanceMenuUserListApiClient apiClient) : PageModel
+    {
+        private readonly IFinanceMenuUserListApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public UserListRequestInitialModel InitialModel;
+
+        // public long UserID;
+        // public HhvnUsers CurrentUser;
+        // public IEnumerable<HhvnUsers> mreqList;
+
+        public async Task OnGet(int year = 2021)
+        {
+            try
+            {
+                var response = await _apiClient.GetAsync(new UserListOnGetRequest
+                    {
+                        year = year
+                    }
+                    , CancellationToken.None);
+                
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data?.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            // mreqList = new List<HhvnUsers>();
+
+            // UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            // CurrentUser = HhvnUsers.GetRow_User(UserID);
+
+            // if (CurrentUser.UserTypeID == 1001)
+            // {
+            //     mreqList = HhvnUsers.Get_All();
+            // }
+            // else  
+            // {
+            //     mreqList = HhvnUsers.GetByAdminUser(UserID);
+            // }
+           
+
+        }
+
+        public JsonResult OnGetSalerMain(DataSourceLoadOptions options, string dt1)
+        {
+            // dt1 = "105";
+            // var winModelTlist = Data.Get_AllbyCsvID(dt1);
+            // return new JsonResult(DataSourceLoader.Load(winModelTlist, options));
+            return new JsonResult("Eksik entegrasyon  finance/menu/userlist/OnGetSalerMain");
+        }
+
+   
+        public JsonResult OnGetPrio(DataSourceLoadOptions options)
+        {
+            //return new JsonResult(DataSourceLoader.Load(ShedulerCL.PriorityResources, options));
+            return new JsonResult("Eksik entegrasyon  finance/menu/userlist/OnGetPrio");
+        }
+
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.css">
+    <style>
+        #gridContainer .centerdiv {
+            text-align:center;
+        }
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        #chartxt {
+            max-height: 255px !important;
+        }
+    </style>
+}
+<section class="content home">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Kullanıcı Listesi</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Kullanıcı Listesi</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="row">
+
+                            @(Html.DevExtreme().DataGrid<HhvnUsers>().ColumnHidingEnabled(true)
+.ID("gridContainer").Paging(p => p.PageSize(10))
+.Pager(p => p
+.ShowPageSizeSelector(true)
+.AllowedPageSizes(new[] { 10, 25, 50, 100 })
+)
+.ShowBorders(true).FilterRow(f => f.Visible(false)).ShowRowLines(true)
+.RemoteOperations(true)
+.SearchPanel(s => s
+.Visible(true)
+.HighlightCaseSensitive(true)
+)
+.Editing(e => e.Mode(GridEditMode.Popup).UseIcons(true)
+)
+.Columns(columns => {
+
+columns.AddFor(m => m.Id).Visible(false);
+columns.AddFor(m => m.FullName).Caption("İsim").AllowHeaderFiltering(true);
+columns.AddFor(m => m.UserType).Caption("Rol").AllowHeaderFiltering(true);
+columns.AddFor(m => m.IsActive).Caption("Aktif Mi").AllowHeaderFiltering(true);
+columns.Add()
+.CssClass("dx-command-edit dx-command-edit-with-icons centerdiv")
+.CellTemplate(@<text>
+                                <a href="/admin/finance/menu/useredit?id=<%= data.ID %>" class="btn btn-secondary btn-round btn-simple" title="Detail"><span class="dx-icon fa fa-info-circle"></span></a>
+                   </text>);
+
+
+})
+        .DataSource(Model.InitialModel.mreqList
+        )
+    )
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+
+
+    <script>
+ 
+
+       
+    </script>
+} 

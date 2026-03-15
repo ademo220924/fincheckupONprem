@@ -1,0 +1,341 @@
+﻿@page
+
+@using System.Threading
+@using fincheckup.ApiClients.Entities
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
+}
+@using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.CompanyKonsol
+@using fincheckup.ApiClients.Services.Finance
+
+@functions {
+    public class IndexModel(IMizanMenuCompanyKonsolApiClient apiClient) : PageModel
+    {
+        private readonly IMizanMenuCompanyKonsolApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public MizanCompanyKonsolRequestInitialModel InitialModel;
+ 
+        
+       /* public Company mrequest;
+        public Company mrequestmain;
+        public int StartQuestions { get; set; }
+        public int AQuestions { get; set; }
+        public int BQuestions { get; set; }
+        public int CQuestions { get; set; }
+        */
+       
+        public async Task OnGet(int id = 0, int mainid = 0)
+        {
+            /*
+            mrequest = new Companies();
+            mrequestmain = Companies.Get_Company(mainid);
+            mrequest.MainCompanyID = mainid;
+            if (id != 0)
+            {
+                mrequest = Companies.Get_Company(id);
+
+            }*/
+            try
+            {
+                var response = await _apiClient.GetAsync(new  MizanCompanyKonsolOnGetRequest(), CancellationToken.None);
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data?.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
+        }
+
+        public async Task<JsonResult> OnGetSalerMain(DataSourceLoadOptions options, string dt1)
+        {
+            //ToDo: ApiClient yok ise bu sekilde not al.
+ 
+           /* dt1 = "105";
+            var winModelTlist = Data.Get_AllbyCsvID(dt1);
+            return new JsonResult(DataSourceLoader.Load(winModelTlist, options));
+            */
+            return new JsonResult("Burada hata var finance/mizan/menu/CompanyConsol/OnGetSalerMain");
+
+        }
+
+
+        public async Task<JsonResult> OnGetSalerEnteg(DataSourceLoadOptions options)
+        {
+               /*
+            var mreqListCitiy = Companies.GetCompany_Entegrator();
+            return new JsonResult(DataSourceLoader.Load(mreqListCitiy, options));
+               */
+             try
+             {
+                 var response = await _apiClient.GetSalerEntegAsync(new MizanCompanyKonsolOnGetSalerEntegRequest()
+                 {
+                     options = options
+                 }, CancellationToken.None);
+                   
+                 if (response.IsSuccess)
+                 {
+                     InitialModel = response.Data?.InitialModel;
+                 }
+                 else
+                 {
+                     Console.WriteLine(response.ProblemDetails.Detail);
+                 }
+                 return new JsonResult(response.Data!.Response);
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine(ex.Message);
+                 throw;
+             }
+         
+        }
+        public async Task<JsonResult> OnGetSalerCity(DataSourceLoadOptions options)
+        {
+ /*
+            var mreqListCitiy = Cities.Get_Cities();
+            return new JsonResult(DataSourceLoader.Load(mreqListCitiy, options));
+*/
+             try
+             {
+                 var response = await _apiClient.GetSalerCityAsync(new MizanCompanyKonsolOnGetSalerCityRequest()
+                 {
+                     options = options
+                 }, CancellationToken.None);
+                           
+                 if (response.IsSuccess)
+                 {
+                     InitialModel = response.Data?.InitialModel;
+                 }
+                 else
+                 {
+                     Console.WriteLine(response.ProblemDetails.Detail);
+                 }
+                 return new JsonResult(response.Data!.Response);
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine(ex.Message);
+                 throw;
+             }
+        }
+
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.css">
+    <style>
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        #chartxt {
+            max-height: 255px !important;
+        }
+    </style>
+}
+<section class="content home">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Bülten İçerik</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Şirketler</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-6" style="text-align:left"> </div>
+                                        <div class="col-6" style="text-align:right">
+                                            Ana Şirket Hesabı      @Model.InitialModel.mrequestmain.CompanyName
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-6"> </div>
+                            <div class="col-6" style="text-align:right">
+                                @(Html.DevExtreme().Button()
+        .ID("buttonz")
+        .Text("Geri Dön").OnClick((@<text>
+        function() {
+           history.back();
+        }
+    </text>))
+        .Type(ButtonType.Default)
+    )
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+
+
+
+                        <form id="frm">
+
+                            @(Html.DevExtreme().Form<Company>
+    ()
+    .ID("form").ShowValidationSummary(false)
+    .Items(items => {
+        items.AddGroup().Caption("Bağlı Şirket Detayı")
+        .ColCount(4)
+        .Items(groupItems => {
+            groupItems.AddGroup().ColSpan(4).Items(secondGroupItems =>
+            {
+                secondGroupItems.AddSimpleFor(m => m.CompanyName).Editor(e => e.TextBox()).Label(l => l.Text("Şirket Adı"));
+            });
+            groupItems.AddGroup().ColSpan(2).Items(secondGroupItems => {
+                secondGroupItems.AddSimpleFor(m => m.Id).Editor(e => e.NumberBox().ReadOnly(true)).Label(l => l.Text("ID"));
+                secondGroupItems.AddSimpleFor(m => m.MainCompanyId).Editor(e => e.NumberBox().ReadOnly(true)).Label(l => l.Text("MainID"));
+                secondGroupItems.AddSimpleFor(m => m.ContactName).Editor(e => e.TextBox()).IsRequired(true).Label(l => l.Text("Yetkili Adı"));
+                secondGroupItems.AddSimpleFor(m => m.ContactMail).Editor(e => e.TextBox()).IsRequired(true).Label(l => l.Text("Yetkili E-mail"));
+                secondGroupItems.AddSimpleFor(m => m.NaceCode).Editor(e => e.TextBox()).IsRequired(true).Label(l => l.Text("Nace Kodu"));
+                secondGroupItems.AddSimpleFor(m => m.CityId).Label(l => l.Text("Şehir")).IsRequired(true).Editor(e => e.SelectBox()
+            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity")).Key("ID"))
+            .DisplayExpr("City")
+            .ValueExpr("ID"));
+
+            });
+            groupItems.AddGroup().ColSpan(2).Items(secondGroupItems =>
+            {
+                secondGroupItems.AddSimpleFor(m => m.ContactGsm).IsRequired(true).Label(l => l.Text("Yetkili Telefon"));
+                secondGroupItems.AddSimpleFor(m => m.TaxOffice).IsRequired(true).Label(l => l.Text("Vergi Dairesi"));
+                secondGroupItems.AddSimpleFor(m => m.TaxId).IsRequired(true).Label(l => l.Text("Vergi Numarası"));
+                secondGroupItems.AddSimpleFor(m => m.XmlSourceId).Label(l => l.Text("XML Entegratör")).IsRequired(true).Editor(e => e.SelectBox()
+          .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerEnteg")).Key("ID"))
+          .DisplayExpr("XmlSource")
+          .ValueExpr("ID"));
+
+
+
+            });
+            groupItems.AddGroup().ColSpan(4).Items(secondGroupItems =>
+            {
+                secondGroupItems.AddSimpleFor(m => m.Adress).IsRequired(true).Label(l => l.Text("Adres")).Editor(e => e
+                              .TextArea()
+                              .Height(40)
+
+                              );
+                secondGroupItems.AddSimpleFor(m => m.Notes).Label(l => l.Text("Notlar")).Editor(e => e
+                               .TextArea()
+                               .Height(40)
+
+                               );
+            });
+        });
+        items.AddGroup()
+       .ColCount(4)
+       .Items(groupItems =>
+       {
+
+           groupItems.AddGroup().ColSpan(4).Items(secondGroupItems =>
+           {
+
+
+               secondGroupItems.AddButton()
+                   .HorizontalAlignment(HorizontalAlignment.Right)
+                   .ButtonOptions(b => b.Text("Kaydet")
+                       .Type(ButtonType.Success)
+                       .UseSubmitBehavior(true)
+               );
+
+           });
+       });
+
+
+
+
+
+    })
+
+    .FormData(Model.InitialModel.mrequest)
+    )
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+
+    <script>
+
+        var dt1 = "105";
+
+        $("#frm").submit(function () {
+            var vals = $(this).serialize();
+
+
+
+            $.ajax({
+                url: "/JsonService/MainPost/FormSubmitCompany",
+                method: "POST",
+                data: vals,
+                success: function (data) {
+
+                    location.href = "/admin/finance/mizan/menu/companylist";
+                }
+            });
+
+            return false; // prevent from submit
+        });
+    </script>
+} 

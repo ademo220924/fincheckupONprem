@@ -1,0 +1,27 @@
+using fincheckup.ApiClients.Entities;
+
+using System.Collections.Generic;
+
+
+
+namespace fincheckup.ApiClients.Models.Requests.upchecky;
+public class upcheckyRequest
+{
+
+    public IEnumerable<YearResult> myearResult;
+    public long UserID;
+    public long CompID;
+    public int CompCount;
+    public int YearCount;
+    public long curcomID;
+    public int curcomCount;
+
+    public HhvnUsers CurrentUser;
+
+    public string CompName;
+
+    public IEnumerable<Entities.Company> mreqListCompany;
+
+
+    public string currentcompname { get; set; }
+}
