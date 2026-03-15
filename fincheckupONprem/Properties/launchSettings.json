@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "FinanceCheckUp.WEB.Swagger": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "loginarea",
+      "applicationUrl": "http://localhost:2024",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "qa"
+      }
+    }
+  }
+}

@@ -1,0 +1,400 @@
+﻿@page
+@using System.Threading
+@using fincheckup.ApiClients.Models.Requests.Finance.CashFlow
+@using fincheckup.ApiClients.Models.ViewModel.Reports
+@using fincheckup.ApiClients.Services.Finance
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinancea.cshtml";
+}
+
+
+@functions {
+    public class IndexModel(IFinanceCashFlowApiClient apiClient) : PageModel
+    {
+        private readonly IFinanceCashFlowApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        
+        public FinanceCashFlowRequestInitialModel InitialModel;
+
+        public async Task OnGet()
+        {
+            try
+            {
+                var response = await _apiClient.GetAsync(new FinanceCashFlowOnGetRequest(), CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data?.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public JsonResult OnGetSalerMain(DataSourceLoadOptions options, string dt1)
+        {
+
+            //dt1 = "105";
+            //var winModelTlist = Data.Get_AllbyCsvID(dt1);
+            return new JsonResult("Entegrasyon eksik finance/CashFlow OnGetSalerMain");
+
+        }
+
+        public JsonResult OnGetPrio(DataSourceLoadOptions options)
+        {
+
+            return new JsonResult("Entegrasyon eksik finance/CashFlow OnGetPrio");
+        }
+        
+        public async Task<JsonResult> OnGetGraphYear(int nyear)
+        {
+            try
+            {
+                var response = await _apiClient.GetGraphYearAsync(new FinanceCashFlowOnGetGraphYearRequest
+                    {
+                        nyear = nyear
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/CashFlow OnGetGraphYear");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
+            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //HhvnUsers.SetYear(nyear, UserID);
+            //return new JsonResult("ok");
+        }
+        
+        public async Task<JsonResult> OnGetChartRasyo(DataSourceLoadOptions options)
+        {
+            try
+            {
+                var response = await _apiClient.GetChartRasyoAsync(new FinanceCashFlowOnGetChartRasyoRequest
+                    {
+                        options = options
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/CashFlow OnGetChartRasyo");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, string myear, long compid)
+        {
+            try
+            {
+                var response = await _apiClient.GetMarkupMarjinAsync(new FinanceCashFlowOnGetMarkupMarjinRequest
+                    {
+                        options = options,
+                        myear = myear,
+                        compid = compid
+                    }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data?.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/CashFlow OnGetMarkupMarjin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        
+        public JsonResult OnGetGraphComp(int ncompid)
+        {
+            //if (ncompid < 1)
+            //{
+            //return new JsonResult("nok");
+            //}
+
+            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //if (!HhvnUsers.CheckUser(ncompid, UserID))
+            //{
+            //return new JsonResult("ok");
+            //}
+            //UserCompany.Update_UserDefault(UserID, ncompid);
+
+            return new JsonResult("Entegrasyon eksik finance/CashFlow OnGetGraphComp");
+        }
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.css">
+    <style>
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        #chartxt {
+            max-height: 255px !important;
+        }
+    </style>
+}
+<section class="content home" id="employee">
+    @(Html.DevExtreme().LoadPanel()
+        .ID("loadPanel")
+        .ShadingColor("rgba(0,0,0,0.4)")
+        .Position(p => p.Of("#employee"))
+        .Visible(false)
+        .ShowIndicator(true)
+        .ShowPane(true)
+        .Shading(true)
+        .HideOnOutsideClick(false)
+        .OnShown("loadPanel_shown")
+    )
+
+    <input type="hidden" style="display:none" id="txtmyear" value="@Model.InitialModel.CurrentUser.SelectedYear" />
+    <input type="hidden" style="display:none" id="txtmcomp" value="@Model.InitialModel.CompID" />
+    <input type="hidden" style="display:none" id="txtyearcount" value="@Model.InitialModel.YearCount" />
+    <input type="hidden" style="display:none" id="txtcompcount" value="@Model.InitialModel.CompCount" />
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Nakit Akışı</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Nakit Akışı</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-6" style="text-align:left">
+
+                                  
+                                        </div>
+                                        <div class="col-6" style="text-align:right">
+
+                                             @(Html.DevExtreme().TextBox()
+                                                .Value(Model.InitialModel.CompName).ReadOnly(true)
+                            )
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-lg-3">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="card">
+                                        <div class="body l-blue overflowhidden" style="height: 100%;">
+                                            <div class="row">
+
+                                                
+                                                 
+
+                                                <div class="card p-b-125">
+                                                    <div class="body l-blue overflowhidden">
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-lg-9">
+                                <div class="row clearfix">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="card">
+                                            <div class="body">
+                                                <div class="row">
+
+                                                    @(Html.DevExtreme().PivotGrid<CashflowView>()
+        .ID("pivotgrid")
+        .AllowSortingBySummary(true)
+        .AllowFiltering(true)
+        .ShowBorders(true)
+        .ShowColumnGrandTotals(false).AllowExpandAll(true)
+        .ShowRowGrandTotals(false)
+        .ShowRowTotals(false).Export(e => e.Enabled(true))
+    .OnExporting("onExporting")
+        .ShowColumnTotals(false).FieldChooser(fc => fc
+        .AllowSearch(false)
+        .ApplyChangesMode(ApplyChangesMode.Instantly)).FieldPanel(e=>e.ShowColumnFields(true).ShowDataFields(false).ShowFilterFields(false).ShowRowFields(false))
+
+               .DataSource(d => d
+            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { myear = new JS("function() {return tchek; }"), compid = new JS("function() {return mcompid; }") }))
+            .Fields(fields => {
+               
+                fields.AddFor(m => m.TypeID)
+                   .Width(120)
+                   .Area(PivotGridArea.Row).SortBy(PivotGridSortBy.Value).Visible(false)
+                   ;
+                fields.AddFor(m => m.MainDesc)
+                    .Width(170)
+                    .Area(PivotGridArea.Row).SortBy(PivotGridSortBy.None).AllowFiltering(false)
+                    ;
+
+                fields.AddFor(m => m.Year).SortBy(PivotGridSortBy.Value).Area(PivotGridArea.Column).Expanded(true);
+
+                fields.AddFor(m => m.Amount)
+                    .SummaryType(SummaryType.Sum)
+                    .DataType(PivotGridDataType.Number).Format(x => x.Precision(1)).Format(Format.FixedPoint)
+                    .Area(PivotGridArea.Data);
+            })
+        )
+    )
+
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+@section Scripts{
+    <script src="/js/a_poly.js"></script>
+    <script src="/js/a_excel.js"></script>
+    <script src="/js/a_filesave.js"></script>
+
+    <script>
+        function getfdate() {
+            //
+            var usrdate = sessionStorage.getItem("fnckpyear");
+            if (usrdate == null || usrdate == undefined || usrdate == "null") {
+                usrdate = "";
+            }
+            else {
+                return usrdate;
+            }
+
+        };
+        var tchek = getfdate();
+        function onExporting(e) {
+            var workbook = new ExcelJS.Workbook();
+            var worksheet = workbook.addWorksheet('balancesheet');
+
+            DevExpress.excelExporter.exportPivotGrid({
+                component: e.component,
+                worksheet: worksheet
+            }).then(function () {
+                workbook.xlsx.writeBuffer().then(function (buffer) {
+                    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'balancesheet.xlsx');
+                });
+            });
+            e.cancel = true;
+        }
+    </script>
+
+    <script>
+        var tyear = $("#txtmyear").val();
+        var mcompid = $("#txtmcomp").val();
+
+        function getLoadPanelInstance() {
+            return $("#loadPanel").dxLoadPanel("instance");
+        }
+        function loadPanel_shown(e) {
+            setTimeout(function () {
+                e.component.hide();
+            }, 7000);
+        }
+        var misready = "nok";
+        var chkReadyState = setInterval(function () {
+            if (document.readyState == "complete") {
+
+                clearInterval(chkReadyState);
+
+                misready = "ok";
+            }
+        }, 100);
+
+      
+  
+
+ 
+
+
+        var dt1 = "105";
+    </script>
+} 

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<h1>İşlem başarıyla gerçekleştirildi.</h1>
+
+<p>@ViewBag.SuccessMessage</p>
+
+
+@section Scripts {
+
+
+    <script>
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                 
+                location.href = "/admin/qnb/reportmain"
+            }, 5000);
+        });
+
+    </script>
+}
+

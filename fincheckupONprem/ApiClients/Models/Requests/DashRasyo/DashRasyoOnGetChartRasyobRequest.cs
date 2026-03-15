@@ -1,0 +1,9 @@
+
+using DevExtreme.AspNet.Mvc;
+
+namespace fincheckup.ApiClients.Models.Requests.DashRasyo;
+public class DashRasyoOnGetChartRasyobRequest
+{
+    public DashRasyoRequest InitialModel { get; set; }
+    public DataSourceLoadOptions Options { get; set; }
+}

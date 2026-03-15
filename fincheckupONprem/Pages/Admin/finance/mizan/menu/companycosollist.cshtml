@@ -1,0 +1,296 @@
+﻿@page
+
+@using System.Threading
+@using fincheckup.ApiClients.Entities
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Giriş Ekranı";
+    Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
+}
+@using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.CompanyKonsolList
+@using fincheckup.ApiClients.Services.Finance
+
+@functions {
+    public class IndexModel(IMizanMenuCompanyKonsolListApiClient apiClient) : PageModel
+    {
+        private readonly IMizanMenuCompanyKonsolListApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        public MizanCompanyKonsolListRequestInitialModel InitialModel;
+        /*
+        public int UserID;
+        public HhvnUsers CurrentUser;
+        public IEnumerable<Entities.Company> mreqList;
+        public Company mrequest;
+*/
+        
+        public async Task OnGet(int id = 0)
+        {
+            /*
+            mreqList = new List<Entities.Company>();
+
+            UserID = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            CurrentUser = HhvnUsers.GetRow_User(UserID);
+            mrequest = new Companies();
+
+            if (id == 0)
+            {
+                Response.Redirect("/admin/finance/mizan/menu/companylist");
+            }
+            else
+            {
+                mrequest = Companies.Get_Company(id);
+                mreqList = Companies.Get_ConsoleAll(id);
+            }
+*/
+            try
+            {
+                var response = await _apiClient.GetAsync(new  MizanCompanyKonsolListOnGetRequest(), CancellationToken.None);
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data?.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        public async Task<JsonResult> OnGetKonList(DataSourceLoadOptions options, long ide)
+        { 
+            /*
+            var winModelTlist = Companies.UpdateStat_Console(ide);
+            return new JsonResult(DataSourceLoader.Load(winModelTlist, options));
+            */
+            try
+            {
+                var response = await _apiClient.GetKonListAsync(new MizanCompanyKonsolListOnGetKonListRequest()
+                {
+                    options = options
+                }, CancellationToken.None);
+               
+                if (response.IsSuccess)
+                {
+                    InitialModel = response.Data?.InitialModel;
+                }
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
+                return new JsonResult(response.Data!.Response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+        public async Task<JsonResult> OnGetSalerMain(DataSourceLoadOptions options, string dt1)
+        {
+/*
+            dt1 = "105";
+            var winModelTlist = Data.Get_AllbyCsvID(dt1);
+            return new JsonResult(DataSourceLoader.Load(winModelTlist, options));
+*/
+            return new JsonResult("Burada hata var finance/mizan/menu/CompanyConsolList/OnGetSalerMain");
+
+        }
+
+
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.css">
+    <style>
+        .tdnormall {
+            padding-top: 0.1rem !important;
+            padding-left: 0.75rem !important;
+            padding-bottom: 0.1rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        #chartxt {
+            max-height: 255px !important;
+        }
+    </style>
+}
+<section class="content home">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <h2>Şirket Listesi</h2>
+                    <ul class="breadcrumb padding-0">
+                        <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
+                        <li class="breadcrumb-item active">Şirket Listesi</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="input-group m-b-0">
+                        @Model.InitialModel.mrequest.CompanyName Şirketleri
+                    </div>
+                </div>
+            </div>
+        </div>  <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-6"> </div>
+                            <div class="col-6" style="text-align:right">
+                                @(Html.DevExtreme().Button()
+        .ID("buttonz")
+        .Text("Yeni Ekle").OnClick("functionrefresh")
+        .Type(ButtonType.Default)
+    )
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+
+                        <div class="row">
+
+                            @(Html.DevExtreme().DataGrid<Company>().ColumnHidingEnabled(true)
+.ID("gridContainer").Paging(p => p.PageSize(10))
+.Pager(p => p
+.ShowPageSizeSelector(true)
+.AllowedPageSizes(new[] { 10, 25, 50, 100 })
+)
+.ShowBorders(true).FilterRow(f => f.Visible(false)).ShowRowLines(true)
+.RemoteOperations(true)
+.SearchPanel(s => s
+.Visible(true)
+.HighlightCaseSensitive(true)
+)
+.Editing(e => e.Mode(GridEditMode.Popup).UseIcons(true)
+)
+.Columns(columns => {
+
+columns.AddFor(m => m.Id).Visible(false);
+columns.AddFor(m => m.CompanyName).Caption("Şirket").AllowHeaderFiltering(true);
+columns.AddFor(m => m.CityId).Caption("Şehir").AllowHeaderFiltering(true);
+columns.AddFor(m => m.MainCompanyId).Caption("MainID").AllowHeaderFiltering(true);
+
+columns.Add()
+.CssClass("dx-command-edit dx-command-edit-with-icons centerdiv")
+.CellTemplate(@<text>
+         <a href="/admin/finance/mizan/menu/companyconsol?id=<%= data.ID %>&mainid=<%= data.MainCompanyID %>" class="btn btn-secondary btn-round btn-simple" title="Detail"><span class="dx-icon fa fa-info-circle"></span></a>
+                   </text>);
+    columns.Add()
+.CssClass("dx-command-info dx-command-info-with-icons centerdiv")
+.CellTemplate(@<text>
+         <a  data-ide="<%= data.ID %>" data-id="<%= data.ID %>" class="btn btn-secondary btn-round btn-simple" onclick="functionref(this)" title="Sil"><span class="dx-icon fa fa-remove"></span></a>
+                   </text>);
+
+})
+        .DataSource(Model.InitialModel.mreqList
+        )
+    )
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+
+
+    <script>
+
+        var dt1 = "105";
+
+        function functionref(data) { 
+            //var dta31 = $(data).data('id');
+            var dta = $(data).attr('data-ide');
+             
+             
+         //   location.href = "/admin/yonetim/companyconsol?mainid=@Model.InitialModel.mrequest.Id"
+
+
+            new     swal({
+                title: "Emin Misiniz?",
+                text: "Bu Şirket Bağıl Ortaklıktan silinecek!",
+                icon: "warning",
+                buttons: [
+                    'Hayır, Sakın Yapma!',
+                    'Evet, Sil Gitsin!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+           
+                    new   swal({
+                        title: 'Silindi!',
+                        text: 'Bu şirket artık bu listede yok!',
+                        icon: 'success'
+                    }).then(function () {
+                        var turl = '/admin/finance/mizan/menu/companycosollist?handler=KonList&ide=' + dta;
+                 
+                            $.ajax({
+                                type: "GET",
+                                url: turl,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                  
+                                        location.reload();
+                                   
+
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                }
+                            });
+                        
+
+
+
+
+
+                      
+                    });
+                } else {
+                    new   swal("Tebrikler Kurtardın", "Az daha şirketi siliyordun :)", "error");
+                }
+            })
+        }
+        function functionrefresh(data) {
+
+            //alert(data);
+            location.href = "/admin/finance/mizan/menu/companyconsol?mainid=@Model.InitialModel.mrequest.Id"
+
+        }
+    </script>
+} 
