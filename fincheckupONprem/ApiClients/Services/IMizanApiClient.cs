@@ -49,15 +49,7 @@ public interface IMizanApiClient
         [AliasAs("caption")] string caption,
         CancellationToken cancellationToken);
 
-    [Post("/api/mizan/moodUploadMzn")]
-    [Multipart]
-    Task<GenericResult<HttpResponseMessage>> MoodUploadMznAsync(
-        [AliasAs("files")] IEnumerable<IFormFile> files,
-        [AliasAs("id")] int id,
-        [AliasAs("ide")] string ide,
-        [AliasAs("ideXml")] string ideXml,
-        [AliasAs("caption")] string caption,
-        CancellationToken cancellationToken);
+    
 
     [Post("/api/mizan/moodUploadUpdateMzn")]
     [Multipart]

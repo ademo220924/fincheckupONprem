@@ -1,10 +1,10 @@
-using fincheckup.Models.Hvvn;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using fincheckup.ApiClients.Entities;
 
 namespace fincheckup.Pages
 {

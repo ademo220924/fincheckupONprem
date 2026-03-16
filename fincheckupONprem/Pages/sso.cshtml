@@ -34,8 +34,8 @@
 
                         string userAgent = Request.Headers["User-Agent"];
                         string remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-                        nuser.UserBrowser = userAgent; nuser.UserIP = remoteIpAddress;
-                        nuser.UserID = nuser3.ID;
+                        nuser.UserBrowser = userAgent; nuser.UserIp = remoteIpAddress;
+                        nuser.UserId = nuser3.Id;
                         nuser.Save_User();
 
                         SignIn(nuser3);

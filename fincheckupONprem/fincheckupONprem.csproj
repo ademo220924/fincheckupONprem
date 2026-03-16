@@ -27,6 +27,7 @@
   <ItemGroup>
     <Compile Remove="Models\Mizan\XmlExcel.cs" />
     <Compile Remove="Models\NKolay\ViewM\DataViewer.cs" />
+    <Compile Include="Models\AImodel\IAiModelConnect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
