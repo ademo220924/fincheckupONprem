@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpReportMain
 {
     public class MizanUpReportMainRequestInitialModel
@@ -16,11 +15,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpReportMain
 
         public HhvnUsers CurrentUser { get; set; }
 
-
         public IEnumerable<Entities.Company> mreqListCompany { get; set; }
         public Entities.Company curCompany { get; set; }
         public string CompName { get; set; }
-
 
         public string currentcompname { get; set; }
     }

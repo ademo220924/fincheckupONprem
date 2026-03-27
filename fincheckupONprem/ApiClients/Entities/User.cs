@@ -76,9 +76,7 @@ public partial class User
     [StringLength(36)]
     public string UserGuid { get; set; }
 
-
     //public string UserType => UserTypes.Get_Types(this.UserTypeID) == null ? "Customer" : UserTypes.Get_Types(this.UserTypeID).Type;
-
 
     //ToDo: jwt için eklendi   database de modele eklenecek
 
@@ -86,7 +84,6 @@ public partial class User
     public byte[]? PasswordSalt { get; set; }
     public bool? Status { get; set; }
 }
-
 
 public class HhvnUsers
 {

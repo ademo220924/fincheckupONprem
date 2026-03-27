@@ -1,6 +1,5 @@
 ﻿namespace fincheckup.ApiClients.Models.Requests.FinansmanWsdl;
 
-
 public class FinansmanEntegrasyon
 {
     public string vknTckn { get; set; }

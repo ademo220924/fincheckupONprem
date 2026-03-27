@@ -46,7 +46,6 @@ namespace fincheckup.Models.EarlyWarning.Response
         public object transactionId { get; set; }
     }
 
-
     public class ReminderAccountPost
     {
         [JsonProperty(PropertyName = "name")]

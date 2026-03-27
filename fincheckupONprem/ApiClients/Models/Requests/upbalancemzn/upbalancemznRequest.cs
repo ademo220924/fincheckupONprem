@@ -2,7 +2,6 @@ using fincheckup.ApiClients.Entities;
 using System.Collections.Generic;
 using fincheckup.ApiClients.Models.ViewModel.Reports;
 
-
 namespace fincheckup.ApiClients.Models.Requests.upbalancemzn;
 public class upbalancemznRequest
 {

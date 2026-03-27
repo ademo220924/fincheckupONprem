@@ -41,9 +41,6 @@ namespace fincheckup.ApiClients.Models
         public double NovemberTx => November != 0 ? January + February + March + April + May + June + July + August + September + October + November : 0;
         public double DecemberTx => December != 0 ? January + February + March + April + May + June + July + August + September + October + November + December : 0;
 
-
-
-
         public static List<DashBilancoViewTx> setDashBilanco(List<DashBilancoView> mdash)
         {
             List<DashBilancoViewTx> nlist = new List<DashBilancoViewTx>();

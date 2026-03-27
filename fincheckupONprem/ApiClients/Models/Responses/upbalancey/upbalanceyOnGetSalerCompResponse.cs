@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-
+using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace fincheckup.ApiClients.Models.Responses.upbalancey;
 public class upbalanceyOnGetSalerCompResponse
 {
-    public JsonResult Result { get; set; }
+    public LoadResult Result { get; set; }
 }

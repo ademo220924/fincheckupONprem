@@ -9,7 +9,4 @@ namespace fincheckup.ApiClients.Models.ViewModel.Reports
 
     //PR.OrderRequestsMainID  ,ord.ItemName,ord.EstimatedCost ,ord.VendorID,ord.QuantityChecked,SUM(ord.QuantityChecked*ord.EstimatedCost) as Total
 
-
-
-
 }

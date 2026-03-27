@@ -18,9 +18,7 @@ namespace fincheckup.ApiClients.Models
         public double November { get; set; }
         public double December { get; set; }
 
-
         public Int64 OverViewTotal => Convert.ToInt64(September + October + November + May + March + June + July + January + February + December + August + April);
-
 
     }
 }

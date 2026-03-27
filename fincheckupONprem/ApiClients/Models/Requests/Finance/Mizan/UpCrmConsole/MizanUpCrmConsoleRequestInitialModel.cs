@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpCrmConsole
 {
     public class MizanUpCrmConsoleRequestInitialModel
@@ -15,7 +14,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpCrmConsole
         public int curcomCount { get; set; }
 
         public HhvnUsers CurrentUser { get; set; }
-
 
         public IEnumerable<Entities.Company> mreqListCompany { get; set; }
         public Entities.Company curCompany { get; set; }

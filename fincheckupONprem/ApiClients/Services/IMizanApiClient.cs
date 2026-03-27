@@ -62,61 +62,50 @@ public interface IMizanApiClient
         CancellationToken cancellationToken);
     */
     
-    
-    
     [Post("/api/Mizan/MoodUploadMznCkeckFileUpdate")]
     Task<GenericResult<MoodUploadMznCkeckFileUpdateResponse>> MoodUploadMznCkeckFileUpdateAsync(
         [Body] MoodUploadMznCkeckFileUpdateRequest request,
         CancellationToken cancellationToken);
-
 
     [Post("/api/Mizan/MoodUploadMznCkeckFileCreate")]
     Task<GenericResult<MoodUploadMznCkeckFileCreateResponse>> MoodUploadMznCkeckFileCreateAsync(
         [Body] MoodUploadMznCkeckFileCreateRequest request,
         CancellationToken cancellationToken);
 
-
     [Post("/api/Mizan/MoodUploadMznCkeck")]
     Task<GenericResult<MoodUploadMznCkeckResponse>> MoodUploadMznCkeckAsync(
         [Body] MoodUploadMznCkeckRequest request,
         CancellationToken cancellationToken);
-
 
     [Post("/api/Mizan/MoodUploadMzn")]
     Task<GenericResult<MoodUploadMznResponse>> MoodUploadMznAsync(
         [Body] MoodUploadMznRequest request,
         CancellationToken cancellationToken);
 
-
     [Post("/api/Mizan/MoodUploadUpdateMzn")]
     Task<GenericResult<MoodUploadUpdateMznResponse>> MoodUploadUpdateMznAsync(
         [Body] MoodUploadUpdateMznRequest request,
         CancellationToken cancellationToken);
-
 
     [Post("/api/Mizan/MoodUpdateSmm")]
     Task<GenericResult<MoodUpdateSmmResponse>> MoodUpdateSmmAsync(
         [Body] MoodUpdateSmmRequest request,
         CancellationToken cancellationToken);
 
-
     [Post("/api/Mizan/MoodUpdateSaktarma")]
     Task<GenericResult<MoodUpdatesAktarmaResponse>> MoodUpdatesAktarmaAsync(
         [Body] MoodUpdatesAktarmaRequest request,
         CancellationToken cancellationToken);
-
 
     [Post("/api/Mizan/MoodUpdateSaktarmaMzn")]
     Task<GenericResult<MoodUpdatesAktarmaMznResponse>> MoodUpdatesAktarmaMznAsync(
         [Body] MoodUpdatesAktarmaMznRequest request,
         CancellationToken cancellationToken);
 
-
     [Post("/api/Mizan/MoodUpdateSaktarmaSelected")]
     Task<GenericResult<MoodUpdatesAktarmaSelectedResponse>> MoodUpdatesAktarmaSelectedAsync(
         [Body] MoodUpdateSaktarmaSelectedRequest request,
         CancellationToken cancellationToken);
-
 
     [Post("/api/Mizan/MoodUpdateSaktarmaSelectedByN")]
     Task<GenericResult<MoodUpdatesAktarmaSelectedByNResponse>> MoodUpdatesAktarmaSelectedByNAsync(
@@ -124,24 +113,19 @@ public interface IMizanApiClient
         CancellationToken cancellationToken);
 
     
-    
-    
     [Post("/api/Mizan/MoodUploadMznCkeckPDFUpdate")]
     Task<GenericResult<MoodUploadMznCkeckPDFUpdateResponse>> MoodUploadMznCkeckPDFUpdateAsync(
         [Body] MoodUploadMznCkeckPDFUpdateRequest request,
         CancellationToken cancellationToken);
-
 
     [Post("/api/Mizan/MoodUpdateBalance")]
     Task<GenericResult<MoodUpdateBalanceResponse>> MoodUpdateBalanceAsync(
         [Body] MoodUpdateBalanceRequest request,
         CancellationToken cancellationToken);
 
-
     [Post("/api/Mizan/MoodUpdateSaktarmaSelectedMzn")]
     Task<GenericResult<MoodUpdatesaAtarmaSelectedMznResponse>> MoodUpdatesaktarmaselectedmznAsync(
         [Body] MoodUpdatesAktarmaSelectedMznRequest request,
         CancellationToken cancellationToken);
-    
     
 }

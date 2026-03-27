@@ -7,7 +7,6 @@ namespace fincheckup.ApiClients.Configurations;
 
  
 
-
 public class GenericResultToRefitApiResponseConverter<T> : JsonConverter<GenericResult<T>> where T : class, new()
 {
     public override GenericResult<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

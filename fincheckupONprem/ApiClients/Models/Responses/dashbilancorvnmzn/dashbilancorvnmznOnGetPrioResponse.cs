@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-
+using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace fincheckup.ApiClients.Models.Responses.dashbilancorvnmzn;
 public class dashbilancorvnmznOnGetPrioResponse
 {
-    public JsonResult Result { get; set; }
+    public LoadResult Result { get; set; }
 }

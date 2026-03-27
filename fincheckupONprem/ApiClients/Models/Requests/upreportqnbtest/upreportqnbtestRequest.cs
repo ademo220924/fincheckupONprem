@@ -2,11 +2,9 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
 namespace fincheckup.ApiClients.Models.Requests.upreportqnbtest;
 public class upreportqnbtestRequest
 {
-
 
     public List<CompanyQnbReport> reportList;
 
@@ -24,10 +22,8 @@ public class upreportqnbtestRequest
 
     public IEnumerable<Nacecode> cNaceCodeUpload;
 
-
     public IEnumerable<Entities.Company> mreqListCompany;
     public Entities.Company curCompany;
-
 
     public string currentcompname { get; set; }
 }

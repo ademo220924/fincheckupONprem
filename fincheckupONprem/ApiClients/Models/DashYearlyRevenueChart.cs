@@ -15,7 +15,6 @@ public class DashYearlyRevenueChart
     {
         DashYearlyRevenueMain nv = new();
 
-
         string txyear = nyear.ToString();
         foreach (var item in tdash)
         {
@@ -140,7 +139,6 @@ public class DashYearlyRevenueChart
             nresult.Add(nv);
 
         }
-
 
     }
 }

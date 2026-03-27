@@ -8,7 +8,6 @@ using fincheckup.ApiClients.Models;
 
 namespace fincheckup.ApiClients.Services;
 
-
 public interface IDashLiquidityApiClient : IApiClientBase
 {
     [Post("/api/dashliquidity/OnGet")]

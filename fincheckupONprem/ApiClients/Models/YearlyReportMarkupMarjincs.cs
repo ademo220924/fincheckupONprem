@@ -1,6 +1,5 @@
 ﻿namespace fincheckup.ApiClients.Models;
 
-
 public class YearlyReportMarkupMarjin
 {
     public int MainYear { get; set; }

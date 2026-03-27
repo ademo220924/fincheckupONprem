@@ -8,7 +8,6 @@ using fincheckup.ApiClients.Models;
 
 namespace fincheckup.ApiClients.Services;
 
-
 public interface IUpAccountyApiClient : IApiClientBase
 {
     [Post("/api/upaccounty")]

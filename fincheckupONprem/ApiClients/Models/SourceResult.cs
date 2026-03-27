@@ -11,7 +11,6 @@ namespace fincheckup.ApiClients.Models
         {
             List<SourceResult> nresult = new List<SourceResult>();
 
-
             SourceResult nval = new SourceResult();
             nval.MYear = 0;
             nval.MText = "Bilgisayarımdan";
@@ -35,7 +34,6 @@ namespace fincheckup.ApiClients.Models
         public static IEnumerable<SourceResult> getValueNom()
         {
             List<SourceResult> nresult = new List<SourceResult>();
-
 
             SourceResult nval = new SourceResult();
             nval.MYear = 0;

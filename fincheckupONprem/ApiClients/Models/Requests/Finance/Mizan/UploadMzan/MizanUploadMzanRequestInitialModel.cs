@@ -19,11 +19,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMzan
         public List<YearlyErrorResult> currentUploadM { get; set; }
         public List<int> currentUploadYear { get; set; }
 
-
         public IEnumerable<Entities.Company> mreqListCompany { get; set; }
         public Entities.Company currenCompanie { get; set; }
         public string CompName { get; set; }
-
 
         public string currentcompname { get; set; }
     }

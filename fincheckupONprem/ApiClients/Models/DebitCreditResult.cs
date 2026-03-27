@@ -11,7 +11,6 @@ namespace fincheckup.ApiClients.Models
         {
             List<DebitCreditResult> nresult = new List<DebitCreditResult>();
 
-
             DebitCreditResult nval = new DebitCreditResult();
             nval.MVal = "D";
             nval.MText = "Debit";

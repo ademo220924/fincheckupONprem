@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-
+using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace fincheckup.ApiClients.Models.Responses.upcmconsole;
 public class upcmconsoleOnGetSalerYearResponse
 {
-    public JsonResult Result { get; set; }
+    public LoadResult Result { get; set; }
 }

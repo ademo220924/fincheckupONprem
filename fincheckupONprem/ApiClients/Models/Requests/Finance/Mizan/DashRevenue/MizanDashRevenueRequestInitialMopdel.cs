@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashRevenue
 {
     public class MizanDashRevenueRequestInitialMopdel

@@ -1,6 +1,5 @@
 namespace fincheckup.ApiClients.Models.Aggregated;
 
-
 public class TBLErrColor
 {
     public string ID { get; set; }

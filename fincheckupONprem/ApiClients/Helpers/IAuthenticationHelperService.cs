@@ -24,7 +24,6 @@ public interface IAuthenticationHelperService
     //Task<UserTypeResponse> GetUserRole(User user);
 }
 
-
 public class AuthenticationHelperService : IAuthenticationHelperService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -44,7 +43,6 @@ public class AuthenticationHelperService : IAuthenticationHelperService
         _httpContextAccessor = httpContextAccessor;
     }
 
-
     public async Task<AccessToken> SignIn(User user,CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(user);
@@ -56,7 +54,6 @@ public class AuthenticationHelperService : IAuthenticationHelperService
  
         var identity = GetClaimsIdentity(user,role);
 
-
         var principal = new ClaimsPrincipal(identity);
         _ = _httpContextAccessor.HttpContext?.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
             principal,
@@ -67,7 +64,6 @@ public class AuthenticationHelperService : IAuthenticationHelperService
                 ExpiresUtc = DateTime.UtcNow.AddMinutes(35)
             });
 
-        
         
         var tokenModel = CreateAccessToken(user,role, identity.Claims);
         _httpContextAccessor.HttpContext?.Response?.Headers.Append("Authorization", "Bearer " + tokenModel.Token);
@@ -87,7 +83,6 @@ public class AuthenticationHelperService : IAuthenticationHelperService
         return role.Data;
     }
 
-
     private static ClaimsIdentity GetClaimsIdentity(User user, string role)
     {
       var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
@@ -100,8 +95,6 @@ public class AuthenticationHelperService : IAuthenticationHelperService
 
         return identity;
     }
-
-
 
     private AccessToken CreateAccessToken(User user, string role, IEnumerable<Claim> claims)
     {
@@ -146,6 +139,5 @@ public class AuthenticationHelperService : IAuthenticationHelperService
         claimList.Select(x => "RoleId").Distinct().ToList().ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role)));
         return claims;
     }
-
 
 }

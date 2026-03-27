@@ -17,7 +17,6 @@
         public decimal December { get; set; }
         public long CompanyID { get; set; }
 
-
         public static DashYearlyResultWorkingCapital setProp(int monthid, DashYearlyResultWorkingCapital nt)
         {
 
@@ -42,7 +41,6 @@
                 default:
                     return nt;
             }
-
 
         }
     }

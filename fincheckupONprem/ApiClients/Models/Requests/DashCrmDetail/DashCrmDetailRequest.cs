@@ -2,7 +2,6 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
 namespace fincheckup.ApiClients.Models.Requests.DashCrmDetail;
 public class DashCrmDetailRequest
 {

@@ -3,12 +3,9 @@ using fincheckup.ApiClients.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-
-
 namespace fincheckup.ApiClients.Models.Requests.upreportqnb;
 public class upreportqnbRequest
 {
-
 
     public IOrderedEnumerable<CompanyQnbReport> reportList;
 
@@ -27,7 +24,6 @@ public class upreportqnbRequest
 
     public IEnumerable<Entities.Company> mreqListCompany;
     public Entities.Company curCompany;
-
 
     public string currentcompname { get; set; }
 }

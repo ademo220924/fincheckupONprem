@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-
 namespace fincheckup.ApiClients.Configurations;
 
 public class CustomJsonHandler : DelegatingHandler

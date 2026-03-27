@@ -4,7 +4,6 @@ using fincheckup.ApiClients.Models.Aggregated;
 using System.Collections.Generic;
 using fincheckup.ApiClients.Models.ViewModel;
 
-
 namespace fincheckup.ApiClients.Models.Requests.upaccounty;
 public class upaccountyRequest
 {
@@ -22,7 +21,6 @@ public class upaccountyRequest
     public HhvnUsers CurrentUser;
 
     public IEnumerable<YearlyErrorResult> currentUploadError;
-
 
     public IEnumerable<Entities.Company> mreqListCompany;
     public DataViewerMain mrequestDataViewer;

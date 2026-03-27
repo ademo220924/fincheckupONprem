@@ -12,7 +12,6 @@ public class ReportMainItem
     public int CounterZone { get; set; }
     public int TypeID { get; set; }
 
-
     public byte IsFailed { get; set; }
     public string Q1Tx1A
     {

@@ -201,7 +201,6 @@ namespace fincheckup.ApiClients.Models
                 //nresult.Add(nv);
             }
 
-
         }
         public static List<DashYearlyResultMain> SetResultMain(DashYearlyResultWorkingCapital tdash, int nyearr)
         {
@@ -296,8 +295,6 @@ namespace fincheckup.ApiClients.Models
             nv.DocumentMonthTr = "Aralık";
             nv.Value = tdash.December;
             nreesult1.Add(nv);
-
-
 
             return nreesult1;
         }

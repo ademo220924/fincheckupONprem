@@ -1,6 +1,7 @@
 ﻿using Refit;
 using System.Threading.Tasks;
 using System.Threading;
+using fincheckup.ApiClients.Models.Responses.DashBilanco;
 using fincheckup.ApiClients.Services.Base;
 using fincheckup.ApiClients.Models.Responses.DashBilanco;
 using fincheckup.ApiClients.Models.Requests.DashBilanco;

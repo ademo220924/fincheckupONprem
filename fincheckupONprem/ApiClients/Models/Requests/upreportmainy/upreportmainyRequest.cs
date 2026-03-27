@@ -2,8 +2,6 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
-
 namespace fincheckup.ApiClients.Models.Requests.upreportmainy;
 public class upreportmainyRequest
 {
@@ -18,11 +16,8 @@ public class upreportmainyRequest
     public int curcomCount;
     public HhvnUsers CurrentUser;
 
-
-
     public IEnumerable<Entities.Company> mreqListCompany;
     public Entities.Company curCompany;
-
 
     public string currentcompname { get; set; }
 }

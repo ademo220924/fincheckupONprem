@@ -2,7 +2,6 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
 namespace fincheckup.ApiClients.Models.Requests.upbalancey;
 public class upbalanceyRequest
 {
@@ -16,8 +15,6 @@ public class upbalanceyRequest
     public int curcomCount;
 
     public HhvnUsers CurrentUser;
-
-
 
     public IEnumerable<Entities.Company> mreqListCompany;
     public Entities.Company curCompany;

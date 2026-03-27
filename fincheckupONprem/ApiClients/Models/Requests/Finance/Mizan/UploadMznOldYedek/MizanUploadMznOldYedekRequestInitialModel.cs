@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMznOldYedek
 {
     public class MizanUploadMznOldYedekRequestInitialModel
@@ -19,7 +18,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMznOldYedek
         public HhvnUsers CurrentUser;
         public IEnumerable<Entities.Company> mreqListCompany;
         public string CompName;
-
 
         public string currentcompname { get; set; }
     }

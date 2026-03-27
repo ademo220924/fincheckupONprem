@@ -11,7 +11,6 @@ public partial class TblmrevenueRasT
     [Column("ID")]
     public long Id { get; set; }
 
-
     [Column("AccountMainID")]
     [StringLength(50)]
     public string AccountMainId { get; set; }

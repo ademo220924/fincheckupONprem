@@ -2,8 +2,6 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
-
 namespace fincheckup.ApiClients.Models.Requests.dashbilsample;
 public class dashbilsampleRequest
 {

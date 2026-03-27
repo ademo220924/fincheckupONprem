@@ -31,7 +31,6 @@ public interface IBeyannameApiClient: IApiClientBase
         [Header("user-id")] string userId,
         CancellationToken cancellationToken = default);
 
-
     [Post("/mood-upload-beyanname-create/{idValue}/{ideValue}/{idexmlValue}/{captionValue}")]
     Task<GenericResult<BeyannameMoodUploadCreateResponse>> MoodUploadBeyannameCreateAsync(
         [Body] Stream formFileValue,

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashWorkingCapital
 {
     public class MizanDashWorkingCapitalRequestInitialModel
@@ -14,9 +13,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashWorkingCapital
         public List<DashBilancoViewMizan> nRequestList;
         public IEnumerable<Entities.Company> mreqListCompany;
         public IEnumerable<YearlyReportDashMizan> nRequestListViewChart;
-
-
-
 
         //public List<DashWCapitalShortViewChart> nRequestListViewChart;
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMizan
 {
     public class MizanReportMainTestMizanRequestInitialModel
@@ -20,7 +19,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
 
         public IEnumerable<Entities.Company> mreqListCompany;
         public Entities.Company curCompany;
-
 
         public string currentcompname { get; set; }
     }

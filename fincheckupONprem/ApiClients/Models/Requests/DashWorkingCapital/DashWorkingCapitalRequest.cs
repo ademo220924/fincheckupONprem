@@ -18,7 +18,6 @@ public class DashWorkingCapitalRequest
 
     public DashRep NetWorkingCapital { get; set; }
 
-
     //public List<DashWCapitalShortViewChart> nRequestListViewChart;
 
     public string NetIsletme { get; set; }

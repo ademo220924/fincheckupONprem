@@ -1,4 +1,4 @@
-﻿@page
+@page
 
 @using System.Threading
 @using fincheckup.ApiClients.Models
@@ -53,7 +53,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Result;
+                    return new JsonResult(response.Data.Result);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -76,7 +76,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data!.Result;
+                    return new JsonResult(response.Data!.Result);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -99,7 +99,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data!.Result;
+                    return new JsonResult(response.Data!.Result);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -123,7 +123,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data!.Result;
+                    return new JsonResult(response.Data!.Result);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -148,7 +148,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data!.Result;
+                    return new JsonResult(response.Data!.Result);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);

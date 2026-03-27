@@ -20,7 +20,6 @@ public interface IUserApiClient : IApiClientBase
         [Body] UserCompanyUpdateRequest request,
         CancellationToken cancellationToken);
 
-
     [Delete("/delete/id/{id}")]
     Task<ApiResponse<UserDeleteResponse>> DeleteAsync(
         [Header("user-id")] string userId,
@@ -36,7 +35,6 @@ public interface IUserApiClient : IApiClientBase
     Task<GenericResult<UserCompanyUpdateResponse>> UpdateAsync(
         [Body] UserCompanyUpdateRequest command,
         CancellationToken cancellationToken);
-
 
     [Get("/api/user/types")]
     Task<GenericResult<UserTypesResponse>> GetTypesAsync(CancellationToken cancellationToken = default);

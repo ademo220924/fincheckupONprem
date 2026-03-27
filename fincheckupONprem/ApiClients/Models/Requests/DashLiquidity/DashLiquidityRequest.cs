@@ -7,7 +7,6 @@ namespace fincheckup.ApiClients.Models.Requests.DashLiquidity;
 public class DashLiquidityRequest
 {
 
-
     public IEnumerable<YearResult> myearResult;
     public long UserID;
     public long CompID;

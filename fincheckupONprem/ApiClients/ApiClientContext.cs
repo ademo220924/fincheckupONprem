@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace fincheckup.ApiClients;
 
-
 public interface IApiClientContext
 {
     public IAuthenticationApiClient AuthenticationApiClient => GetApiClient<IAuthenticationApiClient>();
@@ -17,7 +16,6 @@ public interface IApiClientContext
 
     object GetApiClient(Type target);
 }
-
 
 public class ApiClientContext(IServiceProvider serviceProvider) : IApiClientContext
 {

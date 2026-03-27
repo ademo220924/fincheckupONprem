@@ -1,5 +1,4 @@
 
-
 namespace fincheckup.ApiClients.Models;
 public class CompanyReportView
 {

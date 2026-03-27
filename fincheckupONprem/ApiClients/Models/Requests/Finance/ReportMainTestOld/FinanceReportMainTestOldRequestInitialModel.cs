@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.ReportMainTestOld
 {
     public class FinanceReportMainTestOldRequestInitialModel
@@ -23,7 +22,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.ReportMainTestOld
         public Nacecode codde;
         public List<int> curCompanyYearList;
         public IEnumerable<int> curCompanyNonYearList;
-
 
         public string currentcompname { get; set; }
         public string FilePath { get; set; }

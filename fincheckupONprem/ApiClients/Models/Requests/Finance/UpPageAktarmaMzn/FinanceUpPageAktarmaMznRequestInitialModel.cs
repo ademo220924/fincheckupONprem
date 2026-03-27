@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.UpPageAktarmaMzn
 {
     public class FinanceUpPageAktarmaMznRequestInitialModel

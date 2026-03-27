@@ -40,9 +40,7 @@ namespace fincheckup.ApiClients.Models
                 nv.Value = item.Credit;
                 nresult.Add(nv);
 
-
             }
-
 
         }
         public void SetResultA(List<DashYearlyResultCRMMain> tdash, int nyear)
@@ -66,10 +64,7 @@ namespace fincheckup.ApiClients.Models
                 nv.Value = item.Debit;
                 nresult.Add(nv);
 
-
-
             }
-
 
         }
         public static List<DashYearlyResultMain> SetResultMain(DashYearlyResultWorkingCapital tdash, int nyearr)
@@ -165,8 +160,6 @@ namespace fincheckup.ApiClients.Models
             nv.DocumentMonthTr = "Aralık";
             nv.Value = tdash.December;
             nreesult1.Add(nv);
-
-
 
             return nreesult1;
         }

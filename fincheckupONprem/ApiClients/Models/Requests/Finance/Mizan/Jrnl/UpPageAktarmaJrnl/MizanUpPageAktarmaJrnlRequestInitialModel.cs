@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarmaJrnl
 {
     public class MizanUpPageAktarmaJrnlRequestInitialModel
@@ -20,7 +19,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarma
         public string CompName { get; set; }
         public HhvnUsers CurrentUser { get; set; }
         public IEnumerable<Entities.Company> mreqListCompany { get; set; }
-
 
         public string currentcompname { get; set; }
     }

@@ -2,8 +2,6 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
-
 namespace fincheckup.ApiClients.Models.Requests.upchecky;
 public class upcheckyRequest
 {
@@ -21,7 +19,6 @@ public class upcheckyRequest
     public string CompName;
 
     public IEnumerable<Entities.Company> mreqListCompany;
-
 
     public string currentcompname { get; set; }
 }

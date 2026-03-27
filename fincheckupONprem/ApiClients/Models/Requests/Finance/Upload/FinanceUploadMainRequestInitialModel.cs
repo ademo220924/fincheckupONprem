@@ -2,7 +2,6 @@
 using fincheckup.ApiClients.Entities;
 using fincheckup.ApiClients.Models.Aggregated;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Upload
 {
     public class FinanceUploadMainRequestInitialModel
@@ -23,7 +22,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Upload
         public IEnumerable<YearlyUploadResult> currentUploadMOK;
         public IEnumerable<YearlyUploadResult> currentUploadMNoOK;
         public List<YearlyUploadResult> currentUploadMMonth;
-
 
         public IEnumerable<Entities.Company> mreqListCompany;
         public Entities.Company currenCompanie;

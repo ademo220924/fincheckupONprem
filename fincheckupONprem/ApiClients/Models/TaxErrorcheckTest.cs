@@ -60,8 +60,6 @@ namespace fincheckup.ApiClients.Models
    
         public List<TaxErrorcheckTest> taxchecklist { get; set; }
 
-
-
     }
 
 }

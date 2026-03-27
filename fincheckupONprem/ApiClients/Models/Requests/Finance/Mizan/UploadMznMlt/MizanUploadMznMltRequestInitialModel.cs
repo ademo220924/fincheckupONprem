@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using fincheckup.ApiClients.Entities;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMznMlt
 {
     public class MizanUploadMznMltRequestInitialModel
@@ -18,7 +17,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMznMlt
         public Entities.Company CurrentCom { get; set; }
         public HhvnUsers CurrentUser { get; set; }
         public IEnumerable<Entities.Company> mreqListCompany { get; set; }
-
 
         public string CompName { get; set; }
         public string currentcompname { get; set; }

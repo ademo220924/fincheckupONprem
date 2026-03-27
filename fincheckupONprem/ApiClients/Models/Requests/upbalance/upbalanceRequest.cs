@@ -2,8 +2,6 @@ using fincheckup.ApiClients.Entities;
 
 using System.Collections.Generic;
 
-
-
 namespace fincheckup.ApiClients.Models.Requests.upbalance;
 public class upbalanceRequest
 {
@@ -18,8 +16,6 @@ public class upbalanceRequest
 
     public int YearCurrent;
     public HhvnUsers CurrentUser;
-
-
 
     public IEnumerable<Entities.Company> mreqListCompany;
     public Entities.Company curCompany;

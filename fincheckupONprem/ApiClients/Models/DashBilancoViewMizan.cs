@@ -15,9 +15,6 @@ public class DashBilancoViewMizan
     public int CounterZone { get; set; }
     public int TypeID { get; set; }
 
-
-
-
     public bool getStatue()
     {
         int ncoun = 0;
@@ -31,6 +28,5 @@ public class DashBilancoViewMizan
 
         return chk;
     }
-
 
 }

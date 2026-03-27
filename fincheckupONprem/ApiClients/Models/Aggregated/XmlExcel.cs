@@ -74,7 +74,6 @@ public class XmlExcel
 
         }
 
-
         if (chk.Length >= 3 && chk.Substring(chk.Length - 3, 1) == ",")
         {
             addedPoint = ",";
@@ -90,7 +89,6 @@ public class XmlExcel
             chk = chk[..^2];
 
         }
-
 
         if (chk.Length >= 3 && chk.Substring(chk.Length - 3, 1) == ".")
         {
@@ -108,8 +106,6 @@ public class XmlExcel
             chk = chk.Replace(addedPoint, CultureInfo.InvariantCulture.NumberFormat.CurrencyDecimalSeparator);
         }
 
-
-
         try
         {
             var result = double.Parse(chk, NumberStyles.AllowDecimalPoint | NumberStyles.Number, CultureInfo.InvariantCulture);
@@ -121,6 +117,5 @@ public class XmlExcel
         }
 
     }
-
 
 }

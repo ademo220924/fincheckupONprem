@@ -3,7 +3,6 @@ using fincheckup.ApiClients.Entities;
 using fincheckup.ApiClients.Models.Aggregated;
 using fincheckup.ApiClients.Models.ViewModel.Mizan;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMizan
 {
     public class MizanUploadMizanRequestInitialModel
@@ -29,7 +28,6 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMizan
         public IEnumerable<Entities.Company> mreqListCompany { get; set; }
         public Entities.Company currenCompanie { get; set; }
         public string CompName { get; set; }
-
 
         public string currentcompname { get; set; }
     }

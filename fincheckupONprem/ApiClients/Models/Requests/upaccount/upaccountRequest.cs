@@ -4,7 +4,6 @@ using fincheckup.ApiClients.Models.Aggregated;
 using System.Collections.Generic;
 using fincheckup.ApiClients.Models.ViewModel;
 
-
 namespace fincheckup.ApiClients.Models.Requests.upaccount;
 public class upaccountRequest
 {

@@ -24,7 +24,6 @@ public class UploadRequest
     public IEnumerable<YearlyUploadResult> currentUploadMNoOK;
     public List<YearlyUploadResult> currentUploadMMonth;
 
-
     public IEnumerable<Entities.Company> mreqListCompany;
     public Entities.Company currenCompanie;
     public string CompName;

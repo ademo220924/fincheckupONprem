@@ -3,7 +3,6 @@ using fincheckup.ApiClients.Entities;
 using fincheckup.ApiClients.Models.ViewModel;
 using fincheckup.ApiClients.Models.ViewModel.Reports;
 
-
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportBalance
 {
     public class MizanReportBalanceRequestInitialModel

@@ -142,7 +142,6 @@ namespace fincheckup.ApiClients.Models
 
             }
 
-
         }
     }
 }

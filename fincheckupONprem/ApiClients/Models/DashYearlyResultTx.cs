@@ -20,9 +20,6 @@ namespace fincheckup.ApiClients.Models
         public decimal December { get; set; }
         public int TypeID { get; set; }
 
-
-
-
         public static List<DashYearlyResultTx> setDashBilanco(List<DashYearlyResult> mdash)
         {
             List<DashYearlyResultTx> nlist = new List<DashYearlyResultTx>();

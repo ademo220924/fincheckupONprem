@@ -1,6 +1,5 @@
 using DevExtreme.AspNet.Mvc;
 
-
 namespace fincheckup.ApiClients.Models.Requests.dashbilancomzn;
 public class dashbilancomznOnGetSalerMainRequest
 {

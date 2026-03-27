@@ -4,7 +4,6 @@ using fincheckup.ApiClients.Models.Aggregated;
 using fincheckup.ApiClients.Models.ViewModel;
 using fincheckup.ApiClients.Models;
 
-
 namespace fincheckup.ApiClients.Models.Requests.DashBoard;
 public class DashBoardRequest
 {

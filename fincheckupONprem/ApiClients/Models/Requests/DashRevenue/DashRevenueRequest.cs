@@ -15,7 +15,6 @@ public class DashRevenueRequest
     public string CompName;
     public IEnumerable<Entities.Company> mreqListCompany;
 
-
     public DashYearlyRevenueChart ncart;
     public IEnumerable<YearlyReportDash> dashEbitMarjin;
     public IEnumerable<YearlyReportDash> dashGrossProfit;
@@ -25,7 +24,6 @@ public class DashRevenueRequest
     public DashRep NetGrossProfit { get; set; }
     public DashRep NetRevenue { get; set; }
     public DashRep NetDonemselKarzarar { get; set; }
-
 
     public string brutkarzararstr { get; set; }
     public string ebitstr { get; set; }
