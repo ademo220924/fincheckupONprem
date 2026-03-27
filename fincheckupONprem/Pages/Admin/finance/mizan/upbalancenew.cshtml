@@ -1,12 +1,10 @@
-﻿@page
+@page
 
-@using fincheckup.Models.Hvvn
-@using fincheckup.Models.NKolay.ViewM
-@using fincheckup.Models.ViewM
-@using fincheckup.Models.NKolay
-@using fincheckup.Helper.Report
-@using fincheckup.Report
-
+@using System.Threading
+@using fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalance
+@using fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
+@using fincheckup.ApiClients.Models.ViewModel
+@using fincheckup.ApiClients.Services.Finance
 @model IndexModel
 @{
     ViewData["Title"] = "Giriş Ekranı";
@@ -14,196 +12,191 @@
 }
 
 @functions {
-    public class IndexModel : PageModel
+    public class IndexModel(
+        IFinanceMizanUpBalanceNewApiClient apiClient,
+        IFinanceMizanUpBalanceApiClient mizanUpBalanceApiClient) : PageModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public long UserID;
-        public long CompID;
-        public int CompCount;
-        public int YearCount;
-        public long curcomID;
-        public int curcomCount;
+        private readonly IFinanceMizanUpBalanceNewApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUpBalanceApiClient _mizanUpBalanceApiClient = mizanUpBalanceApiClient ?? throw new ArgumentNullException(nameof(mizanUpBalanceApiClient));
 
-        public int YearCurrent;
-        public HhvnUsers CurrentUser;
+        public MizanUpBalanceNewRequestInitialModel InitialModel{ get; set; }
 
-
-
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public Company curCompany;
-
-        public string CompName;
-
-        public string currentcompname { get; set; }
-
-        public void OnGet()
-        {
-            myearResult = YearResult.getValue();
-
-
-
-            UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            CurrentUser = HhvnUsers.GetRow_User(UserID);
-            mreqListCompany = Companies.Getby_User(UserID);
-            curCompany = mreqListCompany.Where(x => x.IsDefault == 1).FirstOrDefault();
-            currentcompname = curCompany.CompanyName;
-            CompName = curCompany.CompanyName;
-            curcomID = curCompany.ID;
-            curcomCount = mreqListCompany.Count();
-            //currentUpload = UploadMain.Get_Data(DateTime.Now.Year, curcomID);
-            YearCurrent = CurrentUser.SelectedYear;
-            CompID = curCompany.ID;
-            YearCount = TBLXml.GetYearByComapnyID(CompID);
-            CompCount = mreqListCompany.Count();
-
-        }
-
-
-
-
-        public JsonResult OnGetSalerDate(DataSourceLoadOptions options)
-        {
-            UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            CurrentUser = HhvnUsers.GetRow_User(UserID);
-
-            curcomID = Companies.Getby_User(UserID).Where(x => x.IsDefault == 1).FirstOrDefault().ID;
-
-            var currentUploadM = ReportSetMain.Get_StatbyCompany(curcomID);
-
-
-            return new JsonResult(DataSourceLoader.Load(currentUploadM.OrderBy(x => x.MainMonth).ToList(), options));
-
-        }
-        public JsonResult OnGetSalerYear(DataSourceLoadOptions options)
-        {
-
-
-            var YearSetm = YearResult.getValue().OrderByDescending(x => x.MYear);
-            return new JsonResult(DataSourceLoader.Load(YearSetm, options));
-
-        }
-        public JsonResult OnGetSalerComp(DataSourceLoadOptions options)
-        {
-
-            UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            mreqListCompany = Companies.Getby_User(UserID);
-            return new JsonResult(DataSourceLoader.Load(mreqListCompany, options));
-
-        }
-        public JsonResult OnGetCheckRepPdf(long companyID, int nyear)
+        public async Task OnGet()
         {
             try
             {
-                string FileDocz = "";
+                var response = await _apiClient.GetAsync(new MizanUpBalanceNewOnGetRequest(), CancellationToken.None);
 
-                UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                Companies curCompany = Companies.Get_CompanyRow(companyID);
-                List<CompanyReport> nlist = CompanyReport.Get_CompanyReportList(companyID);
-                nlist = nlist.Where(x => x.MainYear == nyear && x.FileTypeID == ReportConstant.FileTypePDF && x.ReportTypeID == ReportConstant.ReportTypeMizan).ToList();
-
-                if (nlist.Count > 0)
+                if (response.IsSuccess)
                 {
-                    FileDocz = "FileContent/" + nlist[0].ReportName;
-                    return new JsonResult(FileDocz);
+                    InitialModel = response.Data.InitialModel;
                 }
-                string NewRepName = "MizanRapor-" + curCompany.TaxID.ToString() + nyear.ToString() + ".pdf";
-                FileDocz = "FileContent/" + NewRepName;
-                var FileDic = "wwwroot\\FileContent\\" + NewRepName;
-
-
-                string filePathZ = WebHelper.path;
-                string FilePath = System.IO.Path.Combine(filePathZ, FileDic);
-
-
-
-                BalanceReport report = CompanyReportHelper.getMizanRaporuMizan(nyear, curCompany);
-                report.CreateDocument();
-                report.ExportToPdf(FilePath);
-                CompanyReport.Set_Report(companyID, UserID, NewRepName, ReportConstant.FileTypePDF, ReportConstant.ReportTypeMizan, 12, nyear, 0);
-
-                return new JsonResult(FileDocz);
-
+                else
+                {
+                    Console.WriteLine(response.ProblemDetails.Detail);
+                }
             }
             catch (Exception ex)
             {
-                var chk = ex;
-                return new JsonResult(ex.ToString());
-
-
+                Console.WriteLine(ex.Message);
+                throw;
             }
-
-
-
-
         }
-        public JsonResult OnGetCheckRepXls(long companyID, int nyear)
+
+        public async Task<JsonResult> OnGetSalerDate(DataSourceLoadOptions options)
         {
             try
             {
-                string FileDocz = "";
-                UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                Companies curCompany = Companies.Get_CompanyRow(companyID);
+                await OnGet();
+                var response = await _apiClient.GetSalerDateAsync(new MizanUpBalanceNewOnGetSalerDateQuery
+                { 
+                    Request= new MizanUpBalanceNewOnGetSalerDateRequest(){options = options},
+                    InitialModel = InitialModel,
+                    UserId=InitialModel.UserID.ToString()
+                }, CancellationToken.None);
 
-                List<CompanyReport> nlist = CompanyReport.Get_CompanyReportList(companyID);
-                nlist = nlist.Where(x => x.MainYear == nyear && x.FileTypeID == ReportConstant.FileTypeExcel && x.ReportTypeID == ReportConstant.ReportTypeMizan).ToList();
-
-                if (nlist.Count > 0)
+                if (response.IsSuccess)
                 {
-                    FileDocz = "FileContent/" + nlist[0].ReportName;
-                    return new JsonResult(FileDocz);
+                    return new JsonResult(response.Data.Response);
                 }
 
-                string NewRepName = "MizanRapor-" + curCompany.TaxID.ToString() + nyear.ToString() + ".xlsx";
-                FileDocz = "FileContent/" + NewRepName;
-                var FileDic = "wwwroot\\FileContent\\" + NewRepName;
-
-
-                string filePathZ = WebHelper.path;
-                string FilePath = System.IO.Path.Combine(filePathZ, FileDic);
-
-                BalanceReport report = CompanyReportHelper.getMizanRaporuMizan(nyear, curCompany);
-                report.CreateDocument();
-                report.ExportToXlsx(FilePath);
-                CompanyReport.Set_Report(companyID, UserID, NewRepName, ReportConstant.FileTypeExcel, ReportConstant.ReportTypeMizan, 12, nyear, 0);
-
-                return new JsonResult(FileDocz);
-
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/mizan/upbalancenew OnGetSalerDate");
             }
             catch (Exception ex)
             {
-                var chk = ex;
-                return new JsonResult(ex.ToString());
-
-
+                Console.WriteLine(ex.Message);
+                throw;
             }
-
-
-
         }
+
+        public async Task<JsonResult> OnGetSalerYear(DataSourceLoadOptions options)
+        {
+            try
+            {
+                await OnGet();
+                var response = await _apiClient.GetSalerYearAsync(new MizanUpBalanceNewOnGetSalerYearRequest
+                {
+                    options = options
+                }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/mizan/upbalancenew OnGetSalerYear");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<JsonResult> OnGetSalerComp(DataSourceLoadOptions options)
+        {
+            try
+            {
+                var response = await _apiClient.GetSalerCompAsync(new MizanUpBalanceNewOnGetSalerCompRequest
+                {
+                    options = options
+                }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/mizan/upbalancenew OnGetSalerComp");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<JsonResult> OnGetCheckRepPdf(long companyID, int nyear)
+        {
+            try
+            {
+                var response = await _apiClient.GetCheckRepPdfAsync(new MizanUpBalanceNewOnGetCheckRepPdfRequest
+                {
+                    companyID = companyID,
+                    nyear = nyear
+                }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/mizan/upbalancenew OnGetCheckRepPdf");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<JsonResult> OnGetCheckRepXls(long companyID, int nyear)
+        {
+            try
+            {
+                var response = await _apiClient.GetCheckRepXlsAsync(new MizanUpBalanceNewOnGetCheckRepXlsRequest
+                {
+                    companyID = companyID,
+                    nyear = nyear
+                }, CancellationToken.None);
+
+                if (response.IsSuccess)
+                {
+                    return response.Data.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/mizan/upbalancenew OnGetCheckRepXls");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
         public JsonResult OnGetGraphComp(int ncompid)
         {
-            if (ncompid < 1)
-            {
-                return new JsonResult("nok");
-
-            }
-            UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            if (HhvnUsers.CheckUser(ncompid, UserID))
-            {
-                UserCompany.Update_UserDefault(UserID, ncompid);
-            }
-
-
-
-            return new JsonResult("ok");
+            return new JsonResult("Entegrasyon eksik finance/mizan/upbalancenew OnGetGraphComp");
         }
-        public JsonResult OnGetGraphYear(int nyear)
+
+        public async Task<JsonResult> OnGetGraphYear(int nyear)
         {
-            UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            HhvnUsers.SetYear(nyear, UserID);
-            return new JsonResult("ok");
-        }
+            try
+            {
+                var response = await _mizanUpBalanceApiClient.GetGraphYearAsync(new MizanUpBalanceOnGetGraphYearRequest
+                {
+                    nyear = nyear
+                }, CancellationToken.None);
 
+                if (response.IsSuccess)
+                {
+                    return response.Data.Response;
+                }
+
+                Console.WriteLine(response.ProblemDetails.Detail);
+                return new JsonResult("Burada hata var finance/mizan/upbalancenew OnGetGraphYear");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
     }
 }
 @section Styles {
@@ -234,6 +227,43 @@
             font-style: normal;
             font-weight: 700;
             src: url("/fonts/Cordale_Bd.ttf") format("truetype");
+        }
+
+        .orangecolor {
+            background-color: #874651;
+            height: 50px !important;
+        }
+
+        .greencolor {
+            background-color: #004aad;
+            height: 50px !important;
+        }
+
+        .dx-rtl .dx-datagrid-rowsview .dx-selection.dx-row > td:not(.dx-focused).dx-datagrid-group-space,
+        .dx-rtl .dx-datagrid-rowsview .dx-selection.dx-row:hover > td:not(.dx-focused).dx-datagrid-group-space {
+            border-left-color: #bf4e6a;
+        }
+
+        .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-lines) > td,
+        .dx-datagrid-rowsview .dx-selection.dx-row:hover:not(.dx-row-lines) > td {
+            border-bottom: 1px solid #bf4e6a;
+            border-top: 1px solid #bf4e6a;
+        }
+
+        .dx-datagrid-rowsview .dx-selection.dx-row > td.dx-datagrid-group-space,
+        .dx-datagrid-rowsview .dx-selection.dx-row:hover > td.dx-datagrid-group-space {
+            border-right-color: #bf4e6a;
+        }
+
+        .dx-datagrid-rowsview .dx-selection.dx-row > td,
+        .dx-datagrid-rowsview .dx-selection.dx-row:hover > td {
+            background-color: #bf4e6a;
+            color: #232323;
+        }
+
+        .dx-datagrid-table .dx-data-row.dx-state-hover:not(.dx-selection):not(.dx-row-inserted):not(.dx-row-removed):not(.dx-edit-row) > td:not(.dx-focused) {
+            background-color: #bf4e6a;
+            color: #333;
         }
 
         .setRowHeight {
@@ -373,7 +403,7 @@
             vertical-align: middle !important;
             font-weight: bold;
             font-size: 13px;
-            color: black;
+            color: whitesmoke;
         }
 
         #grdContYearDefter .dx-header-row .centerdiv {
@@ -382,16 +412,19 @@
             font-size: 13px;
             color: black;
         }
+
+        #grdContYearDefter .dx-row .dx-data-row {
+            height: 50px !important;
+        }
     </style>
-}
 }
 <span id="employee" style="position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);"></span>
-<input type="hidden" style="display:none" id="txtcompname" value="@Model.currentcompname" />
-<input type="hidden" style="display:none" id="txtcurcomCount" value="@Model.curcomCount" />
-<input type="hidden" style="display:none" id="txtcurcomide" value="@Model.curcomID" />
+<input type="hidden" style="display:none" id="txtcompname" value="@Model.InitialModel.currentcompname" />
+<input type="hidden" style="display:none" id="txtcurcomCount" value="@Model.InitialModel.curcomCount" />
+<input type="hidden" style="display:none" id="txtcurcomide" value="@Model.InitialModel.curcomID" />
 <section class="content home" id="">
     <div class="container-fluid">
         <div class="block-header">
@@ -414,7 +447,7 @@
                                         <div class="col-6" style="text-align:right">
 
                                             @(Html.DevExtreme().TextBox()
-                                                .Value(Model.CompName).ReadOnly(true)
+                                                .Value(Model.InitialModel.CompName).ReadOnly(true)
                                                 )
 
                                         </div>
@@ -427,11 +460,30 @@
             </div>
         </div>
         <div class="row clearfix">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="body l-seagreen text-center">
+
+                        <h3 class="m-b-0 m-t-10 text-white"><span id="txterroredcombin" style="display:none">0</span></h3>
+                        <span class="text-white">Kümülatif Mizan Raporları</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="body l-seagreen text-center">
+
+                        <h3 class="m-b-0 m-t-10 text-white"><span id="txtrowcount" style="display:none">0</span></h3>
+                        <span class="text-white"></span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <input type="hidden" style="display:none" id="txtmyear" value="@Model.CurrentUser.SelectedYear" />
-        <input type="hidden" style="display:none" id="txtmcomp" value="@Model.CompID" />
-        <input type="hidden" style="display:none" id="txtyearcount" value="@Model.YearCount" />
-        <input type="hidden" style="display:none" id="txtcompcount" value="@Model.CompCount" />
+        <input type="hidden" style="display:none" id="txtmyear" value="@Model.InitialModel.CurrentUser.SelectedYear" />
+        <input type="hidden" style="display:none" id="txtmcomp" value="@Model.InitialModel.CompID" />
+        <input type="hidden" style="display:none" id="txtyearcount" value="@Model.InitialModel.YearCount" />
+        <input type="hidden" style="display:none" id="txtcompcount" value="@Model.InitialModel.CompCount" />
         <input type="hidden" style="display:none" value="0" id="txtisupdate" />
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12">
@@ -441,23 +493,23 @@
                     var mcompid = $("#txtmcomp").val();
                     function onCellPrepared(e) {
 
-                        if (e.columnIndex == 2 && e.rowType == "data") {
+                        if (e.columnIndex == 1 && e.rowType == "data") {
                             var chkk = e.data;
-                            console.log(parseInt(chkk.TRowCount));
-                            if (parseInt(chkk.TRowCount) < 1) {
+                            console.log(parseInt(chkk.TRowCount) + ' 1 no ');
+                            if (parseInt( chkk.TRowCount )< 1) {
                                 e.cellElement.find(".dx-command-edit").remove();
 
-
+                                e.cellElement.find(".dx-link-edit").remove();
                             }
                         }
 
-                        if (e.columnIndex == 3 && e.rowType == "data") {
+                        if (e.columnIndex == 2 && e.rowType == "data") {
                             var chkk = e.data;
-
+                            console.log(parseInt(chkk.TRowCount) + ' 2 no ');
                             if (parseInt(chkk.TRowCount) < 1) {
                                 e.cellElement.find(".dx-link-edit").remove();
 
-
+                                e.cellElement.find(".dx-command-edit").remove();
                             }
                         }
                     }
@@ -473,9 +525,9 @@
                     function onRowPrepared(info) {
                         if (info.rowType != "header" && info.data.TxResult == "Bekleniyor") {
 
-                            // info.rowElement.addClass("orangecolor");
+                            info.rowElement.addClass("orangecolor");
                         } else if (info.rowType != "header") {
-                            // info.rowElement.addClass("greencolor");
+                            info.rowElement.addClass("greencolor");
                         }
                     }
                     var dt1 = "0";
@@ -488,9 +540,34 @@
                     function getselectYearInstance() {
                         return $("#slctYear").dxSelectBox("instance");
                     }
+                    function getselectCompInstance() {
+                        return $("#slctCompany").dxSelectBox("instance");
+                    }
+                    function selectYear_Initialized() {
+                        getselectYearInstance().option("value", parseInt($("#txtmyear").val()));
+                        var chkco = parseInt($("#txtyearcount").val());
+
+                        //if (chkco < 2) {
+                        //    getselectYearInstance().option("readOnly", true);
+                        //}
 
 
+                    }
 
+                    function selectComp_Initialized() {
+
+                        var chkco = parseInt($("#txtcompcount").val());
+                        getselectCompInstance().option("value", parseInt($("#txtmcomp").val()));
+
+                        if (chkco < 2) {
+                            getselectCompInstance().option("readOnly", true);
+                        }
+                    }
+
+                    function funcUpload() {
+                        $('#uploadInput').focus().trigger('click');
+                        $("#griddiv").css("display", "none");
+                    }
 
                     function startit() {
                         getLoadPanelInstance().show();
@@ -506,7 +583,7 @@
                         fdatam.append('year', data);
 
                         $.ajax({
-                            url: "/JsonService/Main/moodUpdateBalance",
+                            url: "/JsonService/Mizan/moodUpdateBalance",
                             method: "POST",
                             statusCode: {
                                 500: function () {
@@ -570,7 +647,6 @@
 
 
 
-
                 <div class="card">
                     <div class="body">
 
@@ -600,7 +676,6 @@
 
 
 
-
                             <div class="container">
                                 <br />   <br />
 
@@ -612,10 +687,13 @@
 
                                 <div class="card">
                                     <div class="body">
-                                        @(Html.DevExtreme().DataGrid<YearlyErrorResult>().ColumnHidingEnabled(true).ID("grdContYearDefter").OnCellPrepared("onCellPrepared").OnRowPrepared("onRowPrepared").ShowColumnLines(false).ShowBorders(false).ColumnAutoWidth(true)
-                                            .Height(340).Columns(columns =>
+                                        @(Html.DevExtreme().DataGrid<YearlyErrorResult>().ColumnHidingEnabled(true).ID("grdContYearDefter").OnCellPrepared("onCellPrepared").OnRowPrepared("onRowPrepared").ShowColumnLines(false)
+                                            .ColumnMinWidth(50)
+                                            .ColumnAutoWidth(true).ShowBorders(false).Height(440).Columns(columns =>
                                             {
-                                                columns.AddFor(m => m.MainYear).Caption("Yıl").CssClass("custom");
+                                                columns.AddFor(m => m.MainYear).Caption("Yıl").CssClass("centerdiv");
+
+                                                columns.AddFor(m => m.MainMonth).Visible(false).SortOrder(SortOrder.Asc);
 
                                                 columns.Add().CssClass("custom").Caption("Aksiyon").CellTemplate(@<text>
                                             <div onclick="functionupdatetax('[%= data.MainYear %]')" class="dxmain dx-link-edit dx-button dx-button-normal dx-button-mode-contained dx-widget dx-button-has-text" aria-label="Yükle" tabindex="0" role="button"><div class="dx-button-content" style="background-color:#870052 "><span class="dx-button-text" style="color:white ">Mizan Raporu Hazırla</span></div></div>
@@ -666,13 +744,13 @@
         .ShadingColor("rgba(0,0,0,0.4)")
         .Position(p => p.Of("#employee"))
         .Visible(false)
-        .ShowIndicator(true).Message("E-defter İşleniyor.. Lütfen Bekleyiniz...")
+        .ShowIndicator(true).Message("Mizan Veriler İşleniyor.. Lütfen Bekleyiniz...")
         .ShowPane(true).Height(300).Width(500)
         .Shading(true)
           .HideOnOutsideClick(false)
         .OnShown("loadPanel_shown")
     )
-<input type="text" id="mainyear" name="mainyear" value="@Model.CurrentUser.SelectedYear" style="display:none" />
+<input type="text" id="mainyear" name="mainyear" value="@Model.InitialModel.CurrentUser.SelectedYear" style="display:none" />
 <input type="text" id="mainmonth" name="mainmonth" style="display:none" />
 
 
@@ -687,7 +765,7 @@
 
 
 
-            var turl = '/admin/finance/mizan/upbalancenew?handler=CheckRepXls&nyear=@Model.YearCurrent&companyID=@Model.curcomID&nmonth=' + data;
+            var turl = '/admin/finance/mizan/upbalancenew?handler=CheckRepXls&nyear=' + $("#txtmyear").val() + '&companyID=' + $("#txtcurcomide").val() + '&nmonth=' + data;
 
 
             getLoadPanelInstance().show();
@@ -741,7 +819,7 @@
         function selectrep_valuepdf(data) {
 
 
-            var turl = '/admin/finance/mizan/upbalancenew?handler=CheckRepPdf&nyear=' + data + '&companyID=@Model.curcomID&nmonth=' + 0;
+            var turl = '/admin/finance/mizan/upbalancenew?handler=CheckRepPdf&nyear=' + data + '&companyID=' + $("#txtcurcomide").val() + '&nmonth=' + 0;
 
 
             getLoadPanelInstance().show();
@@ -799,7 +877,7 @@
         }
 
 
-        var txcompname = $("txtcompname").val();
+        var txcompname = $("#txtcompname").val();
 
         function formatMessage(e) {
 
@@ -811,4 +889,3 @@
     </script>
 
 }
-

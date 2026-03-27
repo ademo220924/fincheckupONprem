@@ -8,27 +8,27 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMizan
 {
     public class MizanUploadMizanRequestInitialModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public int UserID;
-        public long CompID;
-        public int CompCount;
-        public int YearCount;
-        public long curcomID;
-        public int curcomCount;
+        public IEnumerable<YearResult> myearResult { get; set; }
+        public int UserID { get; set; }
+        public long CompID { get; set; }
+        public int CompCount { get; set; }
+        public int YearCount { get; set; }
+        public long curcomID { get; set; }
+        public int curcomCount { get; set; }
 
-        public HhvnUsers CurrentUser;
-        public YearlyUploadResult currentMonth;
-        public IEnumerable<TBLXMLSCheckpdfMizan> ncomparelist;
-        public IEnumerable<YearlyUploadResult> currentUploadM;
-        public IEnumerable<YearlyUploadResult> currentUploadMOK;
-        public IEnumerable<YearlyUploadResult> currentUploadMNoOK;
-        public List<YearlyUploadResult> currentUploadMMonth;
-        public List<byte> monthlist;
-        public DataViewerMain mrequestDataViewer;
-        public string mnthcomparelist;
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public Entities.Company currenCompanie;
-        public string CompName;
+        public HhvnUsers CurrentUser { get; set; }
+        public YearlyUploadResult currentMonth { get; set; }
+        public IEnumerable<TBLXMLSCheckpdfMizan> ncomparelist { get; set; }
+        public IEnumerable<YearlyUploadResult> currentUploadM { get; set; }
+        public IEnumerable<YearlyUploadResult> currentUploadMOK { get; set; }
+        public IEnumerable<YearlyUploadResult> currentUploadMNoOK { get; set; }
+        public List<YearlyUploadResult> currentUploadMMonth { get; set; }
+        public List<byte> monthlist { get; set; }
+        public DataViewerMain mrequestDataViewer { get; set; }
+        public string mnthcomparelist { get; set; }
+        public IEnumerable<Entities.Company> mreqListCompany { get; set; }
+        public Entities.Company currenCompanie { get; set; }
+        public string CompName { get; set; }
 
 
         public string currentcompname { get; set; }

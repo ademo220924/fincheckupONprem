@@ -31,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
-    <Content Remove="Pages\Admin\finance\mizan\upbalancenew.cshtml" /> 
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
@@ -152,7 +151,6 @@
     <None Include="Pages\Admin\finance\mizan\reportmain.cshtml" />
     <None Include="Pages\Admin\finance\mizan\upbalance.cshtml" />
     <None Include="Pages\Admin\finance\mizan\upbalanceakt.cshtml" />
-    <None Include="Pages\Admin\finance\mizan\upbalancenew.cshtml" />
     <None Include="Pages\Admin\finance\mizan\upcmconsole.cshtml" />
     <None Include="Pages\Admin\finance\mizan\uploadmain.cshtml" />
     <None Include="Pages\Admin\finance\mizan\uploadmizan.cshtml" />

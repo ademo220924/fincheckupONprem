@@ -4,9 +4,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.CompanyList
 {
     public class CompanyListInitialModel
     {
-        public long UserID; 
-        public int UserTypeID;
-        public HhvnUsers CurrentUser;
-        public IEnumerable<Entities.Company> mreqList;
+        public long UserID { get; set; } 
+        public int UserTypeID { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public IEnumerable<Entities.Company> mreqList { get; set; }
     }
 }

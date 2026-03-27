@@ -8,22 +8,22 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMain
 {
     public class MizanUploadMainRequestInitialModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public long UserID;
-        public long CompID;
-        public int CompCount;
-        public int YearCount;
-        public long curcomID;
-        public int curcomCount;
-        public DataViewerMain mrequestDataViewer;
-        public HhvnUsers CurrentUser;
-        public List<YearlyErrorResult> currentUploadM;
-        public List<int> currentUploadYear;
+        public IEnumerable<YearResult> myearResult { get; set; }
+        public long UserID { get; set; }
+        public long CompID { get; set; }
+        public int CompCount { get; set; }
+        public int YearCount { get; set; }
+        public long curcomID { get; set; }
+        public int curcomCount { get; set; }
+        public DataViewerMain mrequestDataViewer { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public List<YearlyErrorResult> currentUploadM { get; set; }
+        public List<int> currentUploadYear { get; set; }
 
 
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public Entities.Company currenCompanie;
-        public string CompName;
+        public IEnumerable<Entities.Company> mreqListCompany { get; set; }
+        public Entities.Company currenCompanie { get; set; }
+        public string CompName { get; set; }
 
 
         public string currentcompname { get; set; }

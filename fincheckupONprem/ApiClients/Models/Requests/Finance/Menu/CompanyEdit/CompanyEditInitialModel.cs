@@ -5,9 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.CompanyEdit
 {
     public class CompanyEditInitialModel
     {
-        public long UserID;
-        public HhvnUsers CurrentUser;
-        public Entities.Company mrequest;
+        public long UserID { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public Entities.Company mrequest { get; set; }
 
         public int StartQuestions { get; set; }
         public int AQuestions { get; set; }

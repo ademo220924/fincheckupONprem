@@ -6,14 +6,14 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.UserEdit
 {
     public class MizanUserEditRequestInitialModel
     {
-        public long UserID;
-        public HhvnUsers CurrentUser;
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public List<UserType> mreqListUserType;
-        public IEnumerable<City> mreqListCitiy;
-        public IEnumerable<YearResult> myearResult;
+        public long UserID { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public IEnumerable<Entities.Company> mreqListCompany { get; set; }
+        public List<UserType> mreqListUserType { get; set; }
+        public IEnumerable<City> mreqListCitiy { get; set; }
+        public IEnumerable<YearResult> myearResult { get; set; }
 
-        public HhvnUsers mrequest;
+        public HhvnUsers mrequest { get; set; }
 
         public string mreqListCitiystr { get; set; }
     }

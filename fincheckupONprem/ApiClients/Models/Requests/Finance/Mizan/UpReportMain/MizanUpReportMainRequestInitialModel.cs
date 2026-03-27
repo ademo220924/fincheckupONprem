@@ -6,20 +6,20 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpReportMain
 {
     public class MizanUpReportMainRequestInitialModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public long UserID;
-        public long CompID;
-        public int CompCount;
-        public int YearCount;
-        public long curcomID;
-        public int curcomCount;
+        public IEnumerable<YearResult> myearResult { get; set; }
+        public long UserID { get; set; }
+        public long CompID { get; set; }
+        public int CompCount { get; set; }
+        public int YearCount { get; set; }
+        public long curcomID { get; set; }
+        public int curcomCount { get; set; }
 
-        public HhvnUsers CurrentUser;
+        public HhvnUsers CurrentUser { get; set; }
 
 
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public Entities.Company curCompany;
-        public string CompName;
+        public IEnumerable<Entities.Company> mreqListCompany { get; set; }
+        public Entities.Company curCompany { get; set; }
+        public string CompName { get; set; }
 
 
         public string currentcompname { get; set; }

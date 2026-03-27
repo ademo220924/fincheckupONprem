@@ -5,9 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.FirmPanel
 {
     public class MizanFirmPanelRequestInitialModel
     {
-        public long UserID;
-        public int UserTypeID;
-        public HhvnUsers CurrentUser;
-        public IEnumerable<Entities.Company> mreqList;
+        public long UserID { get; set; }
+        public int UserTypeID { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public IEnumerable<Entities.Company> mreqList { get; set; }
     }
 }

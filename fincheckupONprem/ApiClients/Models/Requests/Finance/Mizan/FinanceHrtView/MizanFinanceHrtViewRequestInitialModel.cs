@@ -6,28 +6,28 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrtView
 {
     public class MizanFinanceHrtViewRequestInitialModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public long UserID;
-        public long CompID;
-        public int CompCount;
+        public IEnumerable<YearResult> myearResult { get; set; }
+        public long UserID { get; set; }
+        public long CompID { get; set; }
+        public int CompCount { get; set; }
         public int YearCount { get; set; }
-        public string CompName;
-        public HhvnUsers CurrentUser;
-        public YearlyErrorResultView mrequestEntryView;
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public IEnumerable<YearlyReportDash> dashEbitMarjin;
-        public IEnumerable<YearlyReportDash> dashGrossProfit;
-        public IEnumerable<YearlyReportDash> dashFinancialDebit;
-        public IEnumerable<YearlyReportDash> dashFinancialDebitMulti;
-        public IEnumerable<YearlyReportDash> ResultWorkingCapital;
-        public IEnumerable<DashBilancoViewMarj> dashFinancialOzkaynakAktif;
-        public IEnumerable<YearlyReportDash> dashFinancialCariOran;
-        public IEnumerable<YearlyReportDash> dashRevenue;
-        public IEnumerable<YearlyReportDash> dashDonemselKarzarar;
-        public IEnumerable<DashYearlyResultMain> dashWorkingCapital;
-        public IEnumerable<YearlyReportDashGraphic> dDashFrossViewMarjBrut;
-        public IEnumerable<ReportMainItem> dDashReportMain;
-        public IEnumerable<BWarn> mreqList;
+        public string CompName { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public YearlyErrorResultView mrequestEntryView { get; set; }
+        public IEnumerable<Entities.Company> mreqListCompany { get; set; }
+        public IEnumerable<YearlyReportDash> dashEbitMarjin { get; set; }
+        public IEnumerable<YearlyReportDash> dashGrossProfit { get; set; }
+        public IEnumerable<YearlyReportDash> dashFinancialDebit { get; set; }
+        public IEnumerable<YearlyReportDash> dashFinancialDebitMulti { get; set; }
+        public IEnumerable<YearlyReportDash> ResultWorkingCapital { get; set; }
+        public IEnumerable<DashBilancoViewMarj> dashFinancialOzkaynakAktif { get; set; }
+        public IEnumerable<YearlyReportDash> dashFinancialCariOran { get; set; }
+        public IEnumerable<YearlyReportDash> dashRevenue { get; set; }
+        public IEnumerable<YearlyReportDash> dashDonemselKarzarar { get; set; }
+        public IEnumerable<DashYearlyResultMain> dashWorkingCapital { get; set; }
+        public IEnumerable<YearlyReportDashGraphic> dDashFrossViewMarjBrut { get; set; }
+        public IEnumerable<ReportMainItem> dDashReportMain { get; set; }
+        public IEnumerable<BWarn> mreqList { get; set; }
         public DashRep NetEbitMarjin { get; set; }
         public List<DashDepth> NetDashDepth { get; set; }
         public DashRep NetGrossProfit { get; set; }
@@ -36,10 +36,10 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrtView
         public DashRep NetDonemselKarzarar { get; set; }
         public DashRep NetWorkingCapital { get; set; }
         public DashRep NetGrossProfitGraphic { get; set; }
-        public string RetValGross;
-        public string RetValScore;
+        public string RetValGross { get; set; }
+        public string RetValScore { get; set; }
         //  public ReportDashViewMarkupMarjin dashMarkupMarjin;
-        public DashBilancoViewMarj dDashBilancoViewMarjBrut;
-        public DashBilancoViewMarj dDashBilancoViewMarjNet;
+        public DashBilancoViewMarj dDashBilancoViewMarjBrut { get; set; }
+        public DashBilancoViewMarj dDashBilancoViewMarjNet { get; set; }
     }
 }

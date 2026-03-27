@@ -6,16 +6,16 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Konsol.DashBilanco
 {
     public class MizanDashBilancoKonRequestInitialModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public long UserID;
-        public long CompID;
-        public int CompCount;
-        public int YearCount;
-        public HhvnUsers CurrentUser;
-        public IEnumerable<DashBilancoViewMznShort> nRequestList;
+        public IEnumerable<YearResult> myearResult { get; set; }
+        public long UserID { get; set; }
+        public long CompID { get; set; }
+        public int CompCount { get; set; }
+        public int YearCount { get; set; }
+        public HhvnUsers CurrentUser { get; set; }
+        public IEnumerable<DashBilancoViewMznShort> nRequestList { get; set; }
 
-        public string CompName;
-        public IEnumerable<Entities.Company> mreqListCompany;
+        public string CompName { get; set; }
+        public IEnumerable<Entities.Company> mreqListCompany { get; set; }
         public string NetIsletme { get; set; }
         public string CariOran { get; set; }
         public decimal CariOranT { get; set; }

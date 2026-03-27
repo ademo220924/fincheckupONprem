@@ -14,7 +14,7 @@ public interface IFinanceMizanUpBalanceNewApiClient : IApiClientBase
     Task<GenericResult<MizanUpBalanceNewOnGetResponse>> GetAsync([Body] MizanUpBalanceNewOnGetRequest request, CancellationToken cancellationToken);
 
     [Post("/api/finance/mizan/FinanceMizanUpBalanceNew/OnGetSalerDate")]
-    Task<GenericResult<MizanUpBalanceNewOnGetSalerDateResponse>> GetSalerDateAsync([Body] MizanUpBalanceNewOnGetSalerDateRequest request, CancellationToken cancellationToken);
+    Task<GenericResult<MizanUpBalanceNewOnGetSalerDateResponse>> GetSalerDateAsync([Body] MizanUpBalanceNewOnGetSalerDateQuery request, CancellationToken cancellationToken);
 
     [Post("/api/finance/mizan/FinanceMizanUpBalanceNew/OnGetSalerYear")]
     Task<GenericResult<MizanUpBalanceNewOnGetSalerYearResponse>> GetSalerYearAsync([Body] MizanUpBalanceNewOnGetSalerYearRequest request, CancellationToken cancellationToken);

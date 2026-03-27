@@ -12,53 +12,50 @@
 
 
 @functions {
-    public class IndexModel(IUserApiClient apiClient) : PageModel
+    public class IndexModel : PageModel
     {
 
         public string CompName { get; set; }
 
         public void  OnGet(string sso)
         {
-            apiClient.
             CompName = "nok";
 
-
-            try
-            {
-                if (!string.IsNullOrEmpty(sso))
-                {
-
-                    HhvnUsers nuser3 = HhvnUsers.GetUserbyGuid(sso);
-                    if (nuser3 != null)
-                    {
-                        UserLogin nuser = new UserLogin();
-
-                        string userAgent = Request.Headers["User-Agent"];
-                        string remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-                        nuser.UserBrowser = userAgent; nuser.UserIp = remoteIpAddress;
-                        nuser.UserId = nuser3.ID;
-                        nuser.Save_User();
-
-                        SignIn(nuser3);
-
-
-
-                        return;
-
-                    }
-
-
-
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                var chk = ex;
-                throw;
-            }
-
+            // try
+            // {
+            //     if (!string.IsNullOrEmpty(sso))
+            //     {
+            //
+            //         HhvnUsers nuser3 = HhvnUsers.GetUserbyGuid(sso);
+            //         if (nuser3 != null)
+            //         {
+            //             UserLogin nuser = new UserLogin();
+            //
+            //             string userAgent = Request.Headers["User-Agent"];
+            //             string remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            //             nuser.UserBrowser = userAgent; nuser.UserIp = remoteIpAddress;
+            //             nuser.UserId = nuser3.ID;
+            //             nuser.Save_User();
+            //
+            //             SignIn(nuser3);
+            //
+            //
+            //
+            //             return;
+            //
+            //         }
+            //
+            //
+            //
+            //     }
+            //
+            //
+            // }
+            // catch (Exception ex)
+            // {
+            //     var chk = ex;
+            //     throw;
+            // }
 
         }
 
