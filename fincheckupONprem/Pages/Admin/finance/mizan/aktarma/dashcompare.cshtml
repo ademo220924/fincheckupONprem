@@ -13,9 +13,9 @@
 
 
 @functions {
-    public class IndexModel(IAktarmaDashCompareApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanAktarmaDashCompareClient apiClient) : PageModel
     {
-        private readonly IAktarmaDashCompareApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanAktarmaDashCompareClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanAktarmaDashCompareRequestInitialModel InitialModel;
  
         public async Task OnGet(int mmonth, int nyear)

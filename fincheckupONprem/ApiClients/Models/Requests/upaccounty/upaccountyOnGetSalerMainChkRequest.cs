@@ -6,3 +6,8 @@ public class upaccountyOnGetSalerMainChkRequest
     public DataSourceLoadOptions Options { get; set; }
     public int monthid { get; set; }
 }
+
+public class upaccountyOnGetSalerMainChkQuery
+{
+    public upaccountyOnGetSalerMainChkRequest Request { get; set; }
+}

@@ -5,3 +5,8 @@ public class UploadGetSalerMainNoteRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class UploadGetSalerMainNoteQuery
+{
+    public UploadGetSalerMainNoteRequest Request { get; set; }
+}

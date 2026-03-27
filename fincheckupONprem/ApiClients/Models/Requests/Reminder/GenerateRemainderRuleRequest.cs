@@ -7,3 +7,8 @@ public class GenerateRemainderRuleRequest
 {
     public List<ReminderRule> ReminderRules { get; set; }
 }
+
+public class GenerateRemainderRuleQuery
+{
+    public GenerateRemainderRuleRequest Request { get; set; }
+}

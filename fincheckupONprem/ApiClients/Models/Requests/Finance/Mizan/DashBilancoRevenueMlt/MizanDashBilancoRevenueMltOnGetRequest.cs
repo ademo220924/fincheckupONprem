@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashBilancoRevenue
     {
         public MizanDashBilancoRevenueMltRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class MizanDashBilancoRevenueMltOnGetQuery
+    {
+        public MizanDashBilancoRevenueMltOnGetRequest Request { get; set; }
+    }
 }

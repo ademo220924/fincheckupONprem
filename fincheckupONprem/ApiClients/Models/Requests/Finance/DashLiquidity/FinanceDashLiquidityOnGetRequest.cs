@@ -4,4 +4,9 @@
     {
         public FinanceDashLiquidityRequestInitialModel Request { get; set; }
     }
+
+    public class FinanceDashLiquidityOnGetQuery
+    {
+        public FinanceDashLiquidityOnGetRequest Request { get; set; }
+    }
 }

@@ -5,3 +5,8 @@ public class UpreportmainyOnGetRequest
 {
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class UpreportmainyOnGetQuery
+{
+    public UpreportmainyOnGetRequest Request { get; set; }
+}

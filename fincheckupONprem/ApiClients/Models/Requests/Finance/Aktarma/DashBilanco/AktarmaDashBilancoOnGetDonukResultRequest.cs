@@ -7,3 +7,8 @@ public class AktarmaDashBilancoOnGetDonukResultRequest
     public long compid { get; set; }
     public int nyear { get; set; }
 }
+
+public class AktarmaDashBilancoOnGetDonukResultQuery
+{
+    public AktarmaDashBilancoOnGetDonukResultRequest Request { get; set; }
+}

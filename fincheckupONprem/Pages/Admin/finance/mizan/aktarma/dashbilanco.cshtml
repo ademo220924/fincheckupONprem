@@ -11,9 +11,9 @@
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashBilanco
 @using fincheckup.ApiClients.Services.Finance
 @functions {
-    public class IndexModel(IAktarmaDashBilancoApiClient apiClient) : PageModel
+    public class IndexModel(IAktarmaDashBilancoClient apiClient) : PageModel
     {
-        private readonly IAktarmaDashBilancoApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IAktarmaDashBilancoClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanAktarmaDashBilancoRequestInitialModel InitialModel;
 
        

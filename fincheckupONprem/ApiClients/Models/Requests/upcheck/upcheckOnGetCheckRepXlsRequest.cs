@@ -6,3 +6,8 @@ public class upcheckOnGetCheckRepXlsRequest
     public int nyear { get; set; }
     public int nmonth { get; set; }
 }
+
+public class upcheckOnGetCheckRepXlsQuery
+{
+    public upcheckOnGetCheckRepXlsRequest Request { get; set; }
+}

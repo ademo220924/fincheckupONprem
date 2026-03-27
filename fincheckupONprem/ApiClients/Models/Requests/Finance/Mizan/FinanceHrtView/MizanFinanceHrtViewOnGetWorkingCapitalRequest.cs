@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrtView
         public int myear { get; set; }
         public long compid { get; set; }
     }
+
+    public class MizanFinanceHrtViewOnGetWorkingCapitalQuery
+    {
+        public MizanFinanceHrtViewOnGetWorkingCapitalRequest Request { get; set; }
+    }
 }

@@ -27,3 +27,8 @@ public class DashWorkingCapitalRequest
     public string CompName;
     public long val3 { get; set; }
 }
+
+public class DashWorkingCapitalQuery
+{
+    public DashWorkingCapitalRequest Request { get; set; }
+}

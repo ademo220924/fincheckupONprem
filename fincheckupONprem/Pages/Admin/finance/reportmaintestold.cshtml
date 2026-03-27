@@ -10,9 +10,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceReportMainTestOldApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceReportMainTestOldClient apiClient) : PageModel
     {
-        private readonly IFinanceReportMainTestOldApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient)); 
+        private readonly IFinanceReportMainTestOldClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient)); 
         public FinanceReportMainTestOldRequestInitialModel InitialModel;
 
         public async Task OnGet()

@@ -11,4 +11,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarma
         public int nyear { get; set; }
         public string ncode { get; set; }
     }
+
+    public class MizanUpPageAktarmaJrnlOnGetGraphCodeDelQuery
+    {
+        public MizanUpPageAktarmaJrnlOnGetGraphCodeDelRequest Request { get; set; }
+    }
 }

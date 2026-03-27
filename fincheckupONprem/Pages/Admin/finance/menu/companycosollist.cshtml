@@ -13,9 +13,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMenuCompanyKonsolListApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMenuCompanyKonsolListClient apiClient) : PageModel
     {
-       private readonly IFinanceMenuCompanyKonsolListApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+       private readonly IFinanceMenuCompanyKonsolListClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
        public CompanyKonsolListInitialModel InitialModel;
         // public int UserID;
         // public HhvnUsers CurrentUser;

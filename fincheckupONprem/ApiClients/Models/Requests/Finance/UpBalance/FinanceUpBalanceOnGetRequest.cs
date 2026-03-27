@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpBalance
     {
         public FinanceUpBalanceRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class FinanceUpBalanceOnGetQuery
+    {
+        public FinanceUpBalanceOnGetRequest Request { get; set; }
+    }
 }

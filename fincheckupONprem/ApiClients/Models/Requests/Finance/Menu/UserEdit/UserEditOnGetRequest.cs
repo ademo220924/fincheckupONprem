@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.UserEdit
     {
         public int id {  get; set; }
     }
+
+    public class UserEditOnGetQuery
+    {
+        public UserEditOnGetRequest Request { get; set; }
+    }
 }

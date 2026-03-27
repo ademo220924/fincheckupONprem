@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashRasyo
         [JsonIgnore] public string UserId { get; set; }
         
     }
+
+    public class MizanDashRasyoOnGetQuery
+    {
+        public MizanDashRasyoOnGetRequest Request { get; set; }
+    }
 }

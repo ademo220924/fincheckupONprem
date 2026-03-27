@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadSmm
     {
         public MizanUploadSmmRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class MizanUploadSmmOnGetQuery
+    {
+        public MizanUploadSmmOnGetRequest Request { get; set; }
+    }
 }

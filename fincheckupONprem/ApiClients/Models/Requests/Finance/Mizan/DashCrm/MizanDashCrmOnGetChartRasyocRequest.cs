@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashCrm
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class MizanDashCrmOnGetChartRasyocQuery
+    {
+        public MizanDashCrmOnGetChartRasyocRequest Request { get; set; }
+    }
 }

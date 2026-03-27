@@ -4,3 +4,8 @@ public class upreportqnbOnGetGetRepRequest
 {
     public long reportID { get; set; }
 }
+
+public class upreportqnbOnGetGetRepQuery
+{
+    public upreportqnbOnGetGetRepRequest Request { get; set; }
+}

@@ -26,3 +26,8 @@ public class DashRasyoRequest
     public int BQuestions { get; set; }
     public int CQuestions { get; set; }
 }
+
+public class DashRasyoQuery
+{
+    public DashRasyoRequest Request { get; set; }
+}

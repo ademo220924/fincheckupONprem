@@ -5,3 +5,8 @@ public class UpbalanceOnGetRequest
 {
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class UpbalanceOnGetQuery
+{
+    public UpbalanceOnGetRequest Request { get; set; }
+}

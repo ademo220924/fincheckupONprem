@@ -8,3 +8,8 @@ public class DashRevenueJrnlOnGetMarkupMarjinRequest
     public string Myear { get; set; }
     public long Compid { get; set; }
 }
+
+public class DashRevenueJrnlOnGetMarkupMarjinQuery
+{
+    public DashRevenueJrnlOnGetMarkupMarjinRequest Request { get; set; }
+}

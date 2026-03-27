@@ -6,3 +6,8 @@ public class DashCrmDetailaOnGetSalerMainRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashCrmDetailaOnGetSalerMainQuery
+{
+    public DashCrmDetailaOnGetSalerMainRequest Request { get; set; }
+}

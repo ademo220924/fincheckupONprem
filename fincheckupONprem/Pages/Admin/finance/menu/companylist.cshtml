@@ -12,9 +12,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceMenuCompanyListApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMenuCompanyListClient apiClient) : PageModel
     {
-        private readonly IFinanceMenuCompanyListApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMenuCompanyListClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public CompanyListInitialModel InitialModel;
 
         // public long UserID; 

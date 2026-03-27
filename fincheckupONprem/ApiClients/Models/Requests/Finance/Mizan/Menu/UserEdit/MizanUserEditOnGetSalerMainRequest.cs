@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.UserEdit
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class MizanUserEditOnGetSalerMainQuery
+    {
+        public MizanUserEditOnGetSalerMainRequest Request { get; set; }
+    }
 }

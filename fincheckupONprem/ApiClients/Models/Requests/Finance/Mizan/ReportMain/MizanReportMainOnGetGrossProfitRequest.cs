@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMain
         public DataSourceLoadOptions options { get; set; }
         public long compid { get; set; }
     }
+
+    public class MizanReportMainOnGetGrossProfitQuery
+    {
+        public MizanReportMainOnGetGrossProfitRequest Request { get; set; }
+    }
 }

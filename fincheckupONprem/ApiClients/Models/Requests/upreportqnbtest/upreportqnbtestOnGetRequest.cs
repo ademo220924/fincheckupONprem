@@ -6,3 +6,8 @@ public class upreportqnbtestOnGetRequest
 {
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class upreportqnbtestOnGetQuery
+{
+    public upreportqnbtestOnGetRequest Request { get; set; }
+}

@@ -1,4 +1,4 @@
-﻿@page
+@page
 @using System.Threading
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.DashCrm
@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceDashCrmApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceDashCrmClient apiClient) : PageModel
     {
-        private readonly IFinanceDashCrmApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceDashCrmClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public IEnumerable<YearResult> myearResult;
         //public long UserID;
@@ -90,7 +90,7 @@
         {
             try
             {
-                var response = await _apiClient.GetChartRasyoAsync(new FinanceDashCrmOnGetChartRasyoRequest
+                var response = await _apiClient.GetOnGetChartRasyoAsync(new FinanceDashCrmOnGetChartRasyoRequest
                     {
                         options = options
                     }, CancellationToken.None);

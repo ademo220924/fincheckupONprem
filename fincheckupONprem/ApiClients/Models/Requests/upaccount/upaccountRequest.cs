@@ -29,3 +29,8 @@ public class upaccountRequest
     public string CompName;
     public string currentcompname { get; set; }
 }
+
+public class upaccountQuery
+{
+    public upaccountRequest Request { get; set; }
+}

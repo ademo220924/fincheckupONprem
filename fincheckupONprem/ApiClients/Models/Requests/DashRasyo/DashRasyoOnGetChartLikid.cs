@@ -7,3 +7,8 @@ public class DashRasyoOnGetChartLikidRequest
     public DashRasyoRequest InitialModel { get; set; }
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRasyoOnGetChartLikidQuery
+{
+    public DashRasyoOnGetChartLikidRequest Request { get; set; }
+}

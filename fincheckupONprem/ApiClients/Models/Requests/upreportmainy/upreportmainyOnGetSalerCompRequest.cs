@@ -5,3 +5,8 @@ public class upreportmainyOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upreportmainyOnGetSalerCompQuery
+{
+    public upreportmainyOnGetSalerCompRequest Request { get; set; }
+}

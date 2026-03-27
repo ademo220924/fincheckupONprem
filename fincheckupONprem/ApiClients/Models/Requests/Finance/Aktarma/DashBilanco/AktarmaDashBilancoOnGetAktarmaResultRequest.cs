@@ -8,3 +8,8 @@ public class AktarmaDashBilancoOnGetAktarmaResultRequest
     public DataSourceLoadOptions options { get; set; }
 
 }
+
+public class AktarmaDashBilancoOnGetAktarmaResultQuery
+{
+    public AktarmaDashBilancoOnGetAktarmaResultRequest Request { get; set; }
+}

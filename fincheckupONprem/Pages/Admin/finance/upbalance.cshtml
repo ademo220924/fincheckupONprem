@@ -10,9 +10,9 @@
 }
  
 @functions {
-    public class IndexModel(IFinanceUpBalanceApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceUpBalanceClient apiClient) : PageModel
     {
-        private readonly IFinanceUpBalanceApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceUpBalanceClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceUpBalanceRequestInitialModel InitialModel;
 
         public async Task OnGet()

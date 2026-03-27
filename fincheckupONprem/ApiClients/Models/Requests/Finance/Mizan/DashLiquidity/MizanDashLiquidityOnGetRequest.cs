@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashLiquidity
         [JsonIgnore] public string UserId { get; set; }
        
     }
+
+    public class MizanDashLiquidityOnGetQuery
+    {
+        public MizanDashLiquidityOnGetRequest Request { get; set; }
+    }
 }

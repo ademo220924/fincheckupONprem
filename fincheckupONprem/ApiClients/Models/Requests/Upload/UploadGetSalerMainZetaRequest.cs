@@ -5,3 +5,8 @@ public class UploadGetSalerMainZetaRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class UploadGetSalerMainZetaQuery
+{
+    public UploadGetSalerMainZetaRequest Request { get; set; }
+}

@@ -4,4 +4,9 @@
     {
         public int myear {  get; set; }
     }
+
+    public class MizanDashBilancoJrnlOnGetQuery
+    {
+        public MizanDashBilancoJrnlOnGetRequest Request { get; set; }
+    }
 }

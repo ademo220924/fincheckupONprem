@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashBilanc
         public long compid { get; set; }
         public int nyear { get; set; }
     }
+
+    public class MizanAktarmaDashBilancoOnGetDonukResultQuery
+    {
+        public MizanAktarmaDashBilancoOnGetDonukResultRequest Request { get; set; }
+    }
 }

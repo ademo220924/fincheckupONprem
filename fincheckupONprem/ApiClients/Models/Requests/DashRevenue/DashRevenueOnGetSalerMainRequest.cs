@@ -6,3 +6,8 @@ public class DashRevenueOnGetSalerMainRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRevenueOnGetSalerMainQuery
+{
+    public DashRevenueOnGetSalerMainRequest Request { get; set; }
+}

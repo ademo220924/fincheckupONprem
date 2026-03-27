@@ -7,3 +7,8 @@ public class reportpotRequest
     public List<DataViewer> ncheck;
     public List<DataViewer> ncheckMain;
 }
+
+public class reportpotQuery
+{
+    public reportpotRequest Request { get; set; }
+}

@@ -6,3 +6,8 @@ public class upreportqnbOnGetCheckRepRequest
     public int nyear { get; set; }
     public string nacceco { get; set; }
 }
+
+public class upreportqnbOnGetCheckRepQuery
+{
+    public upreportqnbOnGetCheckRepRequest Request { get; set; }
+}

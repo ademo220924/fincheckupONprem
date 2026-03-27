@@ -13,9 +13,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceKonsolDashBilancoKonApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceKonsolDashBilancoKonClient apiClient) : PageModel
     {
-        private readonly IFinanceKonsolDashBilancoKonApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceKonsolDashBilancoKonClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public DashBilancoKonInitialModel InitialModel;
 
         // public IEnumerable<YearResult> myearResult;

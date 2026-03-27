@@ -6,3 +6,8 @@ public class dashbilancomltOnGetSalerMainRequest
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
     public string dt1 { get; set; }
 }
+
+public class dashbilancomltOnGetSalerMainQuery
+{
+    public dashbilancomltOnGetSalerMainRequest Request { get; set; }
+}

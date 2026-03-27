@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.DashBilanco
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class FinanceDashBilancoOnGetChartRasyoQuery
+    {
+        public FinanceDashBilancoOnGetChartRasyoRequest Request { get; set; }
+    }
 }

@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceAktarmaDashBilancoMainApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceAktarmaDashBilancoMainClient apiClient) : PageModel
     {
-        private readonly IFinanceAktarmaDashBilancoMainApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceAktarmaDashBilancoMainClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public AktarmaDashbilancomainInitialModel InitialModel;
         
         

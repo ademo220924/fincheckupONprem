@@ -4,4 +4,9 @@
     {
         public int Id { get; set; }
     }
+
+    public class CompanyEditOnGetQuery
+    {
+        public CompanyEditOnGetRequest Request { get; set; }
+    }
 }

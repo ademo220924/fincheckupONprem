@@ -24,3 +24,8 @@ public class dashbilancorvnaktRequest
     public long val1 { get; set; }
     public long val3 { get; set; }
 }
+
+public class dashbilancorvnaktQuery
+{
+    public dashbilancorvnaktRequest Request { get; set; }
+}

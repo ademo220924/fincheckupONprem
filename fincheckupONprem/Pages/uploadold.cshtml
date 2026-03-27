@@ -3,7 +3,9 @@
 @using System.Threading
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Upload
+@using fincheckup.ApiClients.Models.Requests.Finance.Upload
 @using fincheckup.ApiClients.Services
+@using fincheckup.ApiClients.Services.Finance
 @model IndexModel
 @{
     ViewData["Title"] = "Giriş Ekranı";
@@ -12,9 +14,10 @@
 
 
 @functions {
-    public class IndexModel(IUploadApiClient apiClient) : PageModel
+    public class IndexModel(IUploadClient apiClient, IUploadMainClient uploadMainClient) : PageModel
     {
-        private readonly IUploadApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IUploadClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IUploadMainClient _uploadMainClient = uploadMainClient ?? throw new ArgumentNullException(nameof(uploadMainClient));
         
         public UploadRequest InitialModel;
         
@@ -141,14 +144,14 @@
 
             try
             {
-                var response = await _apiClient.GetSalerCompAsync(new UploadOnGetSalerCompRequest()
+                var response = await _uploadMainClient.GetSalerCompAsync(new FinanceUploadMainOnGetSalerCompRequest()
                 {
-                    Options = options
+                    options = options
                 }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
-                    return new JsonResult(response.Data!.Result);
+                    return response.Data?.Response ?? new JsonResult("");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);

@@ -4,4 +4,9 @@
     {
         public int nyear {  get; set; }
     }
+
+    public class MizanUpPageAktarmaMizanOnGetSalerDateMainQuery
+    {
+        public MizanUpPageAktarmaMizanOnGetSalerDateMainRequest Request { get; set; }
+    }
 }

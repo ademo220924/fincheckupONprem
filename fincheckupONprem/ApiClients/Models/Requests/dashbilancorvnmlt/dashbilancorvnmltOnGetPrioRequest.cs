@@ -5,3 +5,8 @@ public class dashbilancorvnmltOnGetPrioRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class dashbilancorvnmltOnGetPrioQuery
+{
+    public dashbilancorvnmltOnGetPrioRequest Request { get; set; }
+}

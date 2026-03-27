@@ -4,4 +4,9 @@
     {
         public MizanDashBilancoRevenueJrnlRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class MizanDashBilancoRevenueJrnlOnGetQuery
+    {
+        public MizanDashBilancoRevenueJrnlOnGetRequest Request { get; set; }
+    }
 }

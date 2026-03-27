@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinancesHrtfibapr
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class MizanFinancesHrtfibaprOnGetChartRasyoQuery
+    {
+        public MizanFinancesHrtfibaprOnGetChartRasyoRequest Request { get; set; }
+    }
 }

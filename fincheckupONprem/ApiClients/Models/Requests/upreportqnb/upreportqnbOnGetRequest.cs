@@ -7,3 +7,8 @@ public class upreportqnbOnGetRequest
     [JsonIgnore] public string UserId { get; set; }
 
 }
+
+public class upreportqnbOnGetQuery
+{
+    public upreportqnbOnGetRequest Request { get; set; }
+}

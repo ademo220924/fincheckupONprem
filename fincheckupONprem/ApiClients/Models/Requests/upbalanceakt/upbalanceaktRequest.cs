@@ -13,3 +13,8 @@ public class upbalanceaktRequest
     public IEnumerable<Entities.Company> mreqListCompany;
     public List<ReportSet> ncheck;
 }
+
+public class upbalanceaktQuery
+{
+    public upbalanceaktRequest Request { get; set; }
+}

@@ -5,4 +5,8 @@ public class UserListOnGetRequest
     public long UserID { get; set; }
     public int year { get; set; } = 2021;
 
+    public class UserListOnGetQuery
+    {
+        public UserListOnGetRequest Request { get; set; }
+    }
 }

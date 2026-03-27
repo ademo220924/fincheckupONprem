@@ -4,3 +4,8 @@ public class DashCrmDetailOnGetGraphYearRequest
 {
     public int nyear { get; set; }
 }
+
+public class DashCrmDetailOnGetGraphYearQuery
+{
+    public DashCrmDetailOnGetGraphYearRequest Request { get; set; }
+}

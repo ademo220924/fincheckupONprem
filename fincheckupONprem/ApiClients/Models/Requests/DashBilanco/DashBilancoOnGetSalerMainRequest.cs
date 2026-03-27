@@ -5,3 +5,8 @@ public class DashBilancoOnGetSalerMainRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class DashBilancoOnGetSalerMainQuery
+{
+    public DashBilancoOnGetSalerMainRequest Request { get; set; }
+}

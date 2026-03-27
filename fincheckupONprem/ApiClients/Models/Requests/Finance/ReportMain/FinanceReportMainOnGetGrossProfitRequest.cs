@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.ReportMain
         public int myear { get; set; }
         public long compid { get; set; }
     }
+
+    public class FinanceReportMainOnGetGrossProfitQuery
+    {
+        public FinanceReportMainOnGetGrossProfitRequest Request { get; set; }
+    }
 }

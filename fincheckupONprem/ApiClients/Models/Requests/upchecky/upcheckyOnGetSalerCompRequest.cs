@@ -5,3 +5,8 @@ public class upcheckyOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upcheckyOnGetSalerCompQuery
+{
+    public upcheckyOnGetSalerCompRequest Request { get; set; }
+}

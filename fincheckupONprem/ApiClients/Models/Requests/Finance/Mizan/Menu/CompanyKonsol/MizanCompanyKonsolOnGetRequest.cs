@@ -5,4 +5,9 @@
         public int id { get; set; } = 0;
         public int mainid { get; set; } = 0;
     }
+
+    public class MizanCompanyKonsolOnGetQuery
+    {
+        public MizanCompanyKonsolOnGetRequest Request { get; set; }
+    }
 }

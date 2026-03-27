@@ -24,3 +24,8 @@ public class dashbilsampleRequest
     public long val1 { get; set; }
     public long val3 { get; set; }
 }
+
+public class dashbilsampleQuery
+{
+    public dashbilsampleRequest Request { get; set; }
+}

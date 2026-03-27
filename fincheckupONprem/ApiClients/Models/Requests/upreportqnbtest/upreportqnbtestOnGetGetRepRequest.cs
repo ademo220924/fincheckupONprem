@@ -4,3 +4,8 @@ public class upreportqnbtestOnGetGetRepRequest
 {
     public long reportID { get; set; }
 }
+
+public class upreportqnbtestOnGetGetRepQuery
+{
+    public upreportqnbtestOnGetGetRepRequest Request { get; set; }
+}

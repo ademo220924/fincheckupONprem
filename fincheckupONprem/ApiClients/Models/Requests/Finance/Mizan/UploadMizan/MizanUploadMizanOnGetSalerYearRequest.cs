@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMizan
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class MizanUploadMizanOnGetSalerYearQuery
+    {
+        public MizanUploadMizanOnGetSalerYearRequest Request { get; set; }
+    }
 }

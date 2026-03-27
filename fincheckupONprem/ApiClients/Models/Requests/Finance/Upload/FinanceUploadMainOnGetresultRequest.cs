@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Upload
     {
         public List<ViewSortlist> nlistsort;
     }
+
+    public class FinanceUploadMainOnGetresultQuery
+    {
+        public FinanceUploadMainOnGetresultRequest Request { get; set; }
+    }
 }

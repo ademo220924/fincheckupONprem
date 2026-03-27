@@ -5,3 +5,8 @@ public class dashbilancomznOnGetGraphYearRequest
 
     public int nyear { get; set; }
 }
+
+public class dashbilancomznOnGetGraphYearQuery
+{
+    public dashbilancomznOnGetGraphYearRequest Request { get; set; }
+}

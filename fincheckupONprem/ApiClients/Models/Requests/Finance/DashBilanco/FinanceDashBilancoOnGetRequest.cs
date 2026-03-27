@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.DashBilanco
     {
         public FinanceDashBilancoRequestInitialModel Request { get; set; }
     }
+
+    public class FinanceDashBilancoOnGetQuery
+    {
+        public FinanceDashBilancoOnGetRequest Request { get; set; }
+    }
 }

@@ -11,9 +11,9 @@
 }
 
 @functions {
-    public class IndexModel(IMizanDashWorkingCapitalApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanDashWorkingCapitalClient apiClient) : PageModel
     {
-        private readonly IMizanDashWorkingCapitalApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanDashWorkingCapitalClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public long UserID;
         //public long CompID;

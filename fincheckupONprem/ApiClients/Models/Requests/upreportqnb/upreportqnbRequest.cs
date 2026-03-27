@@ -27,3 +27,8 @@ public class upreportqnbRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upreportqnbQuery
+{
+    public upreportqnbRequest Request { get; set; }
+}

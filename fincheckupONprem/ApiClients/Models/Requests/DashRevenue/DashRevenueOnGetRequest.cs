@@ -4,3 +4,8 @@ public class DashRevenueOnGetRequest
 {
 
 }
+
+public class DashRevenueOnGetQuery
+{
+    public DashRevenueOnGetRequest Request { get; set; }
+}

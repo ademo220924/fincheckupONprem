@@ -16,9 +16,9 @@
 
 
 @functions {
-    public class IndexModel(IMizanJrnlUpPageAktarmaJrnlApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanJrnlUpPageAktarmaJrnlClient apiClient) : PageModel
     {
-        private readonly IMizanJrnlUpPageAktarmaJrnlApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanJrnlUpPageAktarmaJrnlClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanUpPageAktarmaJrnlRequestInitialModel InitialModel;
         
         // return new JsonResult("Burada hata var finance/mizan/jrnl/DashBilancoJrnl/OnGetMarkupMarjin");

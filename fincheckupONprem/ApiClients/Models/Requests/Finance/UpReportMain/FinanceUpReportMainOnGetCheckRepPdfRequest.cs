@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpReportMain
         public long companyID {  get; set; }
         public int nyear { get; set; }
     }
+
+    public class FinanceUpReportMainOnGetCheckRepPdfQuery
+    {
+        public FinanceUpReportMainOnGetCheckRepPdfRequest Request { get; set; }
+    }
 }

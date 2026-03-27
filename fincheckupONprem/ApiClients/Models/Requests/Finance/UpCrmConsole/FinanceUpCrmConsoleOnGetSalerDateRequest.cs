@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpCrmConsole
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class FinanceUpCrmConsoleOnGetSalerDateQuery
+    {
+        public FinanceUpCrmConsoleOnGetSalerDateRequest Request { get; set; }
+    }
 }

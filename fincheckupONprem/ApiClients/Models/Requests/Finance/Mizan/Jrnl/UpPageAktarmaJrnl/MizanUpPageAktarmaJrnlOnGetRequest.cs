@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarma
     {
         [JsonIgnore] public string UserId { get; set; } 
     }
+
+    public class MizanUpPageAktarmaJrnlOnGetQuery
+    {
+        public MizanUpPageAktarmaJrnlOnGetRequest Request { get; set; }
+    }
 }

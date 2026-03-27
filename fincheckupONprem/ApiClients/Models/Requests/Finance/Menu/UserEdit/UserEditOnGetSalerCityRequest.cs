@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.UserEdit
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class UserEditOnGetSalerCityQuery
+    {
+        public UserEditOnGetSalerCityRequest Request { get; set; }
+    }
 }

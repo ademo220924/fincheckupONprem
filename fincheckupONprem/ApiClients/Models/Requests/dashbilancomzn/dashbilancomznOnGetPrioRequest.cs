@@ -6,3 +6,8 @@ public class dashbilancomznOnGetPrioRequest
 
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class dashbilancomznOnGetPrioQuery
+{
+    public dashbilancomznOnGetPrioRequest Request { get; set; }
+}

@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashWorkingCapital
     {
         [JsonIgnore] public string UserId { get; set; }
     }
+
+    public class MizanDashWorkingCapitalOnGetQuery
+    {
+        public MizanDashWorkingCapitalOnGetRequest Request { get; set; }
+    }
 }

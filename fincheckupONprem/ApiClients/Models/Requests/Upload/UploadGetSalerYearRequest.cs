@@ -5,3 +5,8 @@ public class UploadGetSalerYearRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class UploadGetSalerYearQuery
+{
+    public UploadGetSalerYearRequest Request { get; set; }
+}

@@ -15,4 +15,9 @@ public class CompanyRequest
     public int MainCompanyId { get; set; }
     public int XmlSourceId { get; set; }
     public string State { get; set; }
+
+    public class CompanyQuery
+    {
+        public CompanyRequest Request { get; set; }
+    }
 }

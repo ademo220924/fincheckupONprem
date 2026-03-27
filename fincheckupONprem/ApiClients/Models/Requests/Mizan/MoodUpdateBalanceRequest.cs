@@ -7,3 +7,8 @@ public class MoodUpdateBalanceRequest
     
     public XMlookUpdate PageIndex { get; set; }
 }
+
+public class MoodUpdateBalanceQuery
+{
+    public MoodUpdateBalanceRequest Request { get; set; }
+}

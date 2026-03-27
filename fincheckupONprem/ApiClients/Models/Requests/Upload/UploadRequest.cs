@@ -31,3 +31,8 @@ public class UploadRequest
 
     public string currentcompname { get; set; }
 }
+
+public class UploadQuery
+{
+    public UploadRequest Request { get; set; }
+}

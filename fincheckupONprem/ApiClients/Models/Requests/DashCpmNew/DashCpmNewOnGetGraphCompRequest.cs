@@ -4,3 +4,8 @@ public class DashCpmNewOnGetGraphCompRequest
 {
     public int ncompid { get; set; }
 }
+
+public class DashCpmNewOnGetGraphCompQuery
+{
+    public DashCpmNewOnGetGraphCompRequest Request { get; set; }
+}

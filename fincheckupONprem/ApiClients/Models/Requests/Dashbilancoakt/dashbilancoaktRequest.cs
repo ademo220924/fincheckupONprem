@@ -23,3 +23,8 @@ public class dashbilancoaktRequest
     public long? val1 { get; set; }
     public long? val3 { get; set; }
 }
+
+public class dashbilancoaktQuery
+{
+    public dashbilancoaktRequest Request { get; set; }
+}

@@ -5,3 +5,8 @@ public class dashbilancomznOnGetGraphCompRequest
 
     public int ncompid { get; set; }
 }
+
+public class dashbilancomznOnGetGraphCompQuery
+{
+    public dashbilancomznOnGetGraphCompRequest Request { get; set; }
+}

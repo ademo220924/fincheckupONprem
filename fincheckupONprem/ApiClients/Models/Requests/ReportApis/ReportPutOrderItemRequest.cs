@@ -8,3 +8,8 @@ public class ReportPutOrderItemRequest
     public int Key { get; set; }
     public string Values { get; set; }
 }
+
+public class ReportPutOrderItemQuery
+{
+    public ReportPutOrderItemRequest Request { get; set; }
+}

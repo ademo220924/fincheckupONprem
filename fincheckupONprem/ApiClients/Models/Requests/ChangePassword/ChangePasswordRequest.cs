@@ -14,3 +14,8 @@ public class ChangePasswordRequest
     public HhvnUsers? mrequest { get; set; }
     public string? mreqListCitystr { get; set; }
 }
+
+public class ChangePasswordQuery
+{
+    public ChangePasswordRequest Request { get; set; }
+}

@@ -5,3 +5,8 @@ public class DashBoardOnGetPrioRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class DashBoardOnGetPrioQuery
+{
+    public DashBoardOnGetPrioRequest Request { get; set; }
+}

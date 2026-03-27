@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.ReportMainTest
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class FinanceReportMainTestOnGetSalerCompQuery
+    {
+        public FinanceReportMainTestOnGetSalerCompRequest Request { get; set; }
+    }
 }

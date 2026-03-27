@@ -6,3 +6,8 @@ public class UploadOnGetSalerMainZetaRequest
     public DataSourceLoadOptions Options { get; set; }
     public int monthid { get; set; }
 }
+
+public class UploadOnGetSalerMainZetaQuery
+{
+    public UploadOnGetSalerMainZetaRequest Request { get; set; }
+}

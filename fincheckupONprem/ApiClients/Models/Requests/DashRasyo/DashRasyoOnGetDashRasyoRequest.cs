@@ -6,3 +6,8 @@ public class DashRasyoOnGetDashRasyoRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRasyoOnGetDashRasyoQuery
+{
+    public DashRasyoOnGetDashRasyoRequest Request { get; set; }
+}

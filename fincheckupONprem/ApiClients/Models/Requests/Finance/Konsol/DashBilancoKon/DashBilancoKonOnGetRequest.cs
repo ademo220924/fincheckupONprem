@@ -4,4 +4,9 @@
     {
         public int myear { get; set; }
     }
+
+    public class DashBilancoKonOnGetQuery
+    {
+        public DashBilancoKonOnGetRequest Request { get; set; }
+    }
 }

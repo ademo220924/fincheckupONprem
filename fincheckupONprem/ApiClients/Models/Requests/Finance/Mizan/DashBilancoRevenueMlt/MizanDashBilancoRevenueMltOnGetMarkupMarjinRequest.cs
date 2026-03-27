@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashBilancoRevenue
         public string myear {  get; set; }
         public long compid { get; set; }
     }
+
+    public class MizanDashBilancoRevenueMltOnGetMarkupMarjinQuery
+    {
+        public MizanDashBilancoRevenueMltOnGetMarkupMarjinRequest Request { get; set; }
+    }
 }

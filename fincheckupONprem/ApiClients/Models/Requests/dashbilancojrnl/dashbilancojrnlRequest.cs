@@ -23,3 +23,8 @@ public class dashbilancojrnlRequest
     public long val1 { get; set; }
     public long val3 { get; set; }
 }
+
+public class dashbilancojrnlQuery
+{
+    public dashbilancojrnlRequest Request { get; set; }
+}

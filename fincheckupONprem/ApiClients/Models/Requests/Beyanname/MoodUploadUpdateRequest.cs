@@ -6,3 +6,8 @@ public class MoodUploadUpdateRequest
 {
     public XMlook XMlook { get; set; }
 }
+
+public class MoodUploadUpdateQuery
+{
+    public MoodUploadUpdateRequest Request { get; set; }
+}

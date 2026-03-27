@@ -4,3 +4,8 @@ public class upaccountyOnGetGraphCompRequest
 {
     public int ncompid { get; set; }
 }
+
+public class upaccountyOnGetGraphCompQuery
+{
+    public upaccountyOnGetGraphCompRequest Request { get; set; }
+}

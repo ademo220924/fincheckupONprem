@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadSmm
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class MizanUploadSmmOnGetSalerYearQuery
+    {
+        public MizanUploadSmmOnGetSalerYearRequest Request { get; set; }
+    }
 }

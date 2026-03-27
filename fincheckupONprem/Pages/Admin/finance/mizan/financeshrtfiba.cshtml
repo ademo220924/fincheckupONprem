@@ -11,9 +11,9 @@
 @using fincheckup.ApiClients.Models.ViewModel.Reports
 @using fincheckup.ApiClients.Services.Finance
 @functions {
-    public class IndexModel(IMizanFinanceHrtFibaApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanFinanceHrtFibaClient apiClient) : PageModel
     {
-        private readonly IMizanFinanceHrtFibaApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanFinanceHrtFibaClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanFinanceHrtFibaRequestInitialModel InitialModel;
 
         public async Task OnGet()

@@ -2,4 +2,9 @@
 public class AktarmaDashbilancomainRequest
 {
     public int Year { get; set; }
+
+    public class AktarmaDashbilancomainQuery
+    {
+        public AktarmaDashbilancomainRequest Request { get; set; }
+    }
 }

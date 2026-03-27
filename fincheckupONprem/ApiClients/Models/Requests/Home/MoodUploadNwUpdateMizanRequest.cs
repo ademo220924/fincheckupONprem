@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Home
     {
         public XMlook PageIndex { get; set; }
     }
+
+    public class MoodUploadNwUpdateMizanQuery
+    {
+        public MoodUploadNwUpdateMizanRequest Request { get; set; }
+    }
 }

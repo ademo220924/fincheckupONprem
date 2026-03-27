@@ -5,3 +5,8 @@ public class upcheckOnGetSalerDateRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upcheckOnGetSalerDateQuery
+{
+    public upcheckOnGetSalerDateRequest Request { get; set; }
+}

@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.ReportMainTestOld
     {
         public FinanceReportMainTestOldRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class FinanceReportMainTestOldOnGetQuery
+    {
+        public FinanceReportMainTestOldOnGetRequest Request { get; set; }
+    }
 }

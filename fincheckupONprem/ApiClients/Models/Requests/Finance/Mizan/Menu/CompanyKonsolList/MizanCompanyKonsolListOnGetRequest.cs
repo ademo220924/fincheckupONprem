@@ -4,4 +4,9 @@
     {
         public int id { get; set; } = 0;
     }
+
+    public class MizanCompanyKonsolListOnGetQuery
+    {
+        public MizanCompanyKonsolListOnGetRequest Request { get; set; }
+    }
 }

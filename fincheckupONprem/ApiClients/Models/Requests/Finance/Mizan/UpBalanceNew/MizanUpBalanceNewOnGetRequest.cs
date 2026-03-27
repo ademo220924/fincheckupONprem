@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
     {
         MizanUpBalanceNewRequestInitialModel RequestInitialModel { get; set; }
     }
+    
+    public class MizanUpBalanceNewOnGetQuery
+    {
+        MizanUpBalanceNewOnGetRequest Request { get; set; }
+    }
 }

@@ -1,4 +1,4 @@
-﻿using Refit;
+using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
@@ -27,7 +27,7 @@ public interface IReminderAccountApiClient : IApiClientBase
 
     [Get("/api/reminder-account/account-type/{accountType}")]
     Task<GenericResult<List<ReminderAccountDto>>> GetListByPaymentTypeAsync(
-        [AliasAs("accountType")] AccountType accountType,
+        [AliasAs("accountType")] fincheckup.Models.EarlyWarning.Response.AccountType accountType,
         CancellationToken cancellationToken);
 
     [Post("/api/reminder-account")]

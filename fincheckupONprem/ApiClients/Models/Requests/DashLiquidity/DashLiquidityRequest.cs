@@ -23,3 +23,8 @@ public class DashLiquidityRequest
     public string CariOran { get; set; }
     public string NakitOran { get; set; }
 }
+
+public class DashLiquidityQuery
+{
+    public DashLiquidityRequest Request { get; set; }
+}

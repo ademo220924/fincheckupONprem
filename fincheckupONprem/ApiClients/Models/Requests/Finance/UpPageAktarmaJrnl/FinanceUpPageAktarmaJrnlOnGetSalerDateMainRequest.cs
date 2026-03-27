@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpPageAktarmaJrnl
     {
         public int nyear { get; set; }
     }
+
+    public class FinanceUpPageAktarmaJrnlOnGetSalerDateMainQuery
+    {
+        public FinanceUpPageAktarmaJrnlOnGetSalerDateMainRequest Request { get; set; }
+    }
 }

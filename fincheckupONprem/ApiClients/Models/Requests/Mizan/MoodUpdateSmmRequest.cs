@@ -6,3 +6,8 @@ public class MoodUpdateSmmRequest
 {
     public XMlookUpdate PageIndex { get; set; }
 }
+
+public class MoodUpdateSmmQuery
+{
+    public MoodUpdateSmmRequest Request { get; set; }
+}

@@ -2,4 +2,9 @@
 public class AktarmaDashBilancoOnGetGraphYearRequest
 {
     public int nyear { get; set; }
+
+    public class AktarmaDashBilancoOnGetGraphYearQuery
+    {
+        public AktarmaDashBilancoOnGetGraphYearRequest Request { get; set; }
+    }
 }

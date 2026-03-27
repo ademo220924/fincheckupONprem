@@ -6,3 +6,8 @@ public class BrandedCancelUrlRequest : BrandedCancelRequest
 {
 
 }
+
+public class BrandedCancelUrlQuery
+{
+    public BrandedCancelUrlRequest Request { get; set; }
+}

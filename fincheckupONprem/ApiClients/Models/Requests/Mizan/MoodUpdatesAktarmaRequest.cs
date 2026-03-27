@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Mizan
     {
         public XMlookUpdate PageIndex { get; set; }
     }
+
+    public class MoodUpdatesAktarmaQuery
+    {
+        public MoodUpdatesAktarmaRequest Request { get; set; }
+    }
 }

@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalance
     {
         [JsonIgnore] public string UserId { get; set; }
     }
+
+    public class MizanUpBalanceOnGetQuery
+    {
+        public MizanUpBalanceOnGetRequest Request { get; set; }
+    }
 }

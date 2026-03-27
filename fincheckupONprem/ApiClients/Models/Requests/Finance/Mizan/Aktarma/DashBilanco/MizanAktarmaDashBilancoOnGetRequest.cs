@@ -4,4 +4,9 @@
     {
         public int myear { get; set; }
     }
+
+    public class MizanAktarmaDashBilancoOnGetQuery
+    {
+        public MizanAktarmaDashBilancoOnGetRequest Request { get; set; }
+    }
 }

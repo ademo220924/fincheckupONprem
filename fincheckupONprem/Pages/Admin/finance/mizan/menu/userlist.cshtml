@@ -12,9 +12,9 @@
  
 
 @functions {
-    public class IndexModel(IMizanMenuUserListApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanMenuUserListClient apiClient) : PageModel
     {
-        private readonly IMizanMenuUserListApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanMenuUserListClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanUserListRequestInitialModel InitialModel;
 
 

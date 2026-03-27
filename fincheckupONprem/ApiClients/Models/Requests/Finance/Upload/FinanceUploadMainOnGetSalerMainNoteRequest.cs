@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Upload
     {
         public string options {  get; set; }
     }
+
+    public class FinanceUploadMainOnGetSalerMainNoteQuery
+    {
+        public FinanceUploadMainOnGetSalerMainNoteRequest Request { get; set; }
+    }
 }

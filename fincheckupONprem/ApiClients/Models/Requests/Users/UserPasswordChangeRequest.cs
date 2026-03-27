@@ -9,3 +9,8 @@ public class UserPasswordChangeRequest
 
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class UserPasswordChangeQuery
+{
+    public UserPasswordChangeRequest Request { get; set; }
+}

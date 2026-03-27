@@ -4,4 +4,9 @@
     {
         public int ncompid { get; set; }
     }
+
+    public class DashCrmDetailOnGetGraphCompQuery
+    {
+        public DashCrmDetailOnGetGraphCompRequest Request { get; set; }
+    }
 }

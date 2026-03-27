@@ -14,3 +14,8 @@ public class BultenUpdateRequest
     public int CreatedUser { get; set; }
     public string Title { get; set; }
 }
+
+public class BultenUpdateQuery
+{
+    public BultenUpdateRequest Request { get; set; }
+}

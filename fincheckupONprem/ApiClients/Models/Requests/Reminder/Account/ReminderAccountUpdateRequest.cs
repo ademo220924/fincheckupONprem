@@ -14,3 +14,8 @@ public class ReminderAccountUpdateRequest
 
     public int AccountType { get; set; }
 }
+
+public class ReminderAccountUpdateQuery
+{
+    public ReminderAccountUpdateRequest Request { get; set; }
+}

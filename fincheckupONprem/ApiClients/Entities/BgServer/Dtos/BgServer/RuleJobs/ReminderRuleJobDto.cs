@@ -15,12 +15,12 @@ public class ReminderRuleJobDto
     public string AccountName { get; set; }
     public long AccountGroupId { get; set; }
     public string AccountGroupName { get; set; }
-    public AccountType AccountType { get; set; }
+    public Models.Common.AccountType AccountType { get; set; }
     public string AccountTypeText { get; set; }
-    public PeriodType PeriodType { get; set; }
+    public Models.Common.PeriodType PeriodType { get; set; }
     public string PeriodTypeText { get; set; }
     public double ControlValue { get; set; }
-    public ControlValueType ControlValueType { get; set; }
+    public Models.Common.ControlValueType ControlValueType { get; set; }
     public string ControlValueTypeText { get; set; }
     public int Year { get; set; }
     public int Quarter { get; set; }
@@ -29,6 +29,6 @@ public class ReminderRuleJobDto
     public DateTime ScheduledDate { get; set; }
     public DateTime? CompareScheduleDate { get; set; }
     public DateTime? CompletedDate { get; set; }
-    public JobStatus JobStatus { get; set; }
+    public Models.Common.JobStatus JobStatus { get; set; }
     public string JobStatusText { get; set; }
 }

@@ -12,9 +12,9 @@
 @using fincheckup.ApiClients.Services.Finance
 
 @functions {
-    public class IndexModel(IMizanKonsolDashBilancoKonApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanKonsolDashBilancoKonClient apiClient) : PageModel
     {
-        private readonly IMizanKonsolDashBilancoKonApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanKonsolDashBilancoKonClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanDashBilancoKonRequestInitialModel InitialModel;
 
     

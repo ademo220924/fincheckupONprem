@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanUploadMznOldYedekApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUploadMznOldYedekClient apiClient) : PageModel
     {
-        private readonly IFinanceMizanUploadMznOldYedekApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUploadMznOldYedekClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public IEnumerable<YearResult> myearResult;
         //public long UserID;

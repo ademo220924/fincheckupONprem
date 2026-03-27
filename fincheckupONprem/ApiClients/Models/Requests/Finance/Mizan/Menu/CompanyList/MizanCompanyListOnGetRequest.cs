@@ -4,4 +4,9 @@
     {
         public int year { get; set; } = 2021;
     }
+
+    public class MizanCompanyListOnGetQuery
+    {
+        public MizanCompanyListOnGetRequest Request { get; set; }
+    }
 }

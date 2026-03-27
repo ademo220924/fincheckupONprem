@@ -6,3 +6,8 @@ public class DashCrmDetailbOnGetPrioRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashCrmDetailbOnGetPrioQuery
+{
+    public DashCrmDetailbOnGetPrioRequest Request { get; set; }
+}

@@ -5,3 +5,8 @@ public class ChangePasswordOnGetUserRequest
     public int id { get; set; } = 0;
     public string ide { get; set; } = "0";
 }
+
+public class ChangePasswordOnGetUserQuery
+{
+    public ChangePasswordOnGetUserRequest Request { get; set; }
+}

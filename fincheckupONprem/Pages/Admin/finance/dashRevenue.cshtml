@@ -10,9 +10,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceDashRevenueApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceDashRevenueClient apiClient) : PageModel
     {
-        private readonly IFinanceDashRevenueApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceDashRevenueClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceDashRevenueRequestInitialModel InitialModel;
 
         public async Task OnGet()

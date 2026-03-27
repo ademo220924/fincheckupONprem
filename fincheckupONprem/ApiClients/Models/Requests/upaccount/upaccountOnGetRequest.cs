@@ -6,3 +6,8 @@ public class UpaccountOnGetRequest
 {
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class UpaccountOnGetQuery
+{
+    public UpaccountOnGetRequest Request { get; set; }
+}

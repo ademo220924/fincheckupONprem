@@ -27,3 +27,8 @@ public class upreportqnbtestRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upreportqnbtestQuery
+{
+    public upreportqnbtestRequest Request { get; set; }
+}

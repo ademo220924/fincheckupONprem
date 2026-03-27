@@ -4,3 +4,8 @@ public class dashbilancojrnlOnGetGraphCompRequest
 {
     public int ncompid { get; set; }
 }
+
+public class dashbilancojrnlOnGetGraphCompQuery
+{
+    public dashbilancojrnlOnGetGraphCompRequest Request { get; set; }
+}

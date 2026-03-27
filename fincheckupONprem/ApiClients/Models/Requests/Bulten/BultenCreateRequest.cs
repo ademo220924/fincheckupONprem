@@ -16,3 +16,8 @@ public class BultenCreateRequest
     
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class BultenCreateQuery
+{
+    public BultenCreateRequest Request { get; set; }
+}

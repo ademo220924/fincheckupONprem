@@ -7,3 +7,8 @@ public class DashRasyoOnGetChartRasyobRequest
     public DashRasyoRequest InitialModel { get; set; }
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRasyoOnGetChartRasyobQuery
+{
+    public DashRasyoOnGetChartRasyobRequest Request { get; set; }
+}

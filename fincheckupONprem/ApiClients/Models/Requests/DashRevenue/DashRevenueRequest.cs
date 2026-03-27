@@ -29,3 +29,8 @@ public class DashRevenueRequest
     public string ebitstr { get; set; }
     public string donemkarzararstr { get; set; }
 }
+
+public class DashRevenueQuery
+{
+    public DashRevenueRequest Request { get; set; }
+}

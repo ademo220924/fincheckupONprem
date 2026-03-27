@@ -1,9 +1,10 @@
-﻿using Refit;
+using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using fincheckup.ApiClients.Services.Base;
 using fincheckup.ApiClients.Entities.BgServer;
+using fincheckup.ApiClients.Entities.BgServer.Dtos.BgServer.AccountGroups;
 using fincheckup.ApiClients.Models.Requests.Reminder;
 using fincheckup.ApiClients.Models;
 

@@ -14,10 +14,10 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanUpPageAktarmaApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUpPageAktarmaClient apiClient) : PageModel
     {
         
-        private readonly IFinanceMizanUpPageAktarmaApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUpPageAktarmaClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanUpPageAktarmaMizanRequestInitialModel InitialModel;
   
         public async Task OnGet()

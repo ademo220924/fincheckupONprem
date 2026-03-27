@@ -8,3 +8,8 @@ public class MoodUploadUpdateMznRequest
     public long Idexml { get; set; }
     public string Caption { get; set; }
 }
+
+public class MoodUploadUpdateMznQuery
+{
+    public MoodUploadUpdateMznRequest Request { get; set; }
+}

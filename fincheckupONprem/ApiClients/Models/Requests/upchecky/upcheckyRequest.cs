@@ -22,3 +22,8 @@ public class upcheckyRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upcheckyQuery
+{
+    public upcheckyRequest Request { get; set; }
+}

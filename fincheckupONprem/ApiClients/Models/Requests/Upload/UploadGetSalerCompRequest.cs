@@ -5,3 +5,8 @@ public class UploadGetSalerCompRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class UploadGetSalerCompQuery
+{
+    public UploadGetSalerCompRequest Request { get; set; }
+}

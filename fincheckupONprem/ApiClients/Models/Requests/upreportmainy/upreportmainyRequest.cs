@@ -21,3 +21,8 @@ public class upreportmainyRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upreportmainyQuery
+{
+    public upreportmainyRequest Request { get; set; }
+}

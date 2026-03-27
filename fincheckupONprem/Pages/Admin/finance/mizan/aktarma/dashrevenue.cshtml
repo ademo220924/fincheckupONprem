@@ -13,9 +13,9 @@
  
 
 @functions {
-    public class IndexModel(IAktarmaDashRevenueApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanAktarmaDashRevenueClient apiClient) : PageModel
     {
-        private readonly IAktarmaDashRevenueApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanAktarmaDashRevenueClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanAktarmaDashRevenueRequestInitialModel InitialModel;
 
         

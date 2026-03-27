@@ -5,3 +5,8 @@ public class UploadOnGetSalerMainNoteRequest
 {
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class UploadOnGetSalerMainNoteQuery
+{
+    public UploadOnGetSalerMainNoteRequest Request { get; set; }
+}

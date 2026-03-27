@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpPageAktarmaJrnl
         public int nyear { get; set; }
         public string ncode { get; set; }
     }
+
+    public class FinanceUpPageAktarmaJrnlOnGetGraphCodeDelQuery
+    {
+        public FinanceUpPageAktarmaJrnlOnGetGraphCodeDelRequest Request { get; set; }
+    }
 }

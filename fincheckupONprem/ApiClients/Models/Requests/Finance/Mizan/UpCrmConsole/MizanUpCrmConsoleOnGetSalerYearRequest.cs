@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpCrmConsole
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class MizanUpCrmConsoleOnGetSalerYearQuery
+    {
+        public MizanUpCrmConsoleOnGetSalerYearRequest Request { get; set; }
+    }
 }

@@ -3,3 +3,8 @@ public class DashRevenueJrnlOnGetRequest
 {
 
 }
+
+public class DashRevenueJrnlOnGetQuery
+{
+    public DashRevenueJrnlOnGetRequest Request { get; set; }
+}

@@ -4,4 +4,9 @@
     {
         public int id { get; set; } = 0;
     }
+
+    public class MizanCompanyEditOnGetQuery
+    {
+        public MizanCompanyEditOnGetRequest Request { get; set; }
+    }
 }

@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
     {
         public DataSourceLoadOptions options { get; set; }
     }
+    
+    public class MizanUpBalanceNewOnGetSalerCompQuery
+    {
+        public MizanUpBalanceNewOnGetSalerCompRequest Request { get; set; }
+    }
 }

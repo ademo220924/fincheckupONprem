@@ -1,10 +1,9 @@
-﻿using Refit;
+using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using fincheckup.ApiClients.Services.Base;
 using fincheckup.ApiClients.Models.Requests.Reminder;
-using fincheckup.ApiClients.Models.Common;
 using fincheckup.ApiClients.Models;
 using fincheckup.ApiClients.Entities.BgServer.Dtos.BgServer.Rules;
 
@@ -19,7 +18,7 @@ public interface IReminderRuleApiClient : IApiClientBase
     Task<GenericResult<RemainderRuleDto>> GetAsync([AliasAs("id")] long id,CancellationToken cancellationToken);
 
     [Get("/api/reminder-rule/period-type/{periodType}")]
-    Task<GenericResult<List<RemainderRuleDto>>> GetListByPeriodTypeAsync([AliasAs("periodType")] PeriodType periodType,CancellationToken cancellationToken);
+    Task<GenericResult<List<RemainderRuleDto>>> GetListByPeriodTypeAsync([AliasAs("periodType")] fincheckup.ApiClients.Models.Common.PeriodType periodType,CancellationToken cancellationToken);
 
     [Post("/api/reminder-rule/create")]
     Task<GenericResult<RemainderRuleDto>> CreateAsync([Body] CreateRemainderRuleRequest command,  CancellationToken cancellationToken);

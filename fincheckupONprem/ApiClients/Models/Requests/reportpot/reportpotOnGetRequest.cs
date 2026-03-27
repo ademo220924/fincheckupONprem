@@ -6,3 +6,8 @@ public class reportpotOnGetRequest
     public int nmon { get; set; }
     public int nmont { get; set; }
 }
+
+public class reportpotOnGetQuery
+{
+    public reportpotOnGetRequest Request { get; set; }
+}

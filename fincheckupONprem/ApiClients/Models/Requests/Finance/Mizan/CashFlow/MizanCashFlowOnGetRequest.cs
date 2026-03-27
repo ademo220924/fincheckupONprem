@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.CashFlow
     {
         public MizanCashFlowRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class MizanCashFlowOnGetQuery
+    {
+        public MizanCashFlowOnGetRequest Request { get; set; }
+    }
 }

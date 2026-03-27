@@ -6,3 +6,8 @@ public class BeyannameMoodUploadUpdateRequest
 {
     public XMlook XMlook { get; set; }
 }
+
+public class BeyannameMoodUploadUpdateQuery
+{
+    public BeyannameMoodUploadUpdateRequest Request { get; set; }
+}

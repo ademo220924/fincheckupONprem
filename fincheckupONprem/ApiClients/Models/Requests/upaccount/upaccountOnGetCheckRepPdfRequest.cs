@@ -6,3 +6,8 @@ public class upaccountOnGetCheckRepPdfRequest
     public int nyear { get; set; }
     public int nmonth { get; set; }
 }
+
+public class upaccountOnGetCheckRepPdfQuery
+{
+    public upaccountOnGetCheckRepPdfRequest Request { get; set; }
+}

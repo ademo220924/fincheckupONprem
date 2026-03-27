@@ -8,3 +8,8 @@ public class dashbilancomltOnGetMarkupMarjinRequest
     public string myear { get; set; }
     public long compid { get; set; }
 }
+
+public class dashbilancomltOnGetMarkupMarjinQuery
+{
+    public dashbilancomltOnGetMarkupMarjinRequest Request { get; set; }
+}

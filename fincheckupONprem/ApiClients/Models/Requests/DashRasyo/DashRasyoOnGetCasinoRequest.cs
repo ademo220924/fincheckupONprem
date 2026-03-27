@@ -6,3 +6,8 @@ public class DashRasyoOnGetCasinoRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRasyoOnGetCasinoQuery
+{
+    public DashRasyoOnGetCasinoRequest Request { get; set; }
+}

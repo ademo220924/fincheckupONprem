@@ -13,11 +13,11 @@
 
 @functions {
     public class IndexModel(
-        IFinanceMizanUpBalanceNewApiClient apiClient,
-        IFinanceMizanUpBalanceApiClient mizanUpBalanceApiClient) : PageModel
+        IFinanceMizanUpBalanceNewClient apiClient,
+        IFinanceMizanUpBalanceClient mizanUpBalanceClient) : PageModel
     {
-        private readonly IFinanceMizanUpBalanceNewApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
-        private readonly IFinanceMizanUpBalanceApiClient _mizanUpBalanceApiClient = mizanUpBalanceApiClient ?? throw new ArgumentNullException(nameof(mizanUpBalanceApiClient));
+        private readonly IFinanceMizanUpBalanceNewClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUpBalanceClient _mizanUpBalanceClient = mizanUpBalanceClient ?? throw new ArgumentNullException(nameof(mizanUpBalanceClient));
 
         public MizanUpBalanceNewRequestInitialModel InitialModel{ get; set; }
 
@@ -178,7 +178,7 @@
         {
             try
             {
-                var response = await _mizanUpBalanceApiClient.GetGraphYearAsync(new MizanUpBalanceOnGetGraphYearRequest
+                var response = await _mizanUpBalanceClient.GetGraphYearAsync(new MizanUpBalanceOnGetGraphYearRequest
                 {
                     nyear = nyear
                 }, CancellationToken.None);

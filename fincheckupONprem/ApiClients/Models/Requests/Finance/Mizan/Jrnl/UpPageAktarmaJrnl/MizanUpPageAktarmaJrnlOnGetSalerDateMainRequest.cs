@@ -10,4 +10,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarma
     {
         public int nyear { get; set; }
     }
+
+    public class MizanUpPageAktarmaJrnlOnGetSalerDateMainQuery
+    {
+        public MizanUpPageAktarmaJrnlOnGetSalerDateMainRequest Request { get; set; }
+    }
 }

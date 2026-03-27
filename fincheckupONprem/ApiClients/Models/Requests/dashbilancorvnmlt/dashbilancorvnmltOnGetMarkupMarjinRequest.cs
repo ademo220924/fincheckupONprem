@@ -7,3 +7,8 @@ public class dashbilancorvnmltOnGetMarkupMarjinRequest
     public string myear { get; set; }
     public long compid { get; set; }
 }
+
+public class dashbilancorvnmltOnGetMarkupMarjinQuery
+{
+    public dashbilancorvnmltOnGetMarkupMarjinRequest Request { get; set; }
+}

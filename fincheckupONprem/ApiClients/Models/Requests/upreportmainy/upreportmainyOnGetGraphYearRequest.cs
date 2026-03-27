@@ -4,3 +4,8 @@ public class upreportmainyOnGetGraphYearRequest
 {
     public int nyear { get; set; }
 }
+
+public class upreportmainyOnGetGraphYearQuery
+{
+    public upreportmainyOnGetGraphYearRequest Request { get; set; }
+}

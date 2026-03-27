@@ -2,7 +2,7 @@
 @using fincheckup.ApiClients.Models.Requests.Layouts
 @using fincheckup.ApiClients.Services.Base
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@inject ILayoutApiClient LayoutApiClient
+@inject ILayoutApiClient LayoutClient
 <html>
 <head lang="en">
     <meta charset="utf-8">
@@ -85,7 +85,7 @@
 
 
     @{
-        var responseModel = await LayoutApiClient.LayoutMizanAsync(new LayoutMizanRequest(), CancellationToken.None);
+        var responseModel = await LayoutClient.LayoutMizanAsync(new LayoutMizanRequest(), CancellationToken.None);
         var pageModel = responseModel.Data;
         var usr = pageModel?.HhvnUsers;
         var usrApp = pageModel?.UserApp;

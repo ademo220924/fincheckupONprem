@@ -28,3 +28,8 @@ public class upaccountyRequest
     public string CompName;
     public string currentcompname { get; set; }
 }
+
+public class upaccountyQuery
+{
+    public upaccountyRequest Request { get; set; }
+}

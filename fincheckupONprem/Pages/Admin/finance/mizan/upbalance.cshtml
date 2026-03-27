@@ -10,9 +10,9 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 @functions {
-    public class IndexModel(IFinanceMizanUpBalanceApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUpBalanceClient apiClient) : PageModel
     {
-        private readonly IFinanceMizanUpBalanceApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUpBalanceClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public IEnumerable<YearResult> myearResult;
         //public long UserID;

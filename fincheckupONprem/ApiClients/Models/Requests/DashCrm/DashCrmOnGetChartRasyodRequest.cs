@@ -7,3 +7,8 @@ public class DashCrmOnGetChartRasyodRequest
     public DashCrmRequest InitialModel { get; internal set; }
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashCrmOnGetChartRasyodQuery
+{
+    public DashCrmOnGetChartRasyodRequest Request { get; set; }
+}

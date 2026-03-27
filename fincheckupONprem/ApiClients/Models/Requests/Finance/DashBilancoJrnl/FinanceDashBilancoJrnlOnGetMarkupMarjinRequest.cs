@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.DashBilancoJrnl
         public DataSourceLoadOptions options { get; set; }
         public long compid { get; set; }
     }
+
+    public class FinanceDashBilancoJrnlOnGetMarkupMarjinQuery
+    {
+        public FinanceDashBilancoJrnlOnGetMarkupMarjinRequest Request { get; set; }
+    }
 }

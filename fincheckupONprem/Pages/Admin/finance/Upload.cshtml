@@ -1,4 +1,4 @@
-﻿@page
+@page
 @using System.Threading
 @using fincheckup.ApiClients.Models.Requests.Finance.Upload
 @using fincheckup.ApiClients.Models.ViewModel
@@ -10,9 +10,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceUploadMainApiClient apiClient) : PageModel
+    public class IndexModel(IUploadMainClient apiClient) : PageModel
     {
-        private readonly IFinanceUploadMainApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IUploadMainClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceUploadMainRequestInitialModel InitialModel;
 
         public async Task OnGet()

@@ -6,3 +6,8 @@ public class MoodUploadCreateRequest
 {
     public XMlook XMlook { get; set; }
 }
+
+public class MoodUploadCreateQuery
+{
+    public MoodUploadCreateRequest Request { get; set; }
+}

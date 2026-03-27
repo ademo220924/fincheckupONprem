@@ -6,3 +6,8 @@ public class ChangePasswordOnGetSalerCompanyRequest
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
     public ChangePasswordRequest InitialModel { get; set; }
 }
+
+public class ChangePasswordOnGetSalerCompanyQuery
+{
+    public ChangePasswordOnGetSalerCompanyRequest Request { get; set; }
+}

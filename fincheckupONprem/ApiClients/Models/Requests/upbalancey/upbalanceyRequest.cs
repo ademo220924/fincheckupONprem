@@ -23,3 +23,8 @@ public class upbalanceyRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upbalanceyQuery
+{
+    public upbalanceyRequest Request { get; set; }
+}

@@ -10,10 +10,10 @@
 }
 
 @functions {
-    public class IndexModel(IMizanMenuCompanyListApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanMenuCompanyListClient apiClient) : PageModel
     {
 
-        private readonly IMizanMenuCompanyListApiClient _companyListApiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanMenuCompanyListClient _companyListClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         // Constructor injection
         // public long UserID; public int UserTypeID;
@@ -27,7 +27,7 @@
         {
             try
             { 
-                var response = await _companyListApiClient.GetAsync(new MizanCompanyListOnGetRequest
+                var response = await _companyListClient.GetAsync(new MizanCompanyListOnGetRequest
                 {
                     year = year
                 }, CancellationToken.None);

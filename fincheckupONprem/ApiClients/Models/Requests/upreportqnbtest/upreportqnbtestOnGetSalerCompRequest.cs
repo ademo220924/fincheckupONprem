@@ -5,3 +5,8 @@ public class upreportqnbtestOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upreportqnbtestOnGetSalerCompQuery
+{
+    public upreportqnbtestOnGetSalerCompRequest Request { get; set; }
+}

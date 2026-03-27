@@ -23,3 +23,8 @@ public class upcheckRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upcheckQuery
+{
+    public upcheckRequest Request { get; set; }
+}

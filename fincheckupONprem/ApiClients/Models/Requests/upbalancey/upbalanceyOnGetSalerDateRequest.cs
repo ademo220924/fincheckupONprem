@@ -5,3 +5,8 @@ public class upbalanceyOnGetSalerDateRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upbalanceyOnGetSalerDateQuery
+{
+    public upbalanceyOnGetSalerDateRequest Request { get; set; }
+}

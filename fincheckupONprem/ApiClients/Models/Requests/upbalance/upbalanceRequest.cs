@@ -24,3 +24,8 @@ public class upbalanceRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upbalanceQuery
+{
+    public upbalanceRequest Request { get; set; }
+}

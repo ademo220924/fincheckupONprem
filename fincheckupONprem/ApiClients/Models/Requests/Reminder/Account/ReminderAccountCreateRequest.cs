@@ -12,3 +12,8 @@ public class ReminderAccountCreateRequest
 
     public int AccountType { get; set; }
 }
+
+public class ReminderAccountCreateQuery
+{
+    public ReminderAccountCreateRequest Request { get; set; }
+}

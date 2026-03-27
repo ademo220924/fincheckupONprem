@@ -14,9 +14,9 @@
 
 @using fincheckup.Report
 @functions {
-    public class IndexModel(IFinanceUpReportMainApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceUpReportMainClient apiClient) : PageModel
     {
-        private readonly IFinanceUpReportMainApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceUpReportMainClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceUpReportMainRequestInitialModel InitialModel;
 
         public async Task OnGet()

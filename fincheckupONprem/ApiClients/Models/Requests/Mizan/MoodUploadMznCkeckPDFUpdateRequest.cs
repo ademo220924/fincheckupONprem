@@ -6,3 +6,8 @@ public class MoodUploadMznCkeckPDFUpdateRequest
 {
     public XMlook XMlook { get; set; }
 }
+
+public class MoodUploadMznCkeckPDFUpdateQuery
+{
+    public MoodUploadMznCkeckPDFUpdateRequest Request { get; set; }
+}

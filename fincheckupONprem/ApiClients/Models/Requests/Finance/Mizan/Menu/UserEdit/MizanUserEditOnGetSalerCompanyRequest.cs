@@ -12,4 +12,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.UserEdit
         public DataSourceLoadOptions options {  get; set; }
         public string dt1 { get; set; }
     }
+
+    public class MizanUserEditOnGetSalerCompanyQuery
+    {
+        public MizanUserEditOnGetSalerCompanyRequest Request { get; set; }
+    }
 }

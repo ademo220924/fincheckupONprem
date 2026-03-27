@@ -4,3 +4,8 @@ public class DashCrmDetailbOnGetRequest
 {
     //  public DashCrmDetailbRequest Request { get; set; }
 }
+
+public class DashCrmDetailbOnGetQuery
+{
+    public DashCrmDetailbOnGetRequest Request { get; set; }
+}

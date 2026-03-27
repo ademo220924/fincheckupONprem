@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMzan
         public DataSourceLoadOptions options {  get; set; }
         public int monthid { get; set; }
     }
+
+    public class MizanUploadMzanOnGetSalerMainChkQuery
+    {
+        public MizanUploadMzanOnGetSalerMainChkRequest Request { get; set; }
+    }
 }

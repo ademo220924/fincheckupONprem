@@ -23,3 +23,8 @@ public class DashBoardRequest
     public TaxErrorcheckTest ttdashTest;
     public TaxErrorcheckDataz ttdashDataz;
 }
+
+public class DashBoardQuery
+{
+    public DashBoardRequest Request { get; set; }
+}

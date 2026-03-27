@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMzn
     {
         public MizanUploadMznRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class MizanUploadMznOnGetQuery
+    {
+        public MizanUploadMznOnGetRequest Request { get; set; }
+    }
 }

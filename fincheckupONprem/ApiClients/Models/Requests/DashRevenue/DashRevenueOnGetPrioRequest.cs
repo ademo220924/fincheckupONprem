@@ -6,3 +6,8 @@ public class DashRevenueOnGetPrioRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRevenueOnGetPrioQuery
+{
+    public DashRevenueOnGetPrioRequest Request { get; set; }
+}

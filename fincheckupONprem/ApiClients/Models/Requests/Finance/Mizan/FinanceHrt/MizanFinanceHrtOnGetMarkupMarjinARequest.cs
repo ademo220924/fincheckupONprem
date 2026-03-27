@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrt
         public DataSourceLoadOptions options { get; set; }
         public long compid { get; set; }
     }
+
+    public class MizanFinanceHrtOnGetMarkupMarjinAQuery
+    {
+        public MizanFinanceHrtOnGetMarkupMarjinARequest Request { get; set; }
+    }
 }

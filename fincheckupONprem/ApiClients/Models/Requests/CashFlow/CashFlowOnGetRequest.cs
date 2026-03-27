@@ -6,3 +6,8 @@ public class CashFlowOnGetRequest
 {
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class CashFlowOnGetQuery
+{
+    public CashFlowOnGetRequest Request { get; set; }
+}

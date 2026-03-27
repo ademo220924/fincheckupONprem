@@ -4,4 +4,9 @@
     {
         public int nyear {  get; set; }
     }
+
+    public class DashRevenueKonOnGetGraphYearQuery
+    {
+        public DashRevenueKonOnGetGraphYearRequest Request { get; set; }
+    }
 }

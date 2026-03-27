@@ -6,3 +6,8 @@ public class BrandedSuccessUrlRequest : BrandedSuccessRequest
 {
 
 }
+
+public class BrandedSuccessUrlQuery
+{
+    public BrandedSuccessUrlRequest Request { get; set; }
+}

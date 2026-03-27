@@ -2,7 +2,7 @@
 @using fincheckup.ApiClients.Models.Requests.Layouts
 @using fincheckup.ApiClients.Services.Base
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@inject ILayoutApiClient LayoutApiClient
+@inject ILayoutApiClient LayoutClient
 <html>
 <head lang="en">
     <meta charset="utf-8">
@@ -86,7 +86,7 @@
 
     @{
 
-        var responseModel = await LayoutApiClient.LayoutBynAsync(new LayoutBynRequest(), CancellationToken.None);
+        var responseModel = await LayoutClient.LayoutBynAsync(new LayoutBynRequest(), CancellationToken.None);
         var usr = responseModel.Data?.HhvnUsers;
     }
 

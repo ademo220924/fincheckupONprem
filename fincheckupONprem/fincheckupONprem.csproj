@@ -23,6 +23,7 @@
     <None Remove="Helper\Report\**" />
     <Compile Remove="Views\Asset\StockHistoryView.cs" />
     <Compile Remove="ApiClients\Services\IViewApiClient.cs" />
+    <Compile Remove="ApiClients\Services\Finance\IFinanceMizanUpBalanceNewApiClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Mizan\XmlExcel.cs" />

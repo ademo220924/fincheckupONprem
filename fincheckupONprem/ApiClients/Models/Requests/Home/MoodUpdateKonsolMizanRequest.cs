@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Home
     {
         public XMlookUpdate PageIndex { get; set; }
     }
+
+    public class MoodUpdateKonsolMizanQuery
+    {
+        public MoodUpdateKonsolMizanRequest Request { get; set; }
+    }
 }

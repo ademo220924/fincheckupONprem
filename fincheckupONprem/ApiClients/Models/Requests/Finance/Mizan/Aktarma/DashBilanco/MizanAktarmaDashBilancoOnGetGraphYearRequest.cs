@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashBilanc
     {
         public int nyear {  get; set; }
     }
+
+    public class MizanAktarmaDashBilancoOnGetGraphYearQuery
+    {
+        public MizanAktarmaDashBilancoOnGetGraphYearRequest Request { get; set; }
+    }
 }

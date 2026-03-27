@@ -13,3 +13,8 @@ public class AppointmentRequest
     public byte? PriorityId { get; set; }
     public byte Status { get; set; }
 }
+
+public class AppointmentQuery
+{
+    public AppointmentRequest Request { get; set; }
+}

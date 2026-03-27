@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpPageAktarma
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class FinanceUpPageAktarmaOnGetSalerCompQuery
+    {
+        public FinanceUpPageAktarmaOnGetSalerCompRequest Request { get; set; }
+    }
 }

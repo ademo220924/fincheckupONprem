@@ -51,8 +51,8 @@ public interface IHomeApiCLient: IApiClientBase
             CancellationToken cancellationToken);
 
         [Post("/api/Main/MoodUploadUpdate")]
-        Task<GenericResult<MoodUploadUpdateResponse>> MoodUploadUpdateAsync(
-            [Body] MoodUploadUpdateRequest request,
+        Task<GenericResult<fincheckup.ApiClients.Models.Responses.Home.MoodUploadUpdateResponse>> MoodUploadUpdateAsync(
+            [Body] fincheckup.ApiClients.Models.Requests.Home.MoodUploadUpdateRequest request,
             CancellationToken cancellationToken);
 
         [Post("/api/Main/MoodUpdateTax")]
@@ -66,8 +66,8 @@ public interface IHomeApiCLient: IApiClientBase
             CancellationToken cancellationToken);
 
         [Post("/api/Main/MoodUpdateBalance")]
-        Task<GenericResult<MoodUpdateBalanceResponse>> MoodUpdateBalanceAsync(
-            [Body] MoodUpdateBalanceRequest request,
+        Task<GenericResult<fincheckup.ApiClients.Models.Responses.Home.MoodUpdateBalanceResponse>> MoodUpdateBalanceAsync(
+            [Body] fincheckup.ApiClients.Models.Requests.Home.MoodUpdateBalanceRequest request,
             CancellationToken cancellationToken);
 
         [Post("/api/Main/MoodUpdateKonsol")]

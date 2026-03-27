@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.CompanyEdit
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class MizanCompanyEditOnGetSalerEntegQuery
+    {
+        public MizanCompanyEditOnGetSalerEntegRequest Request { get; set; }
+    }
 }

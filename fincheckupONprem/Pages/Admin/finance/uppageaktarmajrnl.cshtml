@@ -13,9 +13,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceUpPageAktarmaJrnlApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceUpPageAktarmaJrnlClient apiClient) : PageModel
     {
-        private readonly IFinanceUpPageAktarmaJrnlApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient)); 
+        private readonly IFinanceUpPageAktarmaJrnlClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient)); 
         public FinanceUpPageAktarmaJrnlRequestInitialModel InitialModel;
 
         public async Task OnGet()

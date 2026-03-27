@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
     {
         public MizanReportMainTestMizanRequestInitialModel RequestInitialModel { get; set; }
     }
+
+    public class MizanReportMainTestMizanOnGetQuery
+    {
+        public MizanReportMainTestMizanOnGetRequest Request { get; set; }
+    }
 }

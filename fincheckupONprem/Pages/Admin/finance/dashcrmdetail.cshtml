@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceDashCrmDetailApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceDashCrmDetailClient apiClient) : PageModel
     {
-        private readonly IFinanceDashCrmDetailApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceDashCrmDetailClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceDashCrmDetailRequestInitialModel InitialModel;
 
         public async Task OnGet()

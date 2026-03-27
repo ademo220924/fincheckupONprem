@@ -4,3 +4,8 @@ public class upcmconsoleOnGetGraphCompRequest
 {
     public int ncompid { get; set; }
 }
+
+public class upcmconsoleOnGetGraphCompQuery
+{
+    public upcmconsoleOnGetGraphCompRequest Request { get; set; }
+}

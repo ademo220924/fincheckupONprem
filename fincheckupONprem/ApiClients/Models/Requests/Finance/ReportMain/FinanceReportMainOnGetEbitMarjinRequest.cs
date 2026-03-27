@@ -8,4 +8,9 @@
         public int myear { get; set; }
         public long compid { get; set; }
     }
+
+    public class FinanceReportMainOnGetEbitMarjinQuery
+    {
+        public FinanceReportMainOnGetEbitMarjinRequest Request { get; set; }
+    }
 }

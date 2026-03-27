@@ -12,9 +12,9 @@
    Layout = "~/Pages/Shared/_LayoutReport.cshtml"; 
     }
 @functions {
-    public class IndexModel(IMizanReportPotDynamicApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanReportPotDynamicClient apiClient) : PageModel
     {
-        private readonly IMizanReportPotDynamicApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanReportPotDynamicClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
 
         //public int UserID; 

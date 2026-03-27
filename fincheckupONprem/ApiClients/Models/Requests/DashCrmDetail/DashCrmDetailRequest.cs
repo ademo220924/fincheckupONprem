@@ -23,3 +23,8 @@ public class DashCrmDetailRequest
     public long val1 { get; set; }
     public long val3 { get; set; }
 }
+
+public class DashCrmDetailQuery
+{
+    public DashCrmDetailRequest Request { get; set; }
+}

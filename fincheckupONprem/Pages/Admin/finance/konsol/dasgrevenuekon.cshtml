@@ -12,9 +12,9 @@
 @using System.Threading
 @using fincheckup.ApiClients.Models
 @functions {
-    public class IndexModel(IFinanceKonsolDashRevenueKonApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceKonsolDashRevenueKonClient apiClient) : PageModel
     {
-        private readonly IFinanceKonsolDashRevenueKonApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceKonsolDashRevenueKonClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
          public DashRevenueKonInitialModel InitialModel;
          
         // public IEnumerable<YearResult> myearResult;

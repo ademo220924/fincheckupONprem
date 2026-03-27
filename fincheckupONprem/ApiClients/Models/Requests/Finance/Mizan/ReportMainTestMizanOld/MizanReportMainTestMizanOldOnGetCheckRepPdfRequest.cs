@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
         public long companyID {  get; set; }
         public string nacceco {  get; set; }
     }
+
+    public class MizanReportMainTestMizanOldOnGetCheckRepPdfQuery
+    {
+        public MizanReportMainTestMizanOldOnGetCheckRepPdfRequest Request { get; set; }
+    }
 }

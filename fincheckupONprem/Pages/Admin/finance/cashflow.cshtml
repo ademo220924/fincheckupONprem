@@ -11,9 +11,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceCashFlowApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceCashFlowClient apiClient) : PageModel
     {
-        private readonly IFinanceCashFlowApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceCashFlowClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         
         public FinanceCashFlowRequestInitialModel InitialModel;
 

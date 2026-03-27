@@ -7,3 +7,8 @@ public class AktarmaDashBilancoOnGetMarkupMarjinRequest
     public DataSourceLoadOptions options { get; set; }
 
 }
+
+public class AktarmaDashBilancoOnGetMarkupMarjinQuery
+{
+    public AktarmaDashBilancoOnGetMarkupMarjinRequest Request { get; set; }
+}

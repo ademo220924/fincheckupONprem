@@ -5,3 +5,8 @@ public class upcmconsoleOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upcmconsoleOnGetSalerCompQuery
+{
+    public upcmconsoleOnGetSalerCompRequest Request { get; set; }
+}

@@ -10,4 +10,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.UserEdit
     {
         public int id { get; set; } = 0;
     }
+
+    public class MizanUserEditOnGetQuery
+    {
+        public MizanUserEditOnGetRequest Request { get; set; }
+    }
 }

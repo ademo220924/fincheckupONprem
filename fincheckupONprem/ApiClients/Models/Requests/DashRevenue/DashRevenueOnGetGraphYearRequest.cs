@@ -4,3 +4,8 @@ public class DashRevenueOnGetGraphYearRequest
 {
     public int nyear { get; set; }
 }
+
+public class DashRevenueOnGetGraphYearQuery
+{
+    public DashRevenueOnGetGraphYearRequest Request { get; set; }
+}

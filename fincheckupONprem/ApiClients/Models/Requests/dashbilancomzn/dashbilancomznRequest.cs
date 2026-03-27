@@ -24,3 +24,8 @@ public class dashbilancomznRequest
     public long val1 { get; set; }
     public long val3 { get; set; }
 }
+
+public class dashbilancomznQuery
+{
+    public dashbilancomznRequest Request { get; set; }
+}

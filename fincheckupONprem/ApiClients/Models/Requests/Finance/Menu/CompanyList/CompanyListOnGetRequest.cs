@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.CompanyList
     {
         public int year {  get; set; }
     }
+
+    public class CompanyListOnGetQuery
+    {
+        public CompanyListOnGetRequest Request { get; set; }
+    }
 }

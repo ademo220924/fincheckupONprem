@@ -5,3 +5,8 @@ public class dashbilsampleOnGetPrioRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class dashbilsampleOnGetPrioQuery
+{
+    public dashbilsampleOnGetPrioRequest Request { get; set; }
+}

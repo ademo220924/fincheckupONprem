@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -133,7 +133,7 @@ public class HomeController : Controller
     [RequestSizeLimit(9509715200)]
     public async Task<JsonResult> moodUploadUpdate(XMlook pageIndex)
     {
-        var response = await _homeApiCLient.MoodUploadUpdateAsync(new MoodUploadUpdateRequest() { PageIndex = pageIndex },
+        var response = await _homeApiCLient.MoodUploadUpdateAsync(new fincheckup.ApiClients.Models.Requests.Home.MoodUploadUpdateRequest() { PageIndex = pageIndex },
             CancellationToken.None);
 
         return response.IsSuccess
@@ -175,7 +175,7 @@ public class HomeController : Controller
 
             return Json("nok");
         }
-        var response = await _homeApiCLient.MoodUpdateBalanceAsync(new MoodUpdateBalanceRequest() { PageIndex = pageIndex },
+        var response = await _homeApiCLient.MoodUpdateBalanceAsync(new fincheckup.ApiClients.Models.Requests.Home.MoodUpdateBalanceRequest() { PageIndex = pageIndex },
             CancellationToken.None);
 
         return response.IsSuccess

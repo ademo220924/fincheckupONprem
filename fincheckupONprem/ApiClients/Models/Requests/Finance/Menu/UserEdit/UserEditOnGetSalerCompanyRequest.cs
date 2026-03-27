@@ -12,4 +12,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.UserEdit
         public DataSourceLoadOptions options { get; set; }
         public UserEditInitialModel UserEditInitialModel { get; set; }
     }
+
+    public class UserEditOnGetSalerCompanyQuery
+    {
+        public UserEditOnGetSalerCompanyRequest Request { get; set; }
+    }
 }

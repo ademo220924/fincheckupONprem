@@ -13,9 +13,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceUpBalanceAktApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceUpBalanceAktClient apiClient) : PageModel
     {
-        private readonly IFinanceUpBalanceAktApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceUpBalanceAktClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceUpBalanceAktRequestInitialModel InitialModel;
 
         public async Task OnGet(int nyear = 2021)

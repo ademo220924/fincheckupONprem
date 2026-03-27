@@ -9,4 +9,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashCompar
         public int nmonth { get; set; }
         public int nyear { get; set; }
     }
+
+    public class MizanAktarmaDashCompareOnGetMarkupMarjinQuery
+    {
+        public MizanAktarmaDashCompareOnGetMarkupMarjinRequest Request { get; set; }
+    }
 }

@@ -6,3 +6,8 @@ public class upreportqnbtestOnGetCheckRepRequest
     public int nyear { get; set; }
     public string nacceco { get; set; }
 }
+
+public class upreportqnbtestOnGetCheckRepQuery
+{
+    public upreportqnbtestOnGetCheckRepRequest Request { get; set; }
+}

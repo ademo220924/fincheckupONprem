@@ -14,9 +14,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceHrtViewApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceHrtView apiClient) : PageModel
     {
-        private readonly IFinanceHrtViewApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceHrtView _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceFinanceHrtViewRequestInitialModel InitialModel;
 
         public async Task OnGet()

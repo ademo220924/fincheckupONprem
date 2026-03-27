@@ -5,3 +5,8 @@ public class dashbilancorvnmznOnGetChartRasyoRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class dashbilancorvnmznOnGetChartRasyoQuery
+{
+    public dashbilancorvnmznOnGetChartRasyoRequest Request { get; set; }
+}

@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Upload
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class FinanceUploadMainOnGetSalerCompQuery
+    {
+        public FinanceUploadMainOnGetSalerCompRequest Request { get; set; }
+    }
 }

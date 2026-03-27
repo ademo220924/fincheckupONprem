@@ -5,3 +5,8 @@ public class upbalanceyOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upbalanceyOnGetSalerCompQuery
+{
+    public upbalanceyOnGetSalerCompRequest Request { get; set; }
+}

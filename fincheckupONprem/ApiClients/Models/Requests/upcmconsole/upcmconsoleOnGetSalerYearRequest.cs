@@ -5,3 +5,8 @@ public class upcmconsoleOnGetSalerYearRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upcmconsoleOnGetSalerYearQuery
+{
+    public upcmconsoleOnGetSalerYearRequest Request { get; set; }
+}

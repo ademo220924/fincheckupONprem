@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.FinanceHrtHor
         public DataSourceLoadOptions options { get; set; }
         public long compid { get; set; }
     }
+
+    public class FinanceFinanceHrtHorOnGetMarkupMarjinQuery
+    {
+        public FinanceFinanceHrtHorOnGetMarkupMarjinRequest Request { get; set; }
+    }
 }

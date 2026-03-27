@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanUpCrmConsoleApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUpCrmConsoleClient apiClient) : PageModel
     {
-        private readonly IFinanceMizanUpCrmConsoleApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUpCrmConsoleClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public IEnumerable<YearResult> myearResult;
         //public long UserID;

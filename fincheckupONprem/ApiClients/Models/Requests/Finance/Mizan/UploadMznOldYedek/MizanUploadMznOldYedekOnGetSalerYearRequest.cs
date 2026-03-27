@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UploadMznOldYedek
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class MizanUploadMznOldYedekOnGetSalerYearQuery
+    {
+        public MizanUploadMznOldYedekOnGetSalerYearRequest Request { get; set; }
+    }
 }

@@ -5,3 +5,8 @@ namespace fincheckup.ApiClients.Models.Requests.Users;
 public class CreateUserRequest: HhvnUsers
 {
 }
+
+public class CreateUserQuery
+{
+    public CreateUserRequest Request { get; set; }
+}

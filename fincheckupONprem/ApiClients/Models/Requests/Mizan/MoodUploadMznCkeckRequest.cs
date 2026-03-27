@@ -11,3 +11,8 @@ public class MoodUploadMznCkeckRequest
     public long Idexml { get; set; }
     public string Caption { get; set; }
 }
+
+public class MoodUploadMznCkeckQuery
+{
+    public MoodUploadMznCkeckRequest Request { get; set; }
+}

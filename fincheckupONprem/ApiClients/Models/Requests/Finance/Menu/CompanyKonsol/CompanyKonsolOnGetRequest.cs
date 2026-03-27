@@ -5,3 +5,8 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.CompanyKonsol;
         public int MainID { get; set; }
         public int Id { get; set; }
     }
+
+public class CompanyKonsolOnGetQuery
+{
+    public CompanyKonsolOnGetRequest Request { get; set; }
+}

@@ -1,5 +1,3 @@
-using fincheckup.ApiClients.Models.Common;
-
 namespace fincheckup.ApiClients.Entities.BgServer.Dtos.BgServer.Accounts;
 
 public class ReminderAccountDto
@@ -10,6 +8,6 @@ public class ReminderAccountDto
     public int FinishValue { get; set; }
     public int AccountGroupId { get; set; }
     public string? AccountGroupName { get; set; }
-    public AccountType AccountType { get; set; }
+    public fincheckup.ApiClients.Models.Common.AccountType AccountType { get; set; }
     public string? AccountTypeText { get; set; }
 }

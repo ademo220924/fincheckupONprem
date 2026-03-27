@@ -10,3 +10,8 @@ public class DailyGetListRequest
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 
 }
+
+public class DailyGetListQuery
+{
+    public DailyGetListRequest Request { get; set; }
+}

@@ -8,3 +8,8 @@ public class DashCrmDetailcOnGetChartRasyoRequest
     public DataSourceLoadOptions Options { get; set; }
     public DashCrmDetailbRequest InitialModel { get; internal set; }
 }
+
+public class DashCrmDetailcOnGetChartRasyoQuery
+{
+    public DashCrmDetailcOnGetChartRasyoRequest Request { get; set; }
+}

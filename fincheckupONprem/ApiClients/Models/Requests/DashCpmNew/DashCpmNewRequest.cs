@@ -42,3 +42,8 @@ public class DashCpmNewRequest
     public int BQuestions { get; set; }
     public int CQuestions { get; set; }
 }
+
+public class DashCpmNewQuery
+{
+    public DashCpmNewRequest Request { get; set; }
+}

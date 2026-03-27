@@ -7,3 +7,8 @@ public class dashbilancomznOnGetSalerMainRequest
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
     public string dt1 { get; set; }
 }
+
+public class dashbilancomznOnGetSalerMainQuery
+{
+    public dashbilancomznOnGetSalerMainRequest Request { get; set; }
+}

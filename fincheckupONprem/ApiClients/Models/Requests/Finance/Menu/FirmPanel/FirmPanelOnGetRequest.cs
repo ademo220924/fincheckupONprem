@@ -4,4 +4,9 @@
     {
         public int year {  get; set; }
     }
+
+    public class FirmPanelOnGetQuery
+    {
+        public FirmPanelOnGetRequest Request { get; set; }
+    }
 }

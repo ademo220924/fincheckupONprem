@@ -4,3 +4,8 @@ public class FormAccountPostRequest
 {
 
 }
+
+public class FormAccountPostQuery
+{
+    public FormAccountPostRequest Request { get; set; }
+}

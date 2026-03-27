@@ -6,3 +6,8 @@ public class upaccountOnGetCheckRepXlsRequest
     public int nyear { get; set; }
     public int nmonth { get; set; }
 }
+
+public class upaccountOnGetCheckRepXlsQuery
+{
+    public upaccountOnGetCheckRepXlsRequest Request { get; set; }
+}

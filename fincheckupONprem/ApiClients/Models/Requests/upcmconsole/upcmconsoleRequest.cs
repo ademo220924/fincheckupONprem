@@ -23,3 +23,8 @@ public class upcmconsoleRequest
 
     public string currentcompname { get; set; }
 }
+
+public class upcmconsoleQuery
+{
+    public upcmconsoleRequest Request { get; set; }
+}

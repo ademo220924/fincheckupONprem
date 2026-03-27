@@ -5,4 +5,9 @@ public class ReadPdfFileMizanRequest
     public long compid { get; set; }
     public int nyear { get; set; }
     public byte nmonth { get; set; }
+
+    public class ReadPdfFileMizanQuery
+    {
+        public ReadPdfFileMizanRequest Request { get; set; }
+    }
 }

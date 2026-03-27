@@ -23,4 +23,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Aktarma.DashRevenueMain
         public long val1 { get; set; }
         public long val3 { get; set; }
     }
+
+    public class AktarmaDashRevenueMainQuery
+    {
+        public AktarmaDashRevenueMainRequest Request { get; set; }
+    }
 }

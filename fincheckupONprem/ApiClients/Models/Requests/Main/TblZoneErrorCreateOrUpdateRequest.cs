@@ -6,3 +6,8 @@ public class TblZoneErrorCreateOrUpdateRequest
 {
     public DataViewerError DataViewerError { get; set; }
 }
+
+public class TblZoneErrorCreateOrUpdateQuery
+{
+    public TblZoneErrorCreateOrUpdateRequest Request { get; set; }
+}

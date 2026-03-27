@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.FinanceHrtView
         public int myear { get; set; }
         public long compid { get; set; }
     }
-} 
+
+    public class FinanceFinanceHrtViewOnGetDonemselKarZararQuery
+    {
+        public FinanceFinanceHrtViewOnGetDonemselKarZararRequest Request { get; set; }
+    }
+}

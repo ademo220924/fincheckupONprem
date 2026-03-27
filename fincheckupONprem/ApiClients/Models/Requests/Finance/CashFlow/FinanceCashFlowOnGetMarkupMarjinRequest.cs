@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.CashFlow
         public string myear {  get; set; }
         public long compid { get; set; }
     }
+
+    public class FinanceCashFlowOnGetMarkupMarjinQuery
+    {
+        public FinanceCashFlowOnGetMarkupMarjinRequest Request { get; set; }
+    }
 }

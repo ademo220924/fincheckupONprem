@@ -24,3 +24,8 @@ public class DashBilancoRequest
     public long? val1 { get; set; }
     public long? val3 { get; set; }
 }
+
+public class DashBilancoQuery
+{
+    public DashBilancoRequest Request { get; set; }
+}

@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceHrtHorApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceHrtHorClient apiClient) : PageModel
     {
-        private readonly IFinanceHrtHorApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceHrtHorClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceFinanceHrtHorRequestInitialModel InitialModel;
 
         public async Task OnGet()

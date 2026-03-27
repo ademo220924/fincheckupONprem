@@ -5,3 +5,8 @@ public class upbalanceyOnGetSalerYearRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upbalanceyOnGetSalerYearQuery
+{
+    public upbalanceyOnGetSalerYearRequest Request { get; set; }
+}

@@ -27,3 +27,8 @@ public class DashCrmRequest
     public int BQuestions { get; set; }
     public int CQuestions { get; set; }
 }
+
+public class DashCrmQuery
+{
+    public DashCrmRequest Request { get; set; }
+}

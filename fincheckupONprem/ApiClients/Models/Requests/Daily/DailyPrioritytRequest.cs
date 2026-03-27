@@ -6,3 +6,8 @@ public class DailyPrioritytRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class DailyPrioritytQuery
+{
+    public DailyPrioritytRequest Request { get; set; }
+}

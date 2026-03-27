@@ -24,3 +24,8 @@ public class DashRevenueJrnlRequest
     public long val3 { get; set; }
 
 }
+
+public class DashRevenueJrnlQuery
+{
+    public DashRevenueJrnlRequest Request { get; set; }
+}

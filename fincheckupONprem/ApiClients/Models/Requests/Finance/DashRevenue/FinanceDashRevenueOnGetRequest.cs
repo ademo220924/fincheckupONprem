@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.DashRevenue
     {
         public FinanceDashRevenueRequestInitialModel Request { get; set; }
     }
+
+    public class FinanceDashRevenueOnGetQuery
+    {
+        public FinanceDashRevenueOnGetRequest Request { get; set; }
+    }
 }

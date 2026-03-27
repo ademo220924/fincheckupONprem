@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Home
     {
         public XMlook PageIndex { get; set; }
     }
+
+    public class MoodUploadOneGoOnQuery
+    {
+        public MoodUploadOneGoOnRequest Request { get; set; }
+    }
 }

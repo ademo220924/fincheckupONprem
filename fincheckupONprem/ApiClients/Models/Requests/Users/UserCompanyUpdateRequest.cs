@@ -10,3 +10,8 @@ public class UserCompanyUpdateRequest
     public List<long> CompanyList { get; set; }
     [JsonIgnore] public string UserId { get; set; }
 }
+
+public class UserCompanyUpdateQuery
+{
+    public UserCompanyUpdateRequest Request { get; set; }
+}

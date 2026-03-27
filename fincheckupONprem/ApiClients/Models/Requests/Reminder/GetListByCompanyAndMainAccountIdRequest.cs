@@ -4,4 +4,9 @@ public class GetListByCompanyAndMainAccountIdRequest
 {
     public long CompanyId { get; set; }
     public long AccountId { get; set; }
+
+    public class GetListByCompanyAndMainAccountIdQuery
+    {
+        public GetListByCompanyAndMainAccountIdRequest Request { get; set; }
+    }
 }

@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.DashCrmDetailb
     {
         public FinanceDashCrmDetailbRequestInitialModel Request { get; set; }
     }
+
+    public class FinanceDashCrmDetailbOnGetQuery
+    {
+        public FinanceDashCrmDetailbOnGetRequest Request { get; set; }
+    }
 }

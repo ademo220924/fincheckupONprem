@@ -13,9 +13,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMenuFirmPanelApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMenuFirmPanelClient apiClient) : PageModel
     {
-        private readonly IFinanceMenuFirmPanelApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMenuFirmPanelClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FirmPanelInitialModel InitialModel;
         
         // public long UserID;

@@ -11,9 +11,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceDashBilancoApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceDashBilancoClient apiClient) : PageModel
     {
-        private readonly IFinanceDashBilancoApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceDashBilancoClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceDashBilancoRequestInitialModel InitialModel;
 
         public async Task OnGet()

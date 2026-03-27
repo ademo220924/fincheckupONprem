@@ -6,3 +6,8 @@ public class SuccessUrlRequest : SuccessRequest
 {
 
 }
+
+public class SuccessUrlQuery
+{
+    public SuccessUrlRequest Request { get; set; }
+}

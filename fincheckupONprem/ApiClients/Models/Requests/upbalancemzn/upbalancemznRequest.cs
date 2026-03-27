@@ -13,3 +13,8 @@ public class upbalancemznRequest
     public IEnumerable<Entities.Company> mreqListCompany;
     public List<ReportSet> ncheck;
 }
+
+public class upbalancemznQuery
+{
+    public upbalancemznRequest Request { get; set; }
+}

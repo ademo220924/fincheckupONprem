@@ -12,9 +12,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanUploadMzanApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUploadMzanClient apiClient) : PageModel
     {
-        private readonly IFinanceMizanUploadMzanApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUploadMzanClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public string currentcompname { get; set; }
 

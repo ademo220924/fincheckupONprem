@@ -8,4 +8,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrtView
         public int myear { get; set; }
         public long compid { get; set; }
     }
+
+    public class MizanFinanceHrtViewOnGetEbitMarjinQuery
+    {
+        public MizanFinanceHrtViewOnGetEbitMarjinRequest Request { get; set; }
+    }
 }

@@ -8,3 +8,8 @@ public class MoodUploadMznCkeckFileUpdateRequest
     public long Idexml { get; set; }
     public string Caption { get; set; }
 }
+
+public class MoodUploadMznCkeckFileUpdateQuery
+{
+    public MoodUploadMznCkeckFileUpdateRequest Request { get; set; }
+}

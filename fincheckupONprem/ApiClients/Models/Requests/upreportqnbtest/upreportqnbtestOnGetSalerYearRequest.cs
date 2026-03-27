@@ -5,3 +5,8 @@ public class upreportqnbtestOnGetSalerYearRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upreportqnbtestOnGetSalerYearQuery
+{
+    public upreportqnbtestOnGetSalerYearRequest Request { get; set; }
+}

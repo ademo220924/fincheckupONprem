@@ -9,4 +9,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Menu.UserList
         public HhvnUsers CurrentUser;
         public IEnumerable<HhvnUsers> mreqList;
     }
+
+    public class UserListQuery
+    {
+        public UserListRequest Request { get; set; }
+    }
 }

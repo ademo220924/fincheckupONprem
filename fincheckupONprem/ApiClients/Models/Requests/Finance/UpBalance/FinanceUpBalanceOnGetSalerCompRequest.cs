@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.UpBalance
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class FinanceUpBalanceOnGetSalerCompQuery
+    {
+        public FinanceUpBalanceOnGetSalerCompRequest Request { get; set; }
+    }
 }

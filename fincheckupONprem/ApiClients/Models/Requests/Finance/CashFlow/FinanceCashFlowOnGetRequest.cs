@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.CashFlow
     {
         public FinanceCashFlowRequestInitialModel Request { get; set; }
     }
+
+    public class FinanceCashFlowOnGetQuery
+    {
+        public FinanceCashFlowOnGetRequest Request { get; set; }
+    }
 }

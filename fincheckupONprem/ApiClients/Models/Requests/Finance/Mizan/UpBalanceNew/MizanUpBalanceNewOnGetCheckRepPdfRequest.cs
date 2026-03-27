@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
         public long companyID { get; set; }
         public int nyear { get; set; }
     }
+    
+    public class MizanUpBalanceNewOnGetCheckRepPdfQuery
+    {
+        public MizanUpBalanceNewOnGetCheckRepPdfRequest Request { get; set; }
+    }
 }

@@ -17,4 +17,9 @@ public class PaymentModelRequest
     public string? Is3D { get; set; }
     public string? Installment { get; set; }
     public PosData SelectedPosData { get; set; }
+
+    public class PaymentModelQuery
+    {
+        public PaymentModelRequest Request { get; set; }
+    }
 }

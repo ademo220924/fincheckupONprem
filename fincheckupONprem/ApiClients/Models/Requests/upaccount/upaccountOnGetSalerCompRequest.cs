@@ -5,3 +5,8 @@ public class upaccountOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upaccountOnGetSalerCompQuery
+{
+    public upaccountOnGetSalerCompRequest Request { get; set; }
+}

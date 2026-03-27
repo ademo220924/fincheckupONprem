@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class MizanReportMainTestMizanOldOnGetSalerCompQuery
+    {
+        public MizanReportMainTestMizanOldOnGetSalerCompRequest Request { get; set; }
+    }
 }

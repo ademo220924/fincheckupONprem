@@ -10,9 +10,9 @@
 }
 
 @functions {
-    public class IndexModel(IFinanceUpCrmConsoleApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceUpCrmConsoleClient apiClient) : PageModel
     {
-        private readonly IFinanceUpCrmConsoleApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceUpCrmConsoleClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public FinanceUpCrmConsoleRequestInitialModel InitialModel;
 
         public async Task OnGet()

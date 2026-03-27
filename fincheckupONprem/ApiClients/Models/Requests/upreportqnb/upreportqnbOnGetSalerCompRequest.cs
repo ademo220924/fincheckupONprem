@@ -5,3 +5,8 @@ public class upreportqnbOnGetSalerCompRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class upreportqnbOnGetSalerCompQuery
+{
+    public upreportqnbOnGetSalerCompRequest Request { get; set; }
+}

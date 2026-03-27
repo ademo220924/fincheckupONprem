@@ -15,9 +15,9 @@
 
 
 @functions {
-    public class IndexModel(IMizanUpBalanceAktApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUpBalanceAktClient apiClient) : PageModel
     {
-        private readonly IMizanUpBalanceAktApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUpBalanceAktClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
 
         //public long UserID;

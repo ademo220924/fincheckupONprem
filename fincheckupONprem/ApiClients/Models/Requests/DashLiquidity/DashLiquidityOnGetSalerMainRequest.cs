@@ -6,3 +6,8 @@ public class DashLiquidityOnGetSalerMainRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashLiquidityOnGetSalerMainQuery
+{
+    public DashLiquidityOnGetSalerMainRequest Request { get; set; }
+}

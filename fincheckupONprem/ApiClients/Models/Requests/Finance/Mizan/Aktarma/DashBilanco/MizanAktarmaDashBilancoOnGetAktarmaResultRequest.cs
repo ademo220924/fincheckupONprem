@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashBilanc
     {
         public DataSourceLoadOptions options {  get; set; }
     }
+
+    public class MizanAktarmaDashBilancoOnGetAktarmaResultQuery
+    {
+        public MizanAktarmaDashBilancoOnGetAktarmaResultRequest Request { get; set; }
+    }
 }

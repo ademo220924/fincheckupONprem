@@ -6,4 +6,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarma
     {
         public DataSourceLoadOptions options { get; set; }
     }
+
+    public class MizanUpPageAktarmaMizanOnGetSalerDateQuery
+    {
+        public MizanUpPageAktarmaMizanOnGetSalerDateRequest Request { get; set; }
+    }
 }

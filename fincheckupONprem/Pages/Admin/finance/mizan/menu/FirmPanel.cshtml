@@ -11,14 +11,14 @@
 }
 
 @functions {
-    public class IndexModel(IMizanMenuFirmPanelApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanMenuFirmPanelClient apiClient) : PageModel
     {
         // public long UserID;
         // public int UserTypeID;
         // public HhvnUsers CurrentUser;
         // public IEnumerable<Entities.Company> mreqList;
 
-        private readonly IMizanMenuFirmPanelApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanMenuFirmPanelClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanFirmPanelRequestInitialModel InitialModel;
 
         public async Task OnGet(int year = 2021)

@@ -13,9 +13,9 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanUploadMizanApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanUploadMizanClient apiClient) : PageModel
     {
-        private readonly IFinanceMizanUploadMizanApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanUploadMizanClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public IEnumerable<YearResult> myearResult;
         //public int UserID;

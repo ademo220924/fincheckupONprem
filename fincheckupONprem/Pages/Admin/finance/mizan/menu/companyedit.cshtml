@@ -10,7 +10,7 @@
 }
 
 @functions {
-    public class IndexModel(IMizanMenuCompanyEditApiClient companyEditApiClient) : PageModel
+    public class IndexModel(IFinanceMizanMenuCompanyEditClient companyEditClient) : PageModel
     {
         // public long UserID;
         // public HhvnUsers CurrentUser; 
@@ -25,7 +25,7 @@
         
         public async Task OnGet(int id = 0)
         {
-            var response = await companyEditApiClient.GetAsync(new MizanCompanyEditOnGetRequest()
+            var response = await companyEditClient.GetAsync(new MizanCompanyEditOnGetRequest()
             {
                 id = id
             }, CancellationToken.None);
@@ -68,7 +68,7 @@
   
         public async Task<JsonResult> OnGetSalerEnteg(DataSourceLoadOptions options)
         {
-            var response= await  companyEditApiClient
+            var response= await  companyEditClient
                                                                               .GetSalerEntegAsync(new MizanCompanyEditOnGetSalerEntegRequest { options = options },
                                                                                                   CancellationToken.None);
 
@@ -88,7 +88,7 @@
         }
         public async Task<JsonResult> OnGetSalerCity(DataSourceLoadOptions options)
         {
-            var response= await  companyEditApiClient
+            var response= await  companyEditClient
                 .GetSalerCityAsync(new MizanCompanyEditOnGetSalerCityRequest { options = options },
                     CancellationToken.None);
 

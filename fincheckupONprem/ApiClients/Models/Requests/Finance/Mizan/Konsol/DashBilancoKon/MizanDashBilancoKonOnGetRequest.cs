@@ -7,4 +7,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Konsol.DashBilanco
     {
         public int Year {  get; set; }
     }
+
+    public class MizanDashBilancoKonOnGetQuery
+    {
+        public MizanDashBilancoKonOnGetRequest Request { get; set; }
+    }
 }

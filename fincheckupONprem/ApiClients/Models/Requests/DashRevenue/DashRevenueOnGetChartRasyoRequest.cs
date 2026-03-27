@@ -7,3 +7,8 @@ public class DashRevenueOnGetChartRasyoRequest
     public DashRevenueRequest InitialModel { get; internal set; }
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashRevenueOnGetChartRasyoQuery
+{
+    public DashRevenueOnGetChartRasyoRequest Request { get; set; }
+}

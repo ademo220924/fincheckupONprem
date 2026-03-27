@@ -5,3 +5,8 @@ public class UploadOnGetSalerDateRequest
 {
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class UploadOnGetSalerDateQuery
+{
+    public UploadOnGetSalerDateRequest Request { get; set; }
+}

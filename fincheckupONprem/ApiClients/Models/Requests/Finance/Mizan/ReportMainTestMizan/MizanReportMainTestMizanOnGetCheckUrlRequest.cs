@@ -5,4 +5,9 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
     {
         public long fileID { get; set; }
     }
+
+    public class MizanReportMainTestMizanOnGetCheckUrlQuery
+    {
+        public MizanReportMainTestMizanOnGetCheckUrlRequest Request { get; set; }
+    }
 }

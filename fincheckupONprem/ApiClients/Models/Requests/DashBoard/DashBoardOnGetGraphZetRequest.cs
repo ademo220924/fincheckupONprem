@@ -7,3 +7,8 @@ public class DashBoardOnGetGraphZetRequest
     public int myear { get; set; }
     public long compid { get; set; }
 }
+
+public class DashBoardOnGetGraphZetQuery
+{
+    public DashBoardOnGetGraphZetRequest Request { get; set; }
+}

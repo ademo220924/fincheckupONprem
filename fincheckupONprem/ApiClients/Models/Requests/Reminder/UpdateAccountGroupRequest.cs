@@ -4,4 +4,9 @@ public class  UpdateAccountGroupRequest
 {
     public string Name { get; set; }
     public long Id { get; set; }
+
+    public class UpdateAccountGroupQuery
+    {
+        public UpdateAccountGroupRequest Request { get; set; }
+    }
 }

@@ -7,3 +7,8 @@ public class DashCpmNewOnGetChartMaliRequest
     public DashCpmNewRequest InitialModel { get; internal set; }
     public DataSourceLoadOptions Options { get; set; }
 }
+
+public class DashCpmNewOnGetChartMaliQuery
+{
+    public DashCpmNewOnGetChartMaliRequest Request { get; set; }
+}

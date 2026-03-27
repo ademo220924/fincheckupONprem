@@ -5,3 +5,8 @@ public class UploadGetGraphYearRequest
 {
     public DataSourceLoadOptions DataSourceLoadOptions { get; set; }
 }
+
+public class UploadGetGraphYearQuery
+{
+    public UploadGetGraphYearRequest Request { get; set; }
+}

@@ -25,3 +25,8 @@ public class dashbilancomltRequest
     public long val1 { get; set; }
     public long val3 { get; set; }
 }
+
+public class dashbilancomltQuery
+{
+    public dashbilancomltRequest Request { get; set; }
+}

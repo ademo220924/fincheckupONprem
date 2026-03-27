@@ -6,3 +6,8 @@ public class AktarmaDashRevenueMainOnGetRequest
 {
     public AktarmaDashRevenueRequest Request { get; set; }
 }
+
+public class AktarmaDashRevenueMainOnGetQuery
+{
+    public AktarmaDashRevenueMainOnGetRequest Request { get; set; }
+}

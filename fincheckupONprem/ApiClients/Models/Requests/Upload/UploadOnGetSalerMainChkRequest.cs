@@ -6,3 +6,8 @@ public class UploadOnGetSalerMainChkRequest
     public DataSourceLoadOptions Options { get; set; }
     public int monthid { get; set; }
 }
+
+public class UploadOnGetSalerMainChkQuery
+{
+    public UploadOnGetSalerMainChkRequest Request { get; set; }
+}

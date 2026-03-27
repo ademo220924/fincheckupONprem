@@ -4,3 +4,8 @@ public class DashCpmNewOnGetGraphYearRequest
 {
     public int nyear { get; set; }
 }
+
+public class DashCpmNewOnGetGraphYearQuery
+{
+    public DashCpmNewOnGetGraphYearRequest Request { get; set; }
+}

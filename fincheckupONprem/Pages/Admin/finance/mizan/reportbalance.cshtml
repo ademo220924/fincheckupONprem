@@ -14,9 +14,9 @@
 
 @using fincheckup.Report
 @functions {
-    public class IndexModel(IMizanReportBalanceApiClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanReportBalanceClient apiClient) : PageModel
     {
-        private readonly IMizanReportBalanceApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanReportBalanceClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         //public long UserID;
         //public long CompID;

@@ -5,4 +5,8 @@ public class MizanUserListOnGetRequest
     public long UserID { get; set; }
     public int year { get; set; } = 2021;
 
+    public class MizanUserListOnGetQuery
+    {
+        public MizanUserListOnGetRequest Request { get; set; }
+    }
 }

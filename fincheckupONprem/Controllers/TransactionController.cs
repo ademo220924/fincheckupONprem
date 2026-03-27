@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using QnbPaymentType = fincheckup.ApiClients.Models.QnbPaymentType;
 using System.Threading;
 using System.Threading.Tasks;
 using fincheckup.ApiClients.Models;

@@ -7,3 +7,8 @@ public class UserDeleteRequest
     [JsonIgnore] public string UserId { get; set; }
     public long Id { get; set; }
 }
+
+public class UserDeleteQuery
+{
+    public UserDeleteRequest Request { get; set; }
+}
