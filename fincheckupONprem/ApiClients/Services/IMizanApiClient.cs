@@ -7,10 +7,12 @@ using System.Threading;
 using fincheckup.ApiClients.Models;
 using fincheckup.ApiClients.Models.Requests.Mizan;
 using fincheckup.ApiClients.Models.Responses.Mizan;
+using fincheckup.ApiClients.Services.Base;
 
 namespace fincheckup.ApiClients.Services;
 
-public interface IMizanApiClient
+[Headers("x-api-version: 1.0")]
+public interface IMizanApiClient: IApiClientBase
 {
     /*
     [Post("/api/mizan/upload-multiple-test")]
@@ -72,9 +74,14 @@ public interface IMizanApiClient
         [Body] MoodUploadMznCkeckFileCreateRequest request,
         CancellationToken cancellationToken);
 
+    [Multipart]
     [Post("/api/Mizan/MoodUploadMznCkeck")]
     Task<GenericResult<MoodUploadMznCkeckResponse>> MoodUploadMznCkeckAsync(
-        [Body] MoodUploadMznCkeckRequest request,
+        [AliasAs("files")] IEnumerable<StreamPart> files,
+        [AliasAs("id")] int id,
+        [AliasAs("ide")] string ide,
+        [AliasAs("ideXml")] string ideXml,
+        [AliasAs("caption")] string caption,
         CancellationToken cancellationToken);
 
     [Post("/api/Mizan/MoodUploadMzn")]

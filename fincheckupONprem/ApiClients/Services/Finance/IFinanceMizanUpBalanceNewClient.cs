@@ -21,9 +21,9 @@ public interface IFinanceMizanUpBalanceNewClient : IApiClientBase
     [Post("/api/finance/mizan/FinanceMizanUpBalanceNew/OnGetSalerYear")]
     Task<GenericResult<MizanUpBalanceNewOnGetSalerYearResponse>> GetSalerYearAsync([Body] MizanUpBalanceNewOnGetSalerYearRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpBalanceNew/OnGetSalerComp")]
-    Task<GenericResult<MizanUpBalanceNewOnGetSalerCompResponse>> GetSalerCompAsync([Body] MizanUpBalanceNewOnGetSalerCompRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanUpBalanceNewOnGetSalerCompResponse>> GetSalerCompAsync([Body] MizanUpBalanceNewOnGetSalerCompQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpBalanceNew/OnGetCheckRepPdf")]
-    Task<GenericResult<MizanUpBalanceNewOnGetCheckRepPdfResponse>> GetCheckRepPdfAsync([Body] MizanUpBalanceNewOnGetCheckRepPdfRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanUpBalanceNewOnGetCheckRepPdfResponse>> GetCheckRepPdfAsync([Body] MizanUpBalanceNewOnGetCheckRepPdfQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpBalanceNew/OnGetCheckRepXls")]
     Task<GenericResult<MizanUpBalanceNewOnGetCheckRepXlsResponse>> GetCheckRepXlsAsync([Body] MizanUpBalanceNewOnGetCheckRepXlsRequest request, CancellationToken cancellationToken = default);
 }

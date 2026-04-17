@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
 {
     public class MizanUpBalanceNewOnGetCheckRepPdfRequest
@@ -9,6 +11,8 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
     
     public class MizanUpBalanceNewOnGetCheckRepPdfQuery
     {
+        [JsonIgnore] public  string UserId { get; set; }
         public MizanUpBalanceNewOnGetCheckRepPdfRequest Request { get; set; }
+        public MizanUpBalanceNewRequestInitialModel InitialModel { get; set; }
     }
 }

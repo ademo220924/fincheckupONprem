@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using fincheckup.ApiClients.Models.Aggregated;
 using fincheckup.ApiClients.Models.Requests.Mizan;
 using fincheckup.ApiClients.Services;
+using Refit;
 
 namespace fincheckup.Controllers;
 
@@ -46,15 +48,19 @@ public class MizanController(IWebHostEnvironment environment, IMizanApiClient mi
     
     public async Task<JsonResult> moodUploadMznCkeck(XMlook pageIndex)
     {
-        var response = await mizanApiClient.MoodUploadMznCkeckAsync(new MoodUploadMznCkeckRequest
-            {
-                Id = pageIndex.id,
-                Caption = pageIndex.Caption,
-                File = pageIndex.file,
-                Ide = Convert.ToInt64(pageIndex.ide),
-                Idexml = Convert.ToInt64(pageIndex.idexml)
-            },
-            CancellationToken.None);
+        var streamParts = pageIndex.file.Select(f =>
+            new StreamPart(f.OpenReadStream(), f.FileName, f.ContentType)
+        );
+
+        var response = await mizanApiClient.MoodUploadMznCkeckAsync(
+            streamParts,
+            pageIndex.id,
+            pageIndex.ide,       // string olmalı
+            pageIndex.idexml,    // string olmalı
+            pageIndex.Caption,
+            CancellationToken.None
+        );
+    
 
         return response.IsSuccess
             ? Json(response.Data)

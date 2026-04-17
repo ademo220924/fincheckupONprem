@@ -99,9 +99,8 @@
         {
             try
             {
-                var response = await _apiClient.GetSalerCompAsync(new MizanUpBalanceNewOnGetSalerCompRequest
-                {
-                    options = options
+                var response = await _apiClient.GetSalerCompAsync(new MizanUpBalanceNewOnGetSalerCompQuery
+                { Request = new MizanUpBalanceNewOnGetSalerCompRequest(){options= options}
                 }, CancellationToken.None);
 
                 if (response.IsSuccess)
@@ -123,14 +122,21 @@
         {
             try
             {
-                var response = await _apiClient.GetCheckRepPdfAsync(new MizanUpBalanceNewOnGetCheckRepPdfRequest
+                await OnGet();
+                var response = await _apiClient.GetCheckRepPdfAsync(new MizanUpBalanceNewOnGetCheckRepPdfQuery
                 {
+                    Request = new MizanUpBalanceNewOnGetCheckRepPdfRequest()
+                    {
                     companyID = companyID,
-                    nyear = nyear
+                    nyear = nyear 
+                    },
+                    InitialModel = InitialModel
+                 
                 }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data!.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -148,6 +154,7 @@
         {
             try
             {
+                await OnGet();
                 var response = await _apiClient.GetCheckRepXlsAsync(new MizanUpBalanceNewOnGetCheckRepXlsRequest
                 {
                     companyID = companyID,

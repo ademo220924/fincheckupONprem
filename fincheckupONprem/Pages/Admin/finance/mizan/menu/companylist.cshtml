@@ -146,40 +146,39 @@
                         <div class="row">
 
                             @(Html.DevExtreme().DataGrid<Company>().ColumnHidingEnabled(false)
-.ID("gridContainer").Paging(p => p.PageSize(10))
-.Pager(p => p
-.ShowPageSizeSelector(true)
-.AllowedPageSizes(new[] { 10, 25, 50, 100 })
-)
-.ShowBorders(true).FilterRow(f => f.Visible(false)).ShowRowLines(true)
-.RemoteOperations(true).ColumnAutoWidth(true)
-.SearchPanel(s => s
-.Visible(true)
-.HighlightCaseSensitive(true)
-)
-.Editing(e => e.Mode(GridEditMode.Popup).UseIcons(true)
-)
-.Columns(columns => {
+                                .ID("gridContainer").Paging(p => p.PageSize(10))
+                                .Pager(p => p
+                                    .ShowPageSizeSelector(true)
+                                    .AllowedPageSizes([10, 25, 50, 100])
+                                )
+                                .ShowBorders(true).FilterRow(f => f.Visible(false)).ShowRowLines(true)
+                                .RemoteOperations(true).ColumnAutoWidth(true)
+                                .SearchPanel(s => s
+                                    .Visible(true)
+                                    .HighlightCaseSensitive(true)
+                                )
+                                .Editing(e => e.Mode(GridEditMode.Popup).UseIcons(true)
+                                )
+                                .Columns(columns => {
 
-columns.AddFor(m => m.Id).Visible(false);
-                                        columns.AddFor(m => m.CompanyName).Caption("Şirket").AllowHeaderFiltering(true) ;
-                                        columns.AddFor(m => m.CityId).Caption("Şehir").AllowHeaderFiltering(true) ;
+                                    columns.AddFor(m => m.Id).Visible(false);
+                                    columns.AddFor(m => m.CompanyName).Caption("Şirket").AllowHeaderFiltering(true) ;
+                                    columns.AddFor(m => m.CityId).Caption("Şehir").AllowHeaderFiltering(true) ;
 
-                                        columns.Add()
-                                    .CssClass("dx-command-edit dx-command-edit-with-icons centerdiv").Caption("Bilgi")
-.CellTemplate(@<text>
-                                <a href="/admin/finance/mizan/menu/companyedit?id=<%= data.ID %>" class="btn btn-secondary btn-round btn-simple" title="Detail"><span class="dx-icon fa fa-info-circle"></span></a>
-                   </text>);
-                                        columns.Add().Caption("Seç") .CssClass("").CellTemplate(@<text>
-                                <div  onclick="functionrefresh('[%= data.ID %]');return false;" class="btn btn-secondary btn-round btn-simple" aria-label="Yükle" tabindex="0" role="button"> <i class="zmdi zmdi-arrow-right"></i> </div>
+                                    columns.Add()
+                                        .CssClass("dx-command-edit dx-command-edit-with-icons centerdiv").Caption("Bilgi")
+                                        .CellTemplate(@<text>
+                                                           <a href="/admin/finance/mizan/menu/companyedit?id=<%= data.Id %>" class="btn btn-secondary btn-round btn-simple" title="Detail"><span class="dx-icon fa fa-info-circle"></span></a>
+                                                       </text>);
+                                    columns.Add().Caption("Seç") .CssClass("").CellTemplate(@<text>
+                                                                                                 <div  onclick="functionrefresh('[%= data.Id %]');return false;" class="btn btn-secondary btn-round btn-simple" aria-label="Yükle" tabindex="0" role="button"> <i class="zmdi zmdi-arrow-right"></i> </div>
 
 
-                            </text>);
+                                                                                             </text>);
 
-})
-        .DataSource(Model.InitialModel.mreqList
-        )
-    )
+                                })
+                                .DataSource(Model.InitialModel.mreqList
+                                ))
                         </div>
 
 
