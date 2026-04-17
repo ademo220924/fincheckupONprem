@@ -171,6 +171,11 @@
                     myear = InitialModel.CurrentUser.SelectedYear.ToString();
                 }
 
+                if (compid <= 0 && InitialModel is { CompID: > 0 })
+                {
+                    compid = InitialModel.CompID;
+                }
+
                 var response = await _apiClient.GetMarkupMarjinAsync(new MizanDashBilancoOnGetMarkupMarjinRequest
                     {
                         options = options,
@@ -366,7 +371,7 @@
         .ApplyChangesMode(ApplyChangesMode.Instantly)).FieldPanel(e=>e.ShowColumnFields(true).ShowDataFields(false).ShowFilterFields(false).ShowRowFields(false))
 
                .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { myear = new JS("function() { var v = $('#txtmyear').val(); var s = sessionStorage.getItem('fnckpyear'); if (s != null && s !== 'null' && s !== '') { return s; } return v || ''; }"), compid = new JS("function() { return $('#txtmcomp').val(); }") }))
+            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { myear = new JS("function() { var v = $('#txtmyear').val(); var s = sessionStorage.getItem('fnckpyear'); if (s != null && s !== 'null' && s !== '') { return s; } return v || ''; }"), compid = new JS($"function() {{ var el = document.getElementById('txtmcomp'); var raw = el && el.value ? String(el.value).trim() : ''; var n = parseInt(raw, 10); if (!isNaN(n) && n > 0) return n; return {(Model.InitialModel?.CompID ?? 0)}; }}") }))
             .Fields(fields => {
                 fields.AddFor(m => m.GroupName)
                .Width(170)
