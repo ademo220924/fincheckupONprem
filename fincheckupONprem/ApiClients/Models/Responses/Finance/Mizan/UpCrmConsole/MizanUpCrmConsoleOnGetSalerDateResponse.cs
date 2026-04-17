@@ -1,11 +1,11 @@
 ﻿using fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpCrmConsole;
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.Mizan.UpCrmConsole
 {
     public class MizanUpCrmConsoleOnGetSalerDateResponse
     {
-        public JsonResult Response { get; set; }
+        public JsonElement? Response { get; set; }
         public MizanUpCrmConsoleRequestInitialModel InitialModel { get; set; }
     }
 }

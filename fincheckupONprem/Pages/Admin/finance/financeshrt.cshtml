@@ -73,7 +73,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data?.Response;
+                    return new JsonResult(response.Data?.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -98,7 +98,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data?.Response;
+                    return new JsonResult(response.Data?.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -123,7 +123,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data?.Response;
+                    return new JsonResult(response.Data?.Response);
                 }
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/FinanceHrt OnGetMarkupMarjinA");
@@ -147,7 +147,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data?.Response;
+                    return new JsonResult(response.Data?.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.upcheck;
 public class upcheckOnGetCheckRepPdfResponse
 {
-    public JsonResult Result { get; set; }
+    public JsonElement? Result { get; set; }
 }

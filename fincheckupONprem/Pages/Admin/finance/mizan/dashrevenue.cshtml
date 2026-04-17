@@ -1,4 +1,4 @@
-﻿@page
+@page
 
 @model IndexModel
 @{
@@ -6,6 +6,7 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 @using System.Threading
+@using fincheckup.ApiClients.Entities
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashRevenue
 @using fincheckup.ApiClients.Services.Finance
@@ -42,13 +43,20 @@
             {
                 var response = await _apiClient.GetAsync(new MizanDashRevenueOnGetRequest(), CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.InitialModel != null)
                 {
                     InitialModel = response.Data.InitialModel;
                 }
                 else
                 {
-                    Console.WriteLine(response.ProblemDetails.Detail);
+                    if (!response.IsSuccess)
+                        Console.WriteLine(response.ProblemDetails?.Detail);
+                    InitialModel = new MizanDashRevenueRequestInitialMopdel
+                    {
+                        CurrentUser = new HhvnUsers(),
+                        CompName = string.Empty,
+                        CompNameNorm = string.Empty
+                    };
                 }
             }
             catch (Exception ex)
@@ -138,7 +146,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -174,7 +182,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -254,10 +262,10 @@
         .OnShown("loadPanel_shown")
     )
 
-    <input type="hidden" style="display:none" id="txtmyear" value="@Model.InitialModel.CurrentUser.SelectedYear" />
-    <input type="hidden" style="display:none" id="txtmcomp" value="@Model.InitialModel.CompID" />
-    <input type="hidden" style="display:none" id="txtyearcount" value="@Model.InitialModel.YearCount" />
-    <input type="hidden" style="display:none" id="txtcompcount" value="@Model.InitialModel.CompCount" />
+    <input type="hidden" style="display:none" id="txtmyear" value="@(Model.InitialModel?.CurrentUser?.SelectedYear ?? DateTime.Now.Year)" />
+    <input type="hidden" style="display:none" id="txtmcomp" value="@(Model.InitialModel?.CompID ?? 0)" />
+    <input type="hidden" style="display:none" id="txtyearcount" value="@(Model.InitialModel?.YearCount ?? 0)" />
+    <input type="hidden" style="display:none" id="txtcompcount" value="@(Model.InitialModel?.CompCount ?? 0)" />
     <div class="container-fluid">
         <div class="block-header">
             <div class="row clearfix">
@@ -282,7 +290,7 @@
 
                
                                             @(Html.DevExtreme().TextBox()
-                                                .Value(Model.InitialModel.CompName).ReadOnly(true)
+                                                .Value(Model.InitialModel?.CompName ?? string.Empty).ReadOnly(true)
                             )
 
                                         </div>
@@ -445,7 +453,7 @@
         var tchek = getfdate();
         function onExporting(e) {
             var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('@Model.InitialModel.CompNameNorm');
+            var worksheet = workbook.addWorksheet('@(Model.InitialModel?.CompNameNorm ?? string.Empty)');
 
 
             DevExpress.excelExporter.exportPivotGrid({
@@ -454,7 +462,7 @@
             }).then(function (pivotGridRange) {
                 Object.assign(
                     worksheet.getRow(2).getCell(2),
-                    { value: "@Model.InitialModel.CompNameNorm Gelir Tablosu", font: { bold: true, size: 16, underline: 'double' } }
+                    { value: "@(Model.InitialModel?.CompNameNorm ?? string.Empty) Gelir Tablosu", font: { bold: true, size: 16, underline: 'double' } }
                 );
 
 
@@ -462,7 +470,7 @@
             }).then(function () {
                 return workbook.xlsx.writeBuffer();
             }).then(function (buffer) {
-                saveAs(new Blob([buffer], { type: "application/octet-stream" }), "@Model.InitialModel.CompNameNorm-Revenue.xlsx");
+                saveAs(new Blob([buffer], { type: "application/octet-stream" }), "@(Model.InitialModel?.CompNameNorm ?? string.Empty)-Revenue.xlsx");
             });
             e.cancel = true;
             // DevExpress.excelExporter.exportPivotGrid({

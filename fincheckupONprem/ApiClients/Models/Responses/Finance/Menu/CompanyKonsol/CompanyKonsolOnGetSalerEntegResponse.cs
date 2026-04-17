@@ -1,10 +1,10 @@
 ﻿
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.Menu.CompanyKonsol
 {
     public class CompanyKonsolOnGetSalerEntegResponse
     {
-        public JsonResult Response { get; set; }
+        public JsonElement? Response { get; set; }
     }
 }

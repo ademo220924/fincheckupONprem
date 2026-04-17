@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.dashbilancorvnmlt;
 public class dashbilancorvnmltOnGetGraphCompResponse
 {
-    public JsonResult Result { get; set; }
+    public JsonElement? Result { get; set; }
 }

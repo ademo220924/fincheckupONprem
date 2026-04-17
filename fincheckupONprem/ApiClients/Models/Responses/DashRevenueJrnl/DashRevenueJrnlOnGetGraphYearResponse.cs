@@ -1,9 +1,9 @@
 
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.DashRevenueJrnl;
 public class DashRevenueJrnlOnGetGraphYearResponse
 {
-    public JsonResult Response { get; set; }
+    public JsonElement? Response { get; set; }
 
 }

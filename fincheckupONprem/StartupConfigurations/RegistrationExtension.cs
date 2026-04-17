@@ -1,12 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http.Headers;
-using Refit;
-using System.Reflection;
 using System.Linq;
-using fincheckup.ApiClients.Services;
+using System.Net.Http.Headers;
+using System.Reflection;
+using System.Text.Json;
 using fincheckup.ApiClients.Services.Base;
+using Refit;
 
 namespace fincheckup.StartupConfigurations;
 
@@ -27,10 +26,17 @@ public static class RegistrationExtension
                                  .GetTypes()
                                  .Where(t => t.IsInterface && t.GetInterfaces().Contains(baseInterfaceType));
 
+        // ASP.NET Core API varsayılanı camelCase JSON; System.Text.Json varsayılanı büyük/küçük harfe duyarlıdır.
+        // Eşleşmeyen property'ler (initialModel vs InitialModel vb.) deserialize edilmez → UI'da null görünür.
+        var refitSettings = new RefitSettings
+        {
+            ContentSerializer = new SystemTextJsonContentSerializer(
+                new JsonSerializerOptions(JsonSerializerDefaults.Web)),
+        };
 
         foreach (var apiInterface in interfaces)
         {
-                services.AddRefitClient(apiInterface)
+                services.AddRefitClient(apiInterface, refitSettings)
                     .ConfigureHttpClient(client =>
                     {
                         client.BaseAddress = new Uri(apiCallBaseAddress);

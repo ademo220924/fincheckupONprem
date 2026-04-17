@@ -1,4 +1,4 @@
-﻿@page
+@page
 
 @using System.Threading
 @using fincheckup.ApiClients.Entities
@@ -117,7 +117,7 @@
                 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
                 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -140,6 +140,7 @@
         {
             try
             {
+                await OnGet();
                 var response = await _apiClient.GetSalerCompanyAsync(new UserEditOnGetSalerCompanyRequest
                     {
                         UserEditInitialModel = InitialModel,
@@ -148,7 +149,7 @@
                 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
                  Console.WriteLine(response.ProblemDetails.Detail);
                  return new JsonResult("Burada hata var finance/menu/useredit/OnGetSalerCompany");
@@ -188,7 +189,7 @@
                
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
                
                 Console.WriteLine(response.ProblemDetails.Detail);

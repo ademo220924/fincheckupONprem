@@ -1,9 +1,9 @@
 
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.DashCrmDetaild;
 public class DashCrmDetaildOnGetGraphCompResponse
 {
-    public JsonResult Response { get; set; }
+    public JsonElement? Response { get; set; }
 
 }

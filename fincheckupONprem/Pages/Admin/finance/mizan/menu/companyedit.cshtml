@@ -74,7 +74,7 @@
 
             try
             {
-                return response.Data.Response;
+                return new JsonResult(response.Data.Response);
             }
             catch
             {
@@ -94,7 +94,7 @@
 
             try
             {
-                return response.Data?.Response;
+                return new JsonResult(response.Data?.Response);
             }
             catch
             {

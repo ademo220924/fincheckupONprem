@@ -1,7 +1,7 @@
-﻿@page
+@page
 
 @using System.Threading
-@using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Jrnl.UpPageAktarmaMizan
+@using Refit
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpPageAktarma
 @using fincheckup.ApiClients.Models.ViewModel
 @using fincheckup.ApiClients.Services.Finance
@@ -77,6 +77,7 @@
         }
         public async Task<JsonResult> OnGetSalerDateMain(int nyear)
         {
+            await OnGet();
             try
             {
                 var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaOnGetSalerDateMainRequest
@@ -86,11 +87,16 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/uppageaktarma OnGetSalerDateMain");
+            }
+            catch (ApiException apiEx)
+            {
+                Console.WriteLine($"OnGetSalerDateMain API {(int)apiEx.StatusCode}: {apiEx.Content}");
+                return new JsonResult($"Burada hata var finance/mizan/uppageaktarma OnGetSalerDateMain (API {(int)apiEx.StatusCode})");
             }
             catch (Exception ex)
             {
@@ -124,11 +130,16 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/uppageaktarma OnGetSalerDate");
+            }
+            catch (ApiException apiEx)
+            {
+                Console.WriteLine($"OnGetSalerDate API {(int)apiEx.StatusCode}: {apiEx.Content}");
+                return new JsonResult($"Burada hata var finance/mizan/uppageaktarma OnGetSalerDate (API {(int)apiEx.StatusCode})");
             }
             catch (Exception ex)
             {
@@ -158,11 +169,16 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/uppageaktarma OnGetSalerYear");
+            }
+            catch (ApiException apiEx)
+            {
+                Console.WriteLine($"OnGetSalerYear API {(int)apiEx.StatusCode}: {apiEx.Content}");
+                return new JsonResult($"Burada hata var finance/mizan/uppageaktarma OnGetSalerYear (API {(int)apiEx.StatusCode})");
             }
             catch (Exception ex)
             {
@@ -185,11 +201,16 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/uppageaktarma OnGetSalerComp");
+            }
+            catch (ApiException apiEx)
+            {
+                Console.WriteLine($"OnGetSalerComp API {(int)apiEx.StatusCode}: {apiEx.Content}");
+                return new JsonResult($"Burada hata var finance/mizan/uppageaktarma OnGetSalerComp (API {(int)apiEx.StatusCode})");
             }
             catch (Exception ex)
             {
@@ -231,11 +252,16 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/uppageaktarma OnGetCheckRepPdf");
+            }
+            catch (ApiException apiEx)
+            {
+                Console.WriteLine($"OnGetCheckRepPdf API {(int)apiEx.StatusCode}: {apiEx.Content}");
+                return new JsonResult($"Burada hata var finance/mizan/uppageaktarma OnGetCheckRepPdf (API {(int)apiEx.StatusCode})");
             }
             catch (Exception ex)
             {

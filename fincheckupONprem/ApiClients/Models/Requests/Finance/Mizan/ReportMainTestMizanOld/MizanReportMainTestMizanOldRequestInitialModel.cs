@@ -5,21 +5,22 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
 {
     public class MizanReportMainTestMizanOldRequestInitialModel
     {
-        public IEnumerable<YearResult> myearResult;
-        public long UserID;
-        public long CompID;
-        public int CompCount;
-        public string CompName;
-        public int YearCount;
-        public long curcomID;
-        public int curcomCount;
-        public HhvnUsers CurrentUser;
-        public int YearCurrent;
-        public List<CompanyReport> reportList;
+        public IEnumerable<YearResult> myearResult{get; set;}
+        public long UserID{get; set;}
+        public long CompID{get; set;}
+        public int CompCount{get; set;}
+        public string CompName{get; set;}
+        public int YearCount{get; set;}
+        public long curcomID{get; set;}
+        public int curcomCount{get; set;}
+        public HhvnUsers CurrentUser{get; set;}
+        public int YearCurrent{get; set;}
+        public List<CompanyReport> reportList{get; set;}
 
-        public IEnumerable<Entities.Company> mreqListCompany;
-        public Entities.Company curCompany;
+        public IEnumerable<Entities.Company> mreqListCompany{get; set;}
+        public Entities.Company curCompany{get; set;}
 
-        public string currentcompname { get; set; }
+
+        public string currentcompname {  get; set;}
     }
 }

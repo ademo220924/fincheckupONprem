@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Mizan;
 
 public class MoodUpdatesAktarmaResponse
 {
-    public JsonResult ResultText { get; set; }
+    public JsonElement? ResultText { get; set; }
 }

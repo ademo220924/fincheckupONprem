@@ -1,9 +1,10 @@
+using System.Text.Json;
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.UpPageAktarmaJrnl
 {
     public class FinanceUpPageAktarmaJrnlOnGetSalerYearResponse
     {
-        public JsonResult Response { get; set; }
+        public JsonElement? Response { get; set; }
     }
 }

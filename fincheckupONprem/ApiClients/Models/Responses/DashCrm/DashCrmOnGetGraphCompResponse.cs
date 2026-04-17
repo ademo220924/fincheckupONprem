@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 public class DashCrmOnGetGraphCompResponse
 {
-    public JsonResult Response { get; set; }
+    public JsonElement? Response { get; set; }
 
 }

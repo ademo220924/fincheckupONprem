@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Upload;
 public class UploadOnGetGraphYearResponse
 {
-    public JsonResult Result { get; set; }
+    public JsonElement? Result { get; set; }
 }

@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Beyanname;
 
 public class BeyannameMoodUploadCreateResponse
 {
 
-    public JsonResult ResponseText { get; set; }
+    public JsonElement? ResponseText { get; set; }
 }

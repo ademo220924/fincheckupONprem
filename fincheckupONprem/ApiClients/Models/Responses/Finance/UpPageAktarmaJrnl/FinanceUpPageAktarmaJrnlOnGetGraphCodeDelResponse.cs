@@ -1,11 +1,11 @@
 ﻿using fincheckup.ApiClients.Models.Requests.Finance.UpPageAktarmaJrnl;
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.UpPageAktarmaJrnl
 {
     public class FinanceUpPageAktarmaJrnlOnGetGraphCodeDelResponse
     {
-        public JsonResult Response { get; set; }
+        public JsonElement? Response { get; set; }
         public FinanceUpPageAktarmaJrnlRequestInitialModel InitialModel { get; set; }
     }
 }

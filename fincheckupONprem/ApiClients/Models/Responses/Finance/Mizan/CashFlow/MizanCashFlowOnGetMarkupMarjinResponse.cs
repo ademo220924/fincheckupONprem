@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using fincheckup.ApiClients.Models.Requests.Finance.Mizan.CashFlow;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.Mizan.CashFlow
 {
     public class MizanCashFlowOnGetMarkupMarjinResponse
     {
-        public JsonResult Response { get; set; }
+        public JsonElement? Response { get; set; }
         public MizanCashFlowRequestInitialModel InitialModel { get; set; }
     }
 }

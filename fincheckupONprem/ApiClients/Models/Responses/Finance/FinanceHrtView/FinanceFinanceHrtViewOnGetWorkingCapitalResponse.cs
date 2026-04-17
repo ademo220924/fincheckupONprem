@@ -1,11 +1,11 @@
 ﻿using fincheckup.ApiClients.Models.Requests.Finance.FinanceHrtView;
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.FinanceHrtView
 {
     public class FinanceFinanceHrtViewOnGetWorkingCapitalResponse
     {
-        public JsonResult Response { get; set; }
+        public JsonElement? Response { get; set; }
         public FinanceFinanceHrtViewRequestInitialModel InitialModel { get; set; }
     }
 }

@@ -136,7 +136,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -172,7 +172,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -213,7 +213,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -254,7 +254,7 @@
 
                 if (response.IsSuccess)
                 {
-                    return response.Data.Response;
+                    return new JsonResult(response.Data.Response);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
