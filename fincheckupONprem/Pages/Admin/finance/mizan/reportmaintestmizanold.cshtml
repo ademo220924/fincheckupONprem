@@ -203,6 +203,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetCheckRepPdfAsync(new MizanReportMainTestMizanOldOnGetCheckRepPdfRequest
                     {
                         companyID = companyID,
@@ -211,6 +213,25 @@
 
                 if (response.IsSuccess)
                 {
+                    /*if (response.Data.CurCompanyYearList.Count >= 4)
+                    {
+                        ReportFinancialdynamicd report =Helper.Report.ReportCheckZoneold.getReportMizanIV(response.Data.CompanyId, response.Data.Nacceco, response.Data.UserId, response.Data.CurCompanyYearList, response.Data.Ncccode);
+                        await report.CreateDocumentAsync();
+                        await report.ExportToPdfAsync(response.Data.FilePath);
+                    }
+                    else if (response.Data.CurCompanyYearList.Count == 3)
+                    {
+                        ReportFinancialdynamic report = Helper.Report.ReportCheckZoneold.getReportMizanIII(response.Data.CompanyId, response.Data.Nacceco, response.Data.UserId, response.Data.CurCompanyYearList, response.Data.Ncccode);
+                        await report.CreateDocumentAsync();
+                        await report.ExportToPdfAsync(response.Data.FilePath);
+                    }
+                    else if (response.Data.CurCompanyYearList.Count == 2)
+                    {
+                        ReportFinancialdynamicb report = Helper.Report.ReportCheckZoneold.getReportMizanII(response.Data.CompanyId, response.Data.Nacceco, response.Data.UserId, response.Data.CurCompanyYearList, response.Data.Ncccode);
+                        await report.CreateDocumentAsync();
+                        await report.ExportToPdfAsync(response.Data.FilePath);
+                    }
+                    */
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -859,7 +880,8 @@
                                             .ColumnAutoWidth(true).ShowBorders(false)
                                             .HeaderFilter(f => f.Visible(true))
                                             .WordWrapEnabled(true).RowAlternationEnabled(true)
-                                            .ShowBorders(true).DataSource(Model.InitialModel.reportList).Columns(columns =>
+                                            .ShowBorders(true)
+                                            .DataSource(Model.InitialModel.reportList).Columns(columns =>
                                             {
                                                 columns.AddFor(m => m.CreatedDate).Caption("OLUŞTURULMA TARİHİ").CssClass("custom");
                                                 columns.AddFor(m => m.ReportName).Caption("GÖZLEMLENECEK RAPOR").CssClass("custom").Format(Format.FixedPoint);

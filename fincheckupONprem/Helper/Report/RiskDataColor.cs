@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using fincheckup.ApiClients.Models.ViewModel;
 
 namespace fincheckup.Helper.Report
 {

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using fincheckup.Report;
 using System.Collections.Generic;
 using System.Linq;
+using fincheckup.ApiClients.Models.ViewModel;
+using fincheckup.ApiClients.Models.ViewModel.Reports;
 
 namespace fincheckup.Helper.Report
 {

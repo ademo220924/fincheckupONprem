@@ -1,14 +1,13 @@
 ﻿using DevExpress.DataAccess.ObjectBinding;
 using DevExpress.XtraCharts;
 using DevExpress.XtraReports.UI;
-using fincheckup.ENTITY;
-using fincheckup.Models.Hvvn;
-using fincheckup.Models.ViewM;
 using fincheckup.Report;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using fincheckup.ApiClients.Entities;
+using fincheckup.ApiClients.Models.ViewModel;
 
 namespace fincheckup.Helper.Report
 {
@@ -61,7 +60,7 @@ namespace fincheckup.Helper.Report
         public static List<ReportMainChart> ncheckchart10;
         public static List<ReportMainChart> ncheckchart11;
         public static List<ReportMainChart> ncheckchart12;
-        public static IEnumerable<Entities.Company> mreqListCompany;
+        public static IEnumerable<Company> mreqListCompany;
         public static LineSeriesView checkSeries { get; set; }
 
         public static int compnacecode;
@@ -70,7 +69,7 @@ namespace fincheckup.Helper.Report
         public static string header;
         public static string nccode;
 
-        public static ReportFinancialOverview Getreport(int nyear,Companies comp)
+        public static ReportFinancialOverview Getreport(int nyear,Company comp)
         {
             long companyID = comp.ID;
             compnacecode = 2790;
