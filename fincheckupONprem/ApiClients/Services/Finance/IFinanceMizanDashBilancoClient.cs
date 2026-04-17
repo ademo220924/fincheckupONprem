@@ -17,7 +17,7 @@ public interface IFinanceMizanDashBilancoClient : IApiClientBase
     [Post("/api/finance/mizan/FinanceMizanDashBilanco/OnGet")]
     Task<GenericResult<MizanDashBilancoOnGetResponse>> GetAsync([Body] MizanDashBilancoOnGetRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashBilanco/OnGetChartRasyo")]
-    Task<GenericResult<MizanDashBilancoOnGetChartRasyoResponse>> GetChartRasyoAsync([Body] MizanDashBilancoOnGetChartRasyoRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanDashBilancoOnGetChartRasyoResponse>> GetChartRasyoAsync([Body] MizanDashBilancoOnGetChartRasyoQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashBilanco/OnGetMarkupMarjin")]
     Task<GenericResult<MizanDashBilancoOnGetMarkupMarjinResponse>> GetMarkupMarjinAsync([Body] MizanDashBilancoOnGetMarkupMarjinRequest request, CancellationToken cancellationToken = default);
 }
