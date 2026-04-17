@@ -6,6 +6,7 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 
+@using System.Text.Json
 @using System.Threading
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.CashFlow
 @using fincheckup.ApiClients.Models.ViewModel.Reports
@@ -164,10 +165,22 @@
             //
             //return new JsonResult(DataSourceLoader.Load(ncart.nresult, options));
         }
-        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, string myear, long compid)
+        public async Task<IActionResult> OnGetMarkupMarjin(DataSourceLoadOptions options, string myear, long compid)
         {
             try
             {
+                await OnGet();
+
+                if (string.IsNullOrWhiteSpace(myear) && InitialModel?.CurrentUser != null)
+                {
+                    myear = InitialModel.CurrentUser.SelectedYear.ToString();
+                }
+
+                if (compid <= 0 && InitialModel is { CompID: > 0 })
+                {
+                    compid = InitialModel.CompID;
+                }
+
                 var response = await _apiClient.GetMarkupMarjinAsync(new MizanCashFlowOnGetMarkupMarjinRequest
                     {
                         options = options,
@@ -175,19 +188,30 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement je)
                 {
-                    return new JsonResult(response.Data.Response);
+                    if (je.ValueKind == JsonValueKind.String)
+                    {
+                        var inner = je.GetString();
+                        if (!string.IsNullOrEmpty(inner))
+                        {
+                            return new ContentResult { Content = inner, ContentType = "application/json" };
+                        }
+                    }
+                    else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
+                    {
+                        return new ContentResult { Content = je.GetRawText(), ContentType = "application/json" };
+                    }
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/CashFlow OnGetMarkupMarjin");
+                Console.WriteLine(response.ProblemDetails?.Detail);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
             }
+
+            return new JsonResult(DataSourceLoader.Load(Array.Empty<CashflowView>(), options));
 
             //List<DashBilancoViewMulti> chklist = new List<DashBilancoViewMulti>();
             //
@@ -343,7 +367,7 @@
         .ApplyChangesMode(ApplyChangesMode.Instantly)).FieldPanel(e=>e.ShowColumnFields(true).ShowDataFields(false).ShowFilterFields(false).ShowRowFields(false))
 
                .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { myear = new JS("function() {return tchek; }"), compid = new JS("function() {return mcompid; }") }))
+            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { myear = new JS("function() { var v = $('#txtmyear').val(); var s = sessionStorage.getItem('fnckpyear'); if (s != null && s !== 'null' && s !== '') { return s; } return v || ''; }"), compid = new JS($"function() {{ var el = document.getElementById('txtmcomp'); var raw = el && el.value ? String(el.value).trim() : ''; var n = parseInt(raw, 10); if (!isNaN(n) && n > 0) return n; return {(Model.InitialModel?.CompID ?? 0)}; }}") }))
             .Fields(fields => {
 
                 fields.AddFor(m => m.TypeID)
@@ -411,20 +435,6 @@
     <script src="/js/a_filesave.js"></script>
 
     <script>
-        function getfdate() {
-            //
-            var usrdate = sessionStorage.getItem("fnckpyear");
-            if (usrdate == null || usrdate == undefined || usrdate == "null") {
-
-
-                usrdate = "";
-            }
-            else {
-                return usrdate;
-            }
-
-        };
-        var tchek = getfdate();
         function onExporting(e) {
             var workbook = new ExcelJS.Workbook();
             var worksheet = workbook.addWorksheet('balancesheet');
