@@ -1,14 +1,10 @@
 ﻿using DevExpress.XtraReports.UI;
-using fincheckup.ENTITY;
-using fincheckup.Models.Hvvn;
-using fincheckup.Models.ViewM;
 using fincheckup.Report;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using DevExpress.AspNetCore;
-using DevExpress.DataAccess.ObjectBinding; 
-using System;
+using DevExpress.DataAccess.ObjectBinding;
+using fincheckup.ApiClients.Entities;
+using fincheckup.ApiClients.Models.ViewModel;
 
 namespace fincheckup.Helper.Report
 {
@@ -61,9 +57,9 @@ namespace fincheckup.Helper.Report
         public static List<ReportMainChart> ncheckchart10;
         public static List<ReportMainChart> ncheckchart11;
         public static List<ReportMainChart> ncheckchart12;
-        public static IEnumerable<Entities.Company> mreqListCompany;
+        public static IEnumerable<Company> mreqListCompany;
         public static HhvnUsers CurrentUser;
-        public static Companies CCompanies;
+        public static Company CCompanies;
         public static int compnacecode;
         public static long companyID;
         public static bool Isfailed;
@@ -75,7 +71,7 @@ namespace fincheckup.Helper.Report
 
         public static ReportFinancialdynamicb getReportMizanII(long companyID, string nacceco, long usride_, List<int> nyearChkList, string ncccode)
         {
-            Companies.DataReportMainNace(ncccode, companyID);
+            Company.DataReportMainNace(ncccode, companyID);
             nyearChkList.Sort();
             int[] resultintList = nyearChkList.ToArray();
             int nyear = resultintList.Max();

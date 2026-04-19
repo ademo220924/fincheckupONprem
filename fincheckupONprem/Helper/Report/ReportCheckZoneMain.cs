@@ -17,8 +17,8 @@ using System.Globalization;
 using System.IO;
 using CsvHelper;
 using DevExpress.ClipboardSource.SpreadsheetML;
-using fincheckup.Models.AImodel;
-using fincheckup.Models.NKolay;
+using fincheckup.ApiClients.Entities;
+using fincheckup.ApiClients.Models.ViewModel;
 
 namespace fincheckup.Helper.Report
 {
@@ -69,9 +69,9 @@ namespace fincheckup.Helper.Report
         public static List<ReportMainChart> ncheckchart10{ get; set; }
         public static List<ReportMainChart> ncheckchart11{ get; set; }
         public static List<ReportMainChart> ncheckchart12{ get; set; }
-        public static IEnumerable<Entities.Company> mreqListCompany{ get; set; }
+        public static IEnumerable<Company> mreqListCompany{ get; set; }
         public static HhvnUsers CurrentUser{ get; set; }
-        public static Companies CCompanies{ get; set; }
+        public static Company CCompanies{ get; set; }
         public static int compnacecode{ get; set; }
         public static long companyID{ get; set; }
         public static bool Isfailed{ get; set; }

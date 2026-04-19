@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using fincheckup.Report;
 using System.Collections.Generic;
 using System.Linq;
+using fincheckup.ApiClients.Entities;
 using fincheckup.ApiClients.Models.ViewModel;
 using fincheckup.ApiClients.Models.ViewModel.Reports;
 
@@ -48,15 +49,15 @@ namespace fincheckup.Helper.Report
 
         //objectDataSource.Fill();
         //report.DataSource = objectDataSource;
-        public static BalanceReport getMizanRaporu(int _year, Companies CCompanies)
+        public static BalanceReport getMizanRaporu(int _year, Company CCompanies)
         {
             string header = CCompanies.CompanyName + " " + _year.ToString() + " Yılı Kümülatif Mizan Raporu";
-            List<ReportSet> ncheck = ReportSetMain.Get_ReportSetBilanco(_year, CCompanies.ID);
-            List< DashMizanResult > ncheck1 = MizanResult.Get_MizanResult(_year, CCompanies.ID);
-            List<DashDonukView> ncheck2= MizanResult.Get_DonuChk(_year, CCompanies.ID);
-            List<DashMizanResult> ncheck3= MizanResult.Get_TicariAlıcı(_year, CCompanies.ID);
-            List<DashMizanResult> ncheck4= MizanResult.Get_TicariBorclu(_year, CCompanies.ID);
-            ReportMizan mainreporttext = ReportMizanCheck.GetComapanyCumulative(_year, CCompanies.ID);
+            List<ReportSet> ncheck = ReportSetMain.Get_ReportSetBilanco(_year, CCompanies.Id);
+            List< DashMizanResult > ncheck1 = MizanResult.Get_MizanResult(_year, CCompanies.Id);
+            List<DashDonukView> ncheck2= MizanResult.Get_DonuChk(_year, CCompanies.Id);
+            List<DashMizanResult> ncheck3= MizanResult.Get_TicariAlıcı(_year, CCompanies.Id);
+            List<DashMizanResult> ncheck4= MizanResult.Get_TicariBorclu(_year, CCompanies.Id);
+            ReportMizan mainreporttext = ReportMizanCheck.GetComapanyCumulative(_year, CCompanies.Id);
 
             BalanceReport report = new BalanceReport();
 
@@ -115,19 +116,19 @@ namespace fincheckup.Helper.Report
             return report;
         }
 
-        public static BalanceReport getMizanRaporuMizan(int _year, Companies CCompanies)
+        public static BalanceReport getMizanRaporuMizan(int _year, Company CCompanies)
         {
             string header = CCompanies.CompanyName + " " + _year.ToString() + " Yılı Kümülatif Mizan Raporu";
 
 
      
 
-            List<ReportSet> ncheck = ReportSetMain.Get_ReportSetBilanco(_year, CCompanies.ID);
-            List<DashMizanResult> ncheck1 = MizanResult.Get_MizanResult(_year, CCompanies.ID);
-            List<DashDonukView> ncheck2 = MizanResult.Get_DonuChk(_year, CCompanies.ID);
-            List<DashMizanResult> ncheck3 = MizanResult.Get_TicariAlıcıMizan(_year, CCompanies.ID);
-            List<DashMizanResult> ncheck4 = MizanResult.Get_TicariBorcluMizan(_year, CCompanies.ID);
-            ReportMizan mainreporttext = ReportMizanCheck.GetComapanyCumulativeMizan(_year, CCompanies.ID);
+            List<ReportSet> ncheck = ReportSetMain.Get_ReportSetBilanco(_year, CCompanies.Id);
+            List<DashMizanResult> ncheck1 = MizanResult.Get_MizanResult(_year, CCompanies.Id);
+            List<DashDonukView> ncheck2 = MizanResult.Get_DonuChk(_year, CCompanies.Id);
+            List<DashMizanResult> ncheck3 = MizanResult.Get_TicariAlıcıMizan(_year, CCompanies.Id);
+            List<DashMizanResult> ncheck4 = MizanResult.Get_TicariBorcluMizan(_year, CCompanies.Id);
+            ReportMizan mainreporttext = ReportMizanCheck.GetComapanyCumulativeMizan(_year, CCompanies.Id);
 
             BalanceReport report = new BalanceReport();
 
@@ -186,14 +187,14 @@ namespace fincheckup.Helper.Report
             return report;
         }
 
-        public static BalanceReportAktarma getMizanRaporuMizanAkt(int _year, Companies CCompanies)
+        public static BalanceReportAktarma getMizanRaporuMizanAkt(int _year, Company CCompanies)
         {
             string header = CCompanies.CompanyName + " " + _year.ToString() + " Yılı Aktarma Karşılaştırmalı Mizan Raporu";
 
  
 
 
-            List<ReportSet> ncheck = ReportSetMain.Get_ReportSetBilancoAkt(_year, CCompanies.ID);
+            List<ReportSet> ncheck = ReportSetMain.Get_ReportSetBilancoAkt(_year, CCompanies.Id);
              
 
             BalanceReportAktarma report = new BalanceReportAktarma();

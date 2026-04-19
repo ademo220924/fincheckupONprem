@@ -106,9 +106,12 @@
             
             try
             {
-                var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaJrnlOnGetSalerDateMainRequest
+                await OnGet();
+                
+                var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaJrnlOnGetSalerDateMainQuery
                 {
-                    nyear = nyear
+                    Request = new MizanUpPageAktarmaJrnlOnGetSalerDateMainRequest() { nyear = nyear },
+                    InitialModel = InitialModel
                 }, CancellationToken.None);
                
                 if (response.IsSuccess)
@@ -144,9 +147,11 @@
             
             try
             {
-                var response = await _apiClient.GetSalerDateCodeAsync(new MizanUpPageAktarmaJrnlOnGetSalerDateCodeRequest
-                {
-                    nyear = nyear
+                await OnGet();
+                
+                var response = await _apiClient.GetSalerDateCodeAsync(new MizanUpPageAktarmaJrnlOnGetSalerDateCodeQuery
+                { Request = new MizanUpPageAktarmaJrnlOnGetSalerDateCodeRequest(){nyear = nyear},
+                    InitialModel = InitialModel
                 }, CancellationToken.None);
                
                 if (response.IsSuccess)
@@ -182,9 +187,11 @@
 
             try
             {
-                var response = await _apiClient.GetSalerDateAsync(new MizanUpPageAktarmaJrnlOnGetSalerDateRequest
+                await OnGet();
+
+                var response = await _apiClient.GetSalerDateAsync(new MizanUpPageAktarmaJrnlOnGetSalerDateQuery()
                 {
-                     options = options
+                    Request = new MizanUpPageAktarmaJrnlOnGetSalerDateRequest() { options = options }, InitialModel = InitialModel
                 }, CancellationToken.None);
                
                 if (response.IsSuccess)
@@ -211,6 +218,8 @@
             
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerYearAsync(new MizanUpPageAktarmaJrnlOnGetSalerYearRequest
                 {
                      options = options
@@ -242,9 +251,11 @@
             
             try
             {
-                var response = await _apiClient.GetSalerCompAsync(new MizanUpPageAktarmaJrnlOnGetSalerCompRequest()
-                {
-                   options = options
+                await OnGet();
+
+                var response = await _apiClient.GetSalerCompAsync(new MizanUpPageAktarmaJrnlOnGetSalerCompQuery
+                { Request = new MizanUpPageAktarmaJrnlOnGetSalerCompRequest(){options = options},
+                   InitialModel = InitialModel
                 }, CancellationToken.None);
                
                 if (response.IsSuccess)
@@ -305,9 +316,14 @@
             
             try
             {
-                var response = await _apiClient.GetGraphCodeAsync(new MizanUpPageAktarmaJrnlOnGetGraphCodeRequest
-                {
-                     nyear = nyear, ncode = ncode, ncodedc = ncodedc, nvalue = nvalue
+                await OnGet();
+
+                var response = await _apiClient.GetGraphCodeAsync(new MizanUpPageAktarmaJrnlOnGetGraphCodeQuery
+                { Request = new MizanUpPageAktarmaJrnlOnGetGraphCodeRequest()
+                    {
+                        nyear = nyear, ncode = ncode, ncodedc = ncodedc, nvalue = nvalue
+                    },
+                     
                 }, CancellationToken.None);
                
                 if (response.IsSuccess)
@@ -354,9 +370,11 @@
             
             try
             {
-                var response = await _apiClient.GetGraphCodeDelAsync(new MizanUpPageAktarmaJrnlOnGetGraphCodeDelRequest
-                {
-                    nyear = nyear, ncode = ncode
+                await OnGet();
+                
+                var response = await _apiClient.GetGraphCodeDelAsync(new MizanUpPageAktarmaJrnlOnGetGraphCodeDelQuery
+                { Request = new MizanUpPageAktarmaJrnlOnGetGraphCodeDelRequest(){ nyear = nyear, ncode = ncode},
+                   
                 }, CancellationToken.None);
                
                 if (response.IsSuccess)
