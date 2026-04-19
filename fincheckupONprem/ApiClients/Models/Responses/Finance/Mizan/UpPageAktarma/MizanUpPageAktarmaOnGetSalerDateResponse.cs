@@ -7,6 +7,6 @@ namespace fincheckup.ApiClients.Models.Responses.Finance.Mizan.UpPageAktarma
     public class MizanUpPageAktarmaOnGetSalerDateResponse
     {
         public JsonElement? Response { get; set; }
-        public MizanUpPageAktarmaMizanRequestInitialModel InitialModel { get; set; }
+        public MizanUpPageAktarmaRequestInitialModel InitialModel { get; set; }
     }
 }

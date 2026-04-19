@@ -14,17 +14,17 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanUpPageAktarmaClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanJrnlUpPageAktarmaMizanClient apiClient) : PageModel
     {
         
-        private readonly IFinanceMizanUpPageAktarmaClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+        private readonly IFinanceMizanJrnlUpPageAktarmaMizanClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanUpPageAktarmaMizanRequestInitialModel InitialModel;
   
         public async Task OnGet()
         {
             try
             {
-                var response = await _apiClient.GetAsync(new MizanUpPageAktarmaOnGetRequest(), CancellationToken.None);
+                var response = await _apiClient.GetAsync(new MizanUpPageAktarmaMizanOnGetRequest(), CancellationToken.None);
                 if (response.IsSuccess)
                 {
                     InitialModel = response.Data?.InitialModel;
@@ -68,7 +68,7 @@
         {
             try
             {
-                var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaOnGetSalerDateMainRequest()
+                var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaMizanOnGetSalerDateMainRequest()
                 {
                     nyear = nyear
                 }, CancellationToken.None);
@@ -109,7 +109,7 @@
         {
             try
             {
-                var response = await _apiClient.GetSalerDateAsync(new MizanUpPageAktarmaOnGetSalerDateRequest()
+                var response = await _apiClient.GetSalerDateAsync(new MizanUpPageAktarmaMizanOnGetSalerDateRequest()
                 {
                     options = options
                 }, CancellationToken.None);
@@ -146,7 +146,7 @@
         {
             try
             {
-                var response = await _apiClient.GetSalerYearAsync(new MizanUpPageAktarmaOnGetSalerYearRequest()
+                var response = await _apiClient.GetSalerYearAsync(new MizanUpPageAktarmaMizanOnGetSalerYearRequest()
                 {
                     options = options
                 }, CancellationToken.None);
@@ -177,7 +177,7 @@
 
             try
             {
-                var response = await _apiClient.GetSalerCompAsync(new MizanUpPageAktarmaOnGetSalerCompRequest()
+                var response = await _apiClient.GetSalerCompAsync(new MizanUpPageAktarmaMizanOnGetSalerCompRequest()
                 {
                     options = options
                 }, CancellationToken.None);

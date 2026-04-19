@@ -17,9 +17,9 @@ public interface IFinanceMizanUpPageAktarmaClient : IApiClientBase
     [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGet")]
     Task<GenericResult<MizanUpPageAktarmaOnGetResponse>> GetAsync([Body] MizanUpPageAktarmaOnGetRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGetSalerDateMain")]
-    Task<GenericResult<MizanUpPageAktarmaOnGetSalerDateMainResponse>> GetSalerDateMainAsync([Body] MizanUpPageAktarmaOnGetSalerDateMainRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanUpPageAktarmaOnGetSalerDateMainResponse>> GetSalerDateMainAsync([Body] MizanUpPageAktarmaOnGetSalerDateMainQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGetSalerDate")]
-    Task<GenericResult<MizanUpPageAktarmaOnGetSalerDateResponse>> GetSalerDateAsync([Body] MizanUpPageAktarmaOnGetSalerDateRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanUpPageAktarmaOnGetSalerDateResponse>> GetSalerDateAsync([Body] MizanUpPageAktarmaOnGetSalerDateQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGetSalerYear")]
     Task<GenericResult<MizanUpPageAktarmaOnGetSalerYearResponse>> GetSalerYearAsync([Body] MizanUpPageAktarmaOnGetSalerYearRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGetSalerComp")]

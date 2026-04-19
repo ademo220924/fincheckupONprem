@@ -2,6 +2,6 @@
 {
     public class MizanUpPageAktarmaOnGetResponse
     {
-        public MizanUpPageAktarmaMizanRequestInitialModel InitialModel { get; set; }
+        public MizanUpPageAktarmaRequestInitialModel InitialModel { get; set; }
     }
 }

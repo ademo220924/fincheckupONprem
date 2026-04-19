@@ -31,7 +31,7 @@
         //public IEnumerable<Entities.Company> mreqListCompany;
         //public string currentcompname { get; set; }
 
-        public MizanUpPageAktarmaMizanRequestInitialModel InitialModel { get; set; }
+        public MizanUpPageAktarmaRequestInitialModel InitialModel { get; set; }
 
         public async Task OnGet()
         {
@@ -80,13 +80,14 @@
             await OnGet();
             try
             {
-                var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaOnGetSalerDateMainRequest
-                    {
-                        nyear = nyear
+                var response = await _apiClient.GetSalerDateMainAsync(new MizanUpPageAktarmaOnGetSalerDateMainQuery
+                    { 
+                        Request = new MizanUpPageAktarmaOnGetSalerDateMainRequest(){InitialModel = InitialModel, nyear = nyear}
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data!.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -123,13 +124,18 @@
         {
             try
             {
-                var response = await _apiClient.GetSalerDateAsync(new MizanUpPageAktarmaOnGetSalerDateRequest
-                    {
-                        options = options
+                await OnGet();
+                var response = await _apiClient.GetSalerDateAsync(new MizanUpPageAktarmaOnGetSalerDateQuery
+                    { Request = new MizanUpPageAktarmaOnGetSalerDateRequest
+                        {
+                            options = options
+                        },
+                        InitialModel = InitialModel
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data!.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -162,6 +168,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerYearAsync(new MizanUpPageAktarmaOnGetSalerYearRequest
                     {
                         options = options
@@ -194,6 +202,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerCompAsync(new MizanUpPageAktarmaOnGetSalerCompRequest
                     {
                         options = options
@@ -244,6 +254,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetCheckRepPdfAsync(new MizanUpPageAktarmaOnGetCheckRepPdfRequest
                     {
                         companyID = companyID,
