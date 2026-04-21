@@ -6,6 +6,7 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 
+@using System.Text.Json
 @using System.Threading
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashBilanco
@@ -130,28 +131,60 @@
             return new JsonResult("Entegrasyon eksik finance/mizan/Aktarma OnGetGraphComp");
         }
 
-        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, long compid)
+        public async Task<IActionResult> OnGetMarkupMarjin(DataSourceLoadOptions options, long compid, int myear)
         {
             try
             {
-                var response = await _apiClient.GetMarkupMarjinAsync(new MizanAktarmaDashBilancoOnGetMarkupMarjinRequest()
+                if (compid <= 0 && InitialModel is { CompID: > 0 })
                 {
-                    options = options, compid = compid
-                }, CancellationToken.None);
-
-                if (response.IsSuccess)
+                    compid = InitialModel.CompID;
+                }
+                if (myear <= 0 && InitialModel?.CurrentUser != null)
                 {
-                    return new JsonResult(response.Data.Response);
+                    myear = InitialModel.CurrentUser.SelectedYear;
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/Aktarma OnGetMarkupMarjin");
+                var response = await _apiClient.GetMarkupMarjinAsync(
+                    new MizanAktarmaDashBilancoOnGetMarkupMarjinQuery
+                    {
+                        Request = new MizanAktarmaDashBilancoOnGetMarkupMarjinRequest
+                        {
+                            options = options,
+                            compid = compid
+                        },
+                        InitialModel = InitialModel
+                    },
+                    CancellationToken.None);
+
+                if (response.IsSuccess && response.Data?.InitialModel != null)
+                {
+                    InitialModel = response.Data.InitialModel;
+                }
+
+                if (response.IsSuccess && response.Data?.Response is JsonElement je)
+                {
+                    if (je.ValueKind == JsonValueKind.String)
+                    {
+                        var inner = je.GetString();
+                        if (!string.IsNullOrEmpty(inner))
+                        {
+                            return new ContentResult { Content = inner, ContentType = "application/json" };
+                        }
+                    }
+                    else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
+                    {
+                        return new ContentResult { Content = je.GetRawText(), ContentType = "application/json" };
+                    }
+                }
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
             }
+
+            return new JsonResult(DataSourceLoader.Load(Array.Empty<DashBilancoViewMznShort>(), options));
         }
     }
 }
@@ -181,7 +214,6 @@
         .ShowPane(true)
         .Shading(true)
         .HideOnOutsideClick(false)
-        .OnShown("loadPanel_shown")
     )
 
     <input type="hidden" style="display:none" id="txtmyear" value="@Model.InitialModel.CurrentUser.SelectedYear" />
@@ -304,7 +336,11 @@
         .ApplyChangesMode(ApplyChangesMode.Instantly)).FieldPanel(e=>e.ShowColumnFields(true).ShowDataFields(false).ShowFilterFields(false).ShowRowFields(false))
 
                .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { compid = new JS("function() {return mcompid; }") }))
+            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new
+            {
+                compid = new JS("function() { return mcompid; }"),
+                myear = new JS("function() { var y = $('#slctYear').dxSelectBox('instance'); return y ? y.option('value') : parseInt($('#txtmyear').val(), 10); }")
+            }))
             .Fields(fields => {
                 fields.AddFor(m => m.GroupName)
                .Width(170)
@@ -407,11 +443,6 @@
         function getLoadPanelInstance() {
             return $("#loadPanel").dxLoadPanel("instance");
         }
-        function loadPanel_shown(e) {
-            setTimeout(function () {
-                e.component.hide();
-            }, 7000);
-        }
         var misready = "nok";
         var chkReadyState = setInterval(function () {
             if (document.readyState == "complete") {
@@ -466,8 +497,11 @@
                             location.reload();
                         }
                     },
-                    failure: function (response) {
-                        alert(response);
+                    error: function (_xhr, _status, err) {
+                        alert(err || _status);
+                    },
+                    complete: function () {
+                        getLoadPanelInstance().hide();
                     }
                 });
             }
@@ -491,8 +525,11 @@
                         }
 
                     },
-                    failure: function (response) {
-                        alert(response);
+                    error: function (_xhr, _status, err) {
+                        alert(err || _status);
+                    },
+                    complete: function () {
+                        getLoadPanelInstance().hide();
                     }
                 });
             }

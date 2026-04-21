@@ -17,5 +17,5 @@ public interface IFinanceMizanAktarmaDashRevenueClient : IApiClientBase
     [Post("/api/finance/mizan/aktarma/FinanceMizanAktarmaDashRevenue/OnGet")]
     Task<GenericResult<MizanAktarmaDashRevenueOnGetResponse>> GetAsync([Body] MizanAktarmaDashRevenueOnGetRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/aktarma/FinanceMizanAktarmaDashRevenue/OnGetMarkupMarjin")]
-    Task<GenericResult<MizanAktarmaDashRevenueOnGetMarkupMarjinResponse>> GetMarkupMarjinAsync([Body] MizanAktarmaDashRevenueOnGetMarkupMarjinRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanAktarmaDashRevenueOnGetMarkupMarjinResponse>> GetMarkupMarjinAsync([Body] MizanAktarmaDashRevenueOnGetMarkupMarjinQuery request, CancellationToken cancellationToken = default);
 }

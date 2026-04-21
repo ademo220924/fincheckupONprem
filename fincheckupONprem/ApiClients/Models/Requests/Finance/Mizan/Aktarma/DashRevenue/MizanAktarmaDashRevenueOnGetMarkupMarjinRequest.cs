@@ -1,4 +1,5 @@
-﻿using DevExtreme.AspNet.Mvc;
+﻿using System.Text.Json.Serialization;
+using DevExtreme.AspNet.Mvc;
 
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashRevenue
 {
@@ -10,6 +11,8 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashRevenu
 
     public class MizanAktarmaDashRevenueOnGetMarkupMarjinQuery
     {
+        [JsonIgnore] public  string UserId { get; set; }
         public MizanAktarmaDashRevenueOnGetMarkupMarjinRequest Request { get; set; }
+        public MizanAktarmaDashRevenueRequestInitialModel InitialModel { get; set; }
     }
 }
