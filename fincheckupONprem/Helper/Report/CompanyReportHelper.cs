@@ -1,13 +1,7 @@
 ﻿using DevExpress.DataAccess.ObjectBinding;
 using DevExpress.XtraReports.UI;
-using fincheckup.ENTITY;
-using fincheckup.Models.Hvvn;
-using fincheckup.Models.NKolay.ENTITY.Mizan;
-using fincheckup.Models.NKolay.ViewM;
 using fincheckup.ApiClients.Models.Aggregated;
-using System.Collections.Generic;
 using fincheckup.Report;
-using System.Collections.Generic;
 using System.Linq;
 using fincheckup.ApiClients.Entities;
 using fincheckup.ApiClients.Models.ViewModel;

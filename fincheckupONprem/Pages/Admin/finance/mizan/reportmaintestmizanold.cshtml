@@ -3,7 +3,10 @@
 @using System.Threading
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMizanOld
+@using fincheckup.ApiClients.Models.Requests.Finance.ReportCheckZoneold
 @using fincheckup.ApiClients.Services.Finance
+@using fincheckup.ApiClients.Services.Finance.Reports
+@using fincheckup.Report
 @model IndexModel
 @{
     ViewData["Title"] = "Giriş Ekranı";
@@ -12,7 +15,7 @@
 
 
 @functions {
-    public class IndexModel(IFinanceMizanReportMainTestMizanOldClient apiClient) : PageModel
+    public class IndexModel(IFinanceMizanReportMainTestMizanOldClient apiClient,IFinanceReportCheckZoneoldClient financeReportCheckZoneoldClient) : PageModel
     {
         private readonly IFinanceMizanReportMainTestMizanOldClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
@@ -213,25 +216,51 @@
 
                 if (response.IsSuccess)
                 {
-                    /*if (response.Data.CurCompanyYearList.Count >= 4)
+                    if (response.Data.CurCompanyYearList.Count >= 4)
                     {
-                        ReportFinancialdynamicd report =Helper.Report.ReportCheckZoneold.getReportMizanIV(response.Data.CompanyId, response.Data.Nacceco, response.Data.UserId, response.Data.CurCompanyYearList, response.Data.Ncccode);
+                        var responses = await financeReportCheckZoneoldClient.GetReportMIVAsync(new ReportCheckZoneoldStandardRequest()
+                        {
+                          CompanyId  = response.Data.CompanyId, 
+                          Nacceco= response.Data.Nacceco, 
+                          UserId=response.Data.UserId, 
+                           NyearChkList= response.Data.CurCompanyYearList, 
+                           Ncccode=response.Data.Ncccode
+                        },CancellationToken.None);
+
+                        var report = Helper.Report.ReportCheckZoneold.getReportMIV(responses.Data);
                         await report.CreateDocumentAsync();
                         await report.ExportToPdfAsync(response.Data.FilePath);
                     }
                     else if (response.Data.CurCompanyYearList.Count == 3)
                     {
-                        ReportFinancialdynamic report = Helper.Report.ReportCheckZoneold.getReportMizanIII(response.Data.CompanyId, response.Data.Nacceco, response.Data.UserId, response.Data.CurCompanyYearList, response.Data.Ncccode);
+                        var responses = await financeReportCheckZoneoldClient.GetReportMizanIIIAsync(new ReportCheckZoneoldStandardRequest()
+                        {
+                            CompanyId  = response.Data.CompanyId, 
+                            Nacceco= response.Data.Nacceco, 
+                            UserId=response.Data.UserId, 
+                            NyearChkList= response.Data.CurCompanyYearList, 
+                            Ncccode=response.Data.Ncccode
+                        },CancellationToken.None);
+                        
+                        var report = Helper.Report.ReportCheckZoneold.getReportMizanIII(responses.Data);
                         await report.CreateDocumentAsync();
                         await report.ExportToPdfAsync(response.Data.FilePath);
                     }
                     else if (response.Data.CurCompanyYearList.Count == 2)
                     {
-                        ReportFinancialdynamicb report = Helper.Report.ReportCheckZoneold.getReportMizanII(response.Data.CompanyId, response.Data.Nacceco, response.Data.UserId, response.Data.CurCompanyYearList, response.Data.Ncccode);
+                        var responses = await financeReportCheckZoneoldClient.GetReportMizanIIAsync(new ReportCheckZoneoldStandardRequest()
+                        {
+                            CompanyId  = response.Data.CompanyId, 
+                            Nacceco= response.Data.Nacceco, 
+                            UserId=response.Data.UserId, 
+                            NyearChkList= response.Data.CurCompanyYearList, 
+                            Ncccode=response.Data.Ncccode
+                        },CancellationToken.None);
+                        
+                        ReportFinancialdynamicb report = Helper.Report.ReportCheckZoneold.getReportMizanII(responses.Data);
                         await report.CreateDocumentAsync();
                         await report.ExportToPdfAsync(response.Data.FilePath);
                     }
-                    */
                     return new JsonResult(response.Data.Response);
                 }
 

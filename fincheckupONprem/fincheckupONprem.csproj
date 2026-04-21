@@ -20,10 +20,9 @@
     <Compile Remove="Views\Asset\StockHistoryView.cs" />
     <Compile Remove="ApiClients\Services\IViewApiClient.cs" />
     <Compile Remove="ApiClients\Services\Finance\IFinanceMizanUpBalanceNewApiClient.cs" />
-    <Compile Remove="Helper\Report\**" />
-    <EmbeddedResource Remove="Helper\Report\**" />
-    <Content Remove="Helper\Report\**" />
-    <None Remove="Helper\Report\**" />
+    <Compile Remove="Helper\Report\ComReport.cs" />
+    <Compile Remove="Helper\Report\ReportCheckZoneMain.cs" />
+    <Compile Remove="Helper\Report\CompanyReportHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Mizan\XmlExcel.cs" />
