@@ -21,55 +21,6 @@
         
         public async Task OnGet(int myear)
         {
-
-
-
-/*
-            UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            mreqListCompany = Companies.Getby_User(UserID);
-
-            CompID = mreqListCompany.Where(x => x.IsDefault == 1).FirstOrDefault().ID;
-            CompName = mreqListCompany.Where(x => x.IsDefault == 1).FirstOrDefault().CompanyName;
-            HhvnUsers.SetYearMain(CompID, UserID);
-            CurrentUser = HhvnUsers.GetRow_User(UserID);
-            YearCount = TBLXml.GetYearByComapnyID(CompID);
-            CompCount = mreqListCompany.Count();
-
-            myearResult = YearResult.getValue();
-
-
-            //nRequestListTx = DashBilancoViewTx.setDashBilanco(nRequestList);
-
-            //ncart = new DashYearlyBilancoChart();
-            //ncart.SetResult(nRequestList, CurrentUser.SelectedYear);
-
-
-            //nRequestListChk = nRequestList;
-            //DashGelirTablosuViewMain.getList(CurrentUser.SelectedYear, CompID);
-
-            //val1 = nRequestListChk.Where(x => x.TypeID == 111).Sum(x => x.SmmAfter);
-            //val3 = nRequestListChk.Where(x => x.TypeID == 2222).Sum(x => x.SmmAfter);
-            //if (val3 < 0) { val3 = val3 * -1; }
-            //NetIsletme = (val1 - val3).ToString("0,0.00", new CultureInfo("en-US", false));
-
-            //// DashBilancoViewMain.getNetIsletme(CurrentUser.SelectedYear, CompID);
-            //var val5 = nRequestListChk.Where(x => x.TypeID == 333).Sum(x => x.SmmAfter);
-            //if (val5 == 0)
-            //{
-            //    val5 = 1;
-            //}
-            //CariOranT = (Convert.ToDecimal(nRequestListChk.Where(x => x.TypeID == 111).Sum(x => x.SmmAfter)) / Convert.ToDecimal(val5));
-            //if (CariOranT < 0)
-            //{
-            //    CariOranT = CariOranT * -1;
-            //}
-            //CariOran = CariOranT.ToString("0,0.00", new CultureInfo("en-US", false));
-            ////DashBilancoViewMain.getCariOran(CurrentUser.SelectedYear, CompID).ToString("F");
-            //NakitOran = (Convert.ToDecimal(nRequestListChk.Where(x => (x.TypeID == 10 || x.TypeID == 11)).Sum(x => x.SmmAfter)) / Convert.ToDecimal(val5)).ToString("N2");
-            //DashBilancoViewMain.getNakitOran(CurrentUser.SelectedYear, CompID).ToString("F");
-            */
-
             try
             {
                 var response = await _apiClient.GetAsync(new  MizanDashBilancoKonOnGetRequest(), CancellationToken.None);
@@ -107,27 +58,30 @@
             //return new JsonResult(DataSourceLoader.Load(ShedulerCL.PriorityResources, options));
             return new JsonResult("Burada hata var finance/mizan/konsol/DashBialcoKon/OnGetPrio");
         }
-        public async Task<JsonResult> OnGetGraphYear(int nyear)
+        
+        public async Task<IActionResult> OnGetGraphYear(int nyear)
         {
             /*UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             HhvnUsers.SetYear(nyear, UserID);
             return new JsonResult("ok");*/
             try
             {
+                
+                await OnGet(nyear);
+                
                 var response = await _apiClient.GetGraphYearAsync(new MizanDashBilancoKonOnGetGraphYearRequest()
                 {
                     nyear = nyear
                 }, CancellationToken.None);
                
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    InitialModel = response.Data?.InitialModel;
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
-                else
-                {
-                    Console.WriteLine(response.ProblemDetails.Detail);
-                }
-                return new JsonResult(response.Data!.Response);
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? "GraphYear başarısız");
             }
             catch (Exception ex)
             {
@@ -159,7 +113,7 @@
 
         }
 
-        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, long compid)
+        public async Task<IActionResult> OnGetMarkupMarjin(DataSourceLoadOptions options, int myear, long compid)
         {
             /*
             List<DashBilancoViewMulti> chklist = new List<DashBilancoViewMulti>();
@@ -180,23 +134,25 @@
             {
                 var response = await _apiClient.GetMarkupMarjinAsync(new  MizanDashBilancoKonOnGetMarkupMarjinRequest()
                 {
+                    myear = myear,
                     compid = compid, options = options
                 }, CancellationToken.None);
                
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    InitialModel = response.Data?.InitialModel;
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
-                else
-                {
-                    Console.WriteLine(response.ProblemDetails.Detail);
-                }
-                return new JsonResult(response.Data!.Response);
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                var emptyRows = new List<DashBilancoViewMznShort>();
+                return new JsonResult(DataSourceLoader.Load(emptyRows, options));
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                var emptyRows = new List<DashBilancoViewMznShort>();
+                return new JsonResult(DataSourceLoader.Load(emptyRows, options));
             } 
             
         }
@@ -351,7 +307,10 @@
         .ApplyChangesMode(ApplyChangesMode.Instantly)).FieldPanel(e=>e.ShowColumnFields(true).ShowDataFields(false).ShowFilterFields(false).ShowRowFields(false))
 
                .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new { compid = new JS("function() {return mcompid; }") }))
+            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new {
+                myear = new JS($"function() {{ var el = document.getElementById('txtmyear'); var raw = el && el.value ? String(el.value).trim() : ''; var n = parseInt(raw, 10); if (!isNaN(n) && n > 0) return n; return {Model.InitialModel.CurrentUser.SelectedYear}; }}"),
+                compid = new JS($"function() {{ var el = document.getElementById('txtmcomp'); var raw = el && el.value ? String(el.value).trim() : ''; var n = parseInt(raw, 10); if (!isNaN(n) && n > 0) return n; return {Model.InitialModel.CompID}; }}")
+            }))
             .Fields(fields => {
                 fields.AddFor(m => m.GroupName)
                .Width(170)
@@ -448,15 +407,24 @@
     </script>
 
     <script>
+        var konsolPageUrl = @Json.Serialize(Url.Page("/Admin/finance/mizan/konsol/dashbilancokon"));
         var tyear = $("#txtmyear").val();
         var mcompid = $("#txtmcomp").val();
 
         function getLoadPanelInstance() {
             return $("#loadPanel").dxLoadPanel("instance");
         }
+        function hideLoadPanelSafe() {
+            try {
+                var el = $("#loadPanel");
+                if (!el.length) return;
+                var inst = el.dxLoadPanel("instance");
+                if (inst) inst.hide();
+            } catch (e) { /* widget henüz yok */ }
+        }
         function loadPanel_shown(e) {
             setTimeout(function () {
-                e.component.hide();
+                try { e.component.hide(); } catch (err) { }
             }, 7000);
         }
         var misready = "nok";
@@ -499,22 +467,23 @@
 
         function selectYear_valueChanged(data) {
             var slctval = data.selectedItem.MYear;
-            var turl = '/admin/dashbilanco?handler=GraphYear&nyear=' + slctval;
+            var turl = konsolPageUrl + "?handler=GraphYear&nyear=" + encodeURIComponent(slctval);
 
             if (misready == "ok" && tyear.toString() != slctval.toString()) {
-                getLoadPanelInstance().show();
+                try { getLoadPanelInstance().show(); } catch (e) { }
                 $.ajax({
                     type: "GET",
                     url: turl,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
-                        if (response == "ok") {
-                            location.reload();
-                        }
+                    success: function () {
+                        location.reload();
                     },
-                    failure: function (response) {
-                        alert(response);
+                    error: function (xhr) {
+                        alert(xhr.statusText || "İstek başarısız");
+                    },
+                    complete: function () {
+                        hideLoadPanelSafe();
                     }
                 });
             }
@@ -524,22 +493,22 @@
         function selectCompany_valueChanged(data) {
             var slctval = data.selectedItem.ID;
 
-            var turl = '/admin/dashbilanco?handler=GraphComp&ncompid=' + slctval;
+            var turl = konsolPageUrl + "?handler=GraphComp&ncompid=" + encodeURIComponent(slctval);
             if (misready == "ok" && mcompid.toString() != slctval.toString()) {
-                getLoadPanelInstance().show();
+                try { getLoadPanelInstance().show(); } catch (e) { }
                 $.ajax({
                     type: "GET",
                     url: turl,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
-                        if (response == "ok") {
-                            location.reload();
-                        }
-
+                    success: function () {
+                        location.reload();
                     },
-                    failure: function (response) {
-                        alert(response);
+                    error: function (xhr) {
+                        alert(xhr.statusText || "İstek başarısız");
+                    },
+                    complete: function () {
+                        hideLoadPanelSafe();
                     }
                 });
             }

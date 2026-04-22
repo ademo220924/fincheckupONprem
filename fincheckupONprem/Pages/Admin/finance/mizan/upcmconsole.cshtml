@@ -77,6 +77,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerDateAsync(new MizanUpCrmConsoleOnGetSalerDateRequest
                     {
                         options = options
@@ -111,6 +113,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerYearAsync(new MizanUpCrmConsoleOnGetSalerYearRequest
                     {
                         options = options
@@ -138,6 +142,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerCompAsync(new MizanUpCrmConsoleOnGetSalerCompRequest
                     {
                         options = options
