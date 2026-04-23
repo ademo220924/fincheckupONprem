@@ -1,4 +1,5 @@
 using fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMizan;
+using fincheckup.ApiClients.Models.Responses.Finance.Mizan.ReportMainTestMizan;
 using fincheckup.ApiClients.Services.Base;
 using fincheckup.ApiClients.Models;
 using Refit;
@@ -23,7 +24,7 @@ public interface IFinanceMizanReportMainTestMizanClient : IApiClientBase
     [Post("/api/finance/mizan/FinanceMizanReportMainTestMizan/OnGetSalerComp")]
     Task<GenericResult<MizanReportMainTestMizanOnGetSalerCompResponse>> GetSalerCompAsync([Body] MizanReportMainTestMizanOnGetSalerCompRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanReportMainTestMizan/OnGetCheckRepPdf")]
-    Task<GenericResult<MizanReportMainTestMizanOnGetCheckRepPdfResponse>> GetCheckRepPdfAsync([Body] MizanReportMainTestMizanOnGetCheckRepPdfRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanReportMainTestMizanOnGetCheckRepPdfResponse>> GetCheckRepPdfAsync([Body] MizanReportMainTestMizanOnGetCheckRepPdfQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanReportMainTestMizan/OnGetCheckUrl")]
     Task<GenericResult<MizanReportMainTestMizanOnGetCheckUrlResponse>> GetCheckUrlAsync([Body] MizanReportMainTestMizanOnGetCheckUrlRequest request, CancellationToken cancellationToken = default);
 }

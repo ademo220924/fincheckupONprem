@@ -1,10 +1,10 @@
-using System.Text.Json;
-﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace fincheckup.ApiClients.Models.Responses.Finance.Mizan.ReportMainTestMizan
 {
     public class MizanReportMainTestMizanOnGetCheckUrlResponse
     {
-        public JsonElement? Response { get; set; }
+        [JsonPropertyName("fileUrl")]
+        public string? FileUrl { get; set; }
     }
 }

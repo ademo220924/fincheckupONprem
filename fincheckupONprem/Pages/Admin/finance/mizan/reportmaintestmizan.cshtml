@@ -1,8 +1,11 @@
 ﻿@page
 @using System.Threading
+@using fincheckup.ApiClients.Entities
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMizan
+@using fincheckup.ApiClients.Models.Responses.Finance.Mizan.ReportMainTestMizan
 @using fincheckup.ApiClients.Services.Finance
+@using fincheckup.ApiClients.Services.Finance.Reports
 @model IndexModel
 @{
     ViewData["Title"] = "Giriş Ekranı";
@@ -15,23 +18,7 @@
     public class IndexModel(IFinanceMizanReportMainTestMizanClient apiClient) : PageModel
     {
         private readonly IFinanceMizanReportMainTestMizanClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
-
-        //public IEnumerable<YearResult> myearResult;
-        //public long UserID;
-        //public long CompID;
-        //public int CompCount;
-        //public string CompName;
-        //public int YearCount;
-        //public long curcomID;
-        //public int curcomCount;
-        //public HhvnUsers CurrentUser;
-        //public int YearCurrent;
-        //public List<CompanyReport> reportList;
-        //public IEnumerable<Entities.Company> mreqListCompany;
-        //public Company curCompany;
-        //public string currentcompname { get; set; }
-
-        public MizanReportMainTestMizanRequestInitialModel InitialModel;
+        public MizanReportMainTestMizanRequestInitialModel InitialModel { get; set; } = new();
 
         public async Task OnGet()
         {
@@ -39,44 +26,44 @@
             {
                 var response = await _apiClient.GetAsync(new MizanReportMainTestMizanOnGetRequest(), CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.InitialModel != null)
                 {
                     InitialModel = response.Data.InitialModel;
+                    InitialModel.CurrentUser ??= new HhvnUsers { SelectedYear = DateTime.Now.Year };
+                    InitialModel.reportList ??= new List<CompanyReport>();
+                    InitialModel.mreqListCompany ??= Array.Empty<Company>();
+                    InitialModel.curCompany ??= new Company { NaceId = 0 };
+                    InitialModel.CompName ??= string.Empty;
+                    InitialModel.currentcompname ??= string.Empty;
                 }
                 else
                 {
-                    Console.WriteLine(response.ProblemDetails.Detail);
+                    Console.WriteLine(response.ProblemDetails?.Detail ?? "ReportMainTestMizan OnGet: API başarısız.");
+                    ApplyFallbackInitialModel();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                ApplyFallbackInitialModel();
             }
+        }
 
-            //myearResult = YearResult.getValue();
-            //
-            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //CurrentUser = HhvnUsers.GetRow_User(UserID);
-            //mreqListCompany = Companies.Getby_User(UserID);
-            //curCompany = mreqListCompany.Where(x => x.IsDefault == 1).FirstOrDefault();
-            //CompName = mreqListCompany.Where(x => x.IsDefault == 1).FirstOrDefault().CompanyName;
-            //currentcompname = curCompany.CompanyName;
-            //curcomID = curCompany.ID;
-            //curcomCount = mreqListCompany.Count();
-            //List<int> curCompanyYearList = Companies.Get_CompanyReportYearMainMizan(curcomID);
-            ////currentUpload = UploadMain.Get_Data(DateTime.Now.Year, curcomID);
-            //List<CompanyReport> nlist = CompanyReport.Get_CompanyReportList(curcomID);
-            //if (curCompanyYearList.Count == 0)
-            //{
-            //    curCompanyYearList.Add(0);
-            //}
-            //reportList = nlist.Where(x => x.MainYear == curCompanyYearList.Max() && x.FileTypeID == ReportConstant.FileTypePDF && /x.ReportTypeID /== ReportConstant.ReportTypeMainNew).ToList();
-            //
-            //CompID = curCompany.ID;
-            //YearCount = TBLXml.GetYearByComapnyID(CompID);
-            //CompCount = mreqListCompany.Count();
-            //YearCurrent = CurrentUser.SelectedYear;
+        private void ApplyFallbackInitialModel()
+        {
+            InitialModel ??= new MizanReportMainTestMizanRequestInitialModel();
+            InitialModel.CurrentUser = new HhvnUsers { SelectedYear = DateTime.Now.Year };
+            InitialModel.reportList = new List<CompanyReport>();
+            InitialModel.mreqListCompany = Array.Empty<Company>();
+            InitialModel.curCompany = new Company { NaceId = 0 };
+            InitialModel.CompName = string.Empty;
+            InitialModel.currentcompname = string.Empty;
+            InitialModel.curcomID = 0;
+            InitialModel.curcomCount = 0;
+            InitialModel.CompID = 0;
+            InitialModel.CompCount = 0;
+            InitialModel.YearCount = 0;
+            InitialModel.YearCurrent = DateTime.Now.Year;
         }
 
 
@@ -86,6 +73,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetSalerDateAsync(new MizanReportMainTestMizanOnGetSalerDateRequest
                     {
                         options = options
@@ -104,22 +93,14 @@
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
-            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //CurrentUser = HhvnUsers.GetRow_User(UserID);
-            //
-            //curcomID = Companies.Getby_User(UserID).Where(x => x.IsDefault == 1).FirstOrDefault().ID;
-            //
-            //var currentUploadM = ReportSetMain.Get_StatbyCompanyMain(curcomID);
-            //
-            //
-            //return new JsonResult(DataSourceLoader.Load(currentUploadM.OrderBy(x => x.MainMonth).ToList(), options));
-
         }
+        
         public async Task<JsonResult> OnGetSalerYear(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetSalerYearAsync(new MizanReportMainTestMizanOnGetSalerYearRequest
                     {
                         options = options
@@ -139,14 +120,13 @@
                 throw;
             }
 
-            //var YearSetm = YearResult.getValue().OrderByDescending(x => x.MYear);
-            //return new JsonResult(DataSourceLoader.Load(YearSetm, options));
-
         }
         public async Task<JsonResult> OnGetSalerComp(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetSalerCompAsync(new MizanReportMainTestMizanOnGetSalerCompRequest
                     {
                         options = options
@@ -165,10 +145,6 @@
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
-            //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //mreqListCompany = Companies.Getby_User(UserID);
-            //return new JsonResult(DataSourceLoader.Load(mreqListCompany, options));
 
         }
 
@@ -201,14 +177,19 @@
         {
             try
             {
-                var response = await _apiClient.GetCheckRepPdfAsync(new MizanReportMainTestMizanOnGetCheckRepPdfRequest
-                    {
+                await OnGet();
+
+                var response = await _apiClient.GetCheckRepPdfAsync(new MizanReportMainTestMizanOnGetCheckRepPdfQuery()
+                    { InitialModel = InitialModel, Request = new MizanReportMainTestMizanOnGetCheckRepPdfRequest()
+                        {
                         companyID = companyID,
                         nacceco = nacceco
+                        }
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -220,90 +201,27 @@
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
-
-            //try
-            //{
-            //    string FileDocz = "";
-            //    var codde = NaceCode.GetRow_NaceCodes(Convert.ToInt32(nacceco));
-            //    UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //    Companies curCompany = Companies.Get_CompanyRow(companyID);
-            //    List<int> curCompanyYearList = Companies.Get_CompanyReportYearMainMizan(companyID); 
-            //    curCompanyYearList.Sort();
-            //    int nyear = curCompanyYearList.Max();
-            //    List<CompanyReport> nlist = CompanyReport.Get_CompanyReportList(companyID);
-            //    nlist = nlist.Where(x => x.MainYear == nyear && x.FileTypeID == ReportConstant.FileTypePDF && x.ReportTypeID == //ReportConstant.ReportTypeMainNew).ToList();
-            //    string compnacecode = "2790";
-            //    if (!string.IsNullOrEmpty(curCompany.NaceCode) && !string.IsNullOrWhiteSpace(curCompany.NaceCode))
-            //    {
-            //        if (curCompany.NaceCode.Length  == 3)
-            //        { compnacecode = curCompany.NaceCode.Replace(".", "").Substring(0, 3); }
-            //        else { compnacecode = curCompany.NaceCode.Replace(".", "").Substring(0, 4); }
-            //      
-            //    }
-            //    if (nlist.Count > 0)
-            //    {
-            //        FileDocz = "FileContent/" + nlist[0].ReportName;
-            //        return new JsonResult(FileDocz);
-            //    }
-            //    string NewRepName = "FinansalRiskRapor-" + curCompany.TaxID.ToString() + ".pdf";
-            //    FileDocz = "FileContent/" + NewRepName;
-            //    var FileDic = "wwwroot\\FileContent\\" + NewRepName;
-            //
-            //
-            //    string filePathZ = WebHelper.path;
-            //    string FilePath = System.IO.Path.Combine(filePathZ, FileDic);
-            //
-            //
-            //
-            //    if (curCompanyYearList.Count >= 4)
-            //    {
-            //        DynamicReportfour report = ReportCheckZoneMain.getReportMizanFour(curCompany.ID, compnacecode, UserID, curCompanyYearList, //codde.ID.ToString());
-            //        report.CreateDocument();
-            //        report.ExportToPdf(FilePath);
-            //        CompanyReport.Set_Report(companyID, UserID, NewRepName, ReportConstant.FileTypePDF, ReportConstant.ReportTypeMainNew, 12, //nyear, 0);
-            //    }
-            //    else
-            //    {
-            //        DynamicReport report = ReportCheckZoneMain.getReportMizan(curCompany.ID, compnacecode, UserID, curCompanyYearList, //codde.ID.ToString());
-            //        report.CreateDocument();
-            //        report.ExportToPdf(FilePath);
-            //        CompanyReport.Set_Report(companyID, UserID, NewRepName, ReportConstant.FileTypePDF, ReportConstant.ReportTypeMainNew, 12, //nyear, 0);
-            //    }
-            //
-            //
-            //    return new JsonResult(FileDocz);
-            //
-            //}
-            //catch (Exception ex)
-            //{  
-            //    
-            //    var chk = ex;
-            //    return new JsonResult(ex.ToString());
-            //
-            //
-            //}
-
-
-
-
         }
       
         public async Task<JsonResult> OnGetCheckUrl(long fileID)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetCheckUrlAsync(new MizanReportMainTestMizanOnGetCheckUrlRequest
                     {
                         fileID = fileID
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                MizanReportMainTestMizanOnGetCheckUrlResponse? checkUrlPayload = response.Data;
+                var fileUrl = checkUrlPayload?.FileUrl;
+                if (response.IsSuccess && !string.IsNullOrEmpty(fileUrl))
                 {
-                    return new JsonResult(response.Data.Response);
+                    return new JsonResult(fileUrl);
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
+                Console.WriteLine(response.ProblemDetails?.Detail);
                 return new JsonResult("Burada hata var finance/mizan/ReportMainTestMizan OnGetCheckUrl");
             }
             catch (Exception ex)
@@ -311,29 +229,6 @@
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
-
-            //try
-            //{
-            //     
-            //    CompanyReport  nlist = CompanyReport.Get_CompanyReport(fileID);
-            //   
-            //    string FileDocz = "FileContent/" + nlist.ReportName;
-            //    
-            //    return new JsonResult(FileDocz);
-            //
-            //}
-            //catch (Exception ex)
-            //{
-            //    var chk = ex;
-            //    return new JsonResult(ex.ToString());
-            //
-            //
-            //}
-
-
-
-
         }
     }
 }
@@ -938,17 +833,23 @@
                         return;
                     }
                     else {
- 
-                        var chkdomain = $(location).attr('host');
-
-
-                        const myArray = response.split("/");
-                        let word = myArray[1];
-                        var url = 'https://' + chkdomain + '/' + response;
-                        // window.location.href = 'https://' + chkdomain + response;
+                        var url;
+                        var word;
+                        if (typeof response === 'string' && (response.indexOf('http://') === 0 || response.indexOf('https://') === 0)) {
+                            url = response;
+                            word = response.substring(response.lastIndexOf('/') + 1);
+                        } else {
+                            var chkdomain = $(location).attr('host');
+                            var proto = window.location.protocol + '//';
+                            const myArray = response.split("/");
+                            word = myArray[myArray.length - 1];
+                            url = proto + chkdomain + '/' + response;
+                        }
                         console.log(url);
                         var link = document.createElement('a');
                         link.href = url;
+                        link.target = '_blank';
+                        link.rel = 'noopener';
                         link.download = word;
                         link.dispatchEvent(new MouseEvent('click'));
                     }

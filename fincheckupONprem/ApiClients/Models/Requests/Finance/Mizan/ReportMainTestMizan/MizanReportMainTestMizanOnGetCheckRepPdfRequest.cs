@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMizan
 {
     public class MizanReportMainTestMizanOnGetCheckRepPdfRequest
@@ -9,6 +11,8 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMainTestMiza
 
     public class MizanReportMainTestMizanOnGetCheckRepPdfQuery
     {
+        [JsonIgnore] public  string UserId { get; set; }
         public MizanReportMainTestMizanOnGetCheckRepPdfRequest Request { get; set; }
+        public MizanReportMainTestMizanRequestInitialModel InitialModel { get; set; }
     }
 }

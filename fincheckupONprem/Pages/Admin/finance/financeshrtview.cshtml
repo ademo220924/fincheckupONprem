@@ -1,5 +1,6 @@
 ﻿@page
 @using System.Threading
+@using Microsoft.AspNetCore.Mvc
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.FinanceHrtView
 @using fincheckup.ApiClients.Services.Finance
@@ -31,7 +32,7 @@
                 }
                 else
                 {
-                    Console.WriteLine(response.ProblemDetails.Detail);
+                    Console.WriteLine(response.ProblemDetails?.Detail);
                 }
             }
             catch (Exception ex)
@@ -41,10 +42,13 @@
             }
         }
         
-        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetMarkupMarjin(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetMarkupMarjin";
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetMarkupMarjinAsync(new FinanceFinanceHrtViewOnGetMarkupMarjinRequest
                     {
                         options = options,
@@ -52,25 +56,29 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetMarkupMarjin");
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         }
         
-        public async Task<JsonResult> OnGetEbitMarjin(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetEbitMarjin(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetEbitMarjin";
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetEbitMarjinAsync(new FinanceFinanceHrtViewOnGetEbitMarjinRequest
                     {
                         options = options,
@@ -78,25 +86,29 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetEbitMarjin");
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         }
         
-        public async Task<JsonResult> OnGetWorkingCapital(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetWorkingCapital(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetWorkingCapital";
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetWorkingCapitalAsync(new FinanceFinanceHrtViewOnGetWorkingCapitalRequest
                     {
                         options = options,
@@ -104,25 +116,29 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetWorkingCapital");
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         }
         
-        public async Task<JsonResult> OnGetDonemselKarZarar(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetDonemselKarZarar(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetDonemselKarZarar";
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetDonemselKarZararAsync(new FinanceFinanceHrtViewOnGetDonemselKarZararRequest
                     {
                         options = options,
@@ -130,25 +146,29 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetDonemselKarZarar");
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         }
         
-        public async Task<JsonResult> OnGetRevenue(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetRevenue(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetRevenue";
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetRevenueAsync(new FinanceFinanceHrtViewOnGetRevenueRequest
                     {
                         options = options,
@@ -156,25 +176,29 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetRevenue");
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         } 
         
-        public async Task<JsonResult> OnGetGrossProfit(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetGrossProfit(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetGrossProfit";
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetGrossProfitAsync(new FinanceFinanceHrtViewOnGetGrossProfitRequest
                     {
                         options = options,
@@ -182,25 +206,29 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
 
-                Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/FinanceHrtView OnGetGrossProfit");
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         }
         
-        public async Task<JsonResult> OnGetGraphZet(DataSourceLoadOptions options, int myear, long compid)
+        public async Task<IActionResult> OnGetGraphZet(DataSourceLoadOptions options, int myear, long compid)
         {
+            const string handlerLabel = "Burada hata var finance/FinanceHrtView OnGetGraphZet";
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetGraphZetAsync(new FinanceFinanceHrtViewOnGetGraphZetRequest
                     {
                         options = options,
@@ -208,20 +236,19 @@
                         compid = compid
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response != null)
                 {
-                    return new JsonResult(response.Data?.Response);
+                    var payload = response.Data.Response.Value.GetRawText();
+                    return Content(payload, "application/json");
                 }
-                else
-                {
-                    Console.WriteLine(response.ProblemDetails.Detail);
-                    return new JsonResult("Burada hata var finance/FinanceHrtView OnGetGraphZet");
-                }
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(response.ProblemDetails?.Detail ?? handlerLabel);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return new JsonResult(handlerLabel);
             }
         }
         
