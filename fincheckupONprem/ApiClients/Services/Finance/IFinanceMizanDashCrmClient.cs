@@ -17,11 +17,11 @@ public interface IFinanceMizanDashCrmClient : IApiClientBase
     [Post("/api/finance/mizan/FinanceMizanDashCrm/OnGet")]
     Task<GenericResult<MizanDashCrmOnGetResponse>> GetAsync([Body] MizanDashCrmOnGetRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashCrm/OnGetChartRasyo")]
-    Task<GenericResult<MizanDashCrmOnGetChartRasyoResponse>> GetOnGetChartRasyoAsync([Body] MizanDashCrmOnGetChartRasyoRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanDashCrmOnGetChartRasyoResponse>> GetOnGetChartRasyoAsync([Body] MizanDashCrmOnGetChartRasyoQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashCrm/OnGetChartRasyoa")]
-    Task<GenericResult<MizanDashCrmOnGetChartRasyoaResponse>> GetChartRasyoaAsync([Body] MizanDashCrmOnGetChartRasyoaRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanDashCrmOnGetChartRasyoaResponse>> GetChartRasyoaAsync([Body] MizanDashCrmOnGetChartRasyoaQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashCrm/OnGetChartRasyob")]
-    Task<GenericResult<MizanDashCrmOnGetChartRasyobResponse>> GetChartRasyobAsync([Body] MizanDashCrmOnGetChartRasyobRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanDashCrmOnGetChartRasyobResponse>> GetChartRasyobAsync([Body] MizanDashCrmOnGetChartRasyobQuery request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashCrm/OnGetChartRasyoc")]
-    Task<GenericResult<MizanDashCrmOnGetChartRasyocResponse>> GetChartRasyocAsync([Body] MizanDashCrmOnGetChartRasyocRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanDashCrmOnGetChartRasyocResponse>> GetChartRasyocAsync([Body] MizanDashCrmOnGetChartRasyocQuery request, CancellationToken cancellationToken = default);
 }

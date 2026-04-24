@@ -79,17 +79,20 @@
 
         }
      
-        public async Task<JsonResult> OnGetChartRasyo(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetChartRasyo(DataSourceLoadOptions options)
         {
             try
             {
-                var response = await _apiClient.GetOnGetChartRasyoAsync(new MizanDashCrmOnGetChartRasyoRequest
-                    {
-                        options = options
+                await OnGet();
+                
+                var response = await _apiClient.GetOnGetChartRasyoAsync(new MizanDashCrmOnGetChartRasyoQuery()
+                    { Request = new MizanDashCrmOnGetChartRasyoRequest(){options = options}, 
+                        InitialModel = InitialModel
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data?.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -112,17 +115,21 @@
             //
             //return new JsonResult(DataSourceLoader.Load(RasyoAnalizViewCrm.nresult.OrderByDescending(z => z.Value), options));
         }
-        public async Task<JsonResult> OnGetChartRasyoa(DataSourceLoadOptions options)
+        
+        public async Task<IActionResult>OnGetChartRasyoa(DataSourceLoadOptions options)
         {
             try
             {
-                var response = await _apiClient.GetChartRasyoaAsync(new MizanDashCrmOnGetChartRasyoaRequest
-                    {
-                        options = options
+                await OnGet();
+
+                var response = await _apiClient.GetChartRasyoaAsync(new MizanDashCrmOnGetChartRasyoaQuery()
+                    { Request = new MizanDashCrmOnGetChartRasyoaRequest(){options = options},
+                        InitialModel = InitialModel
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data?.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -146,17 +153,24 @@
             //
             //return new JsonResult(DataSourceLoader.Load(RasyoAnalizViewCrm.nresult.OrderByDescending(z => z.Value), options));
         }
-        public async Task<JsonResult> OnGetChartRasyob(DataSourceLoadOptions options)
+        
+        public async Task<IActionResult>OnGetChartRasyob(DataSourceLoadOptions options)
         {
             try
             {
-                var response = await _apiClient.GetChartRasyobAsync(new MizanDashCrmOnGetChartRasyobRequest
-                    {
-                        options = options
+                await OnGet();
+
+                var response = await _apiClient.GetChartRasyobAsync(new MizanDashCrmOnGetChartRasyobQuery()
+                    { Request = new MizanDashCrmOnGetChartRasyobRequest()
+                        {
+                            options = options
+                        },
+                        InitialModel = InitialModel
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data?.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
@@ -180,17 +194,20 @@
             //
             //return new JsonResult(DataSourceLoader.Load(RasyoAnalizViewCrm.nresult.OrderByDescending(z => z.Value), options));
         }
-        public async Task<JsonResult> OnGetChartRasyoc(DataSourceLoadOptions options)
+        
+        public async Task<IActionResult>OnGetChartRasyoc(DataSourceLoadOptions options)
         {
             try
             {
-                var response = await _apiClient.GetChartRasyocAsync(new MizanDashCrmOnGetChartRasyocRequest
-                    {
-                        options = options
+                await OnGet();
+
+                var response = await _apiClient.GetChartRasyocAsync(new MizanDashCrmOnGetChartRasyocQuery()
+                    { Request = new MizanDashCrmOnGetChartRasyocRequest(){options = options},InitialModel = InitialModel
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
+                    InitialModel = response.Data?.InitialModel;
                     return new JsonResult(response.Data.Response);
                 }
 
