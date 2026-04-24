@@ -181,6 +181,8 @@
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetEbitMarjinAsync(new MizanReportMainOnGetEbitMarjinRequest
                     {
                         options = options,
@@ -215,6 +217,8 @@
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetWorkingCapitalAsync(new MizanReportMainOnGetWorkingCapitalRequest
                     {
                         options = options,
@@ -253,6 +257,8 @@
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetDonemselKarZararAsync(new MizanReportMainOnGetDonemselKarZararRequest
                     {
                         options = options,
@@ -287,6 +293,8 @@
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetRevenueAsync(new MizanReportMainOnGetRevenueRequest
                     {
                         options = options,
@@ -322,6 +330,8 @@
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetGrossProfitAsync(new MizanReportMainOnGetGrossProfitRequest
                     {
                         options = options,
@@ -352,15 +362,22 @@
             //return new JsonResult(DataSourceLoader.Load(new List<YearlyReportDashMizan>(), options));
 
         }
-        public JsonResult OnGetGraphYear(int nyear)
+        public async Task<JsonResult> OnGetGraphYear(int nyear)
         {
+            
+            await OnGet();
+
             //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //HhvnUsers.SetYear(nyear, UserID);
             //return new JsonResult("ok");
             return new JsonResult("Entegrasyon eksik finance/mizan/ReportMain OnGetGraphYear");
         }
-        public JsonResult OnGetGraphComp(int ncompid)
+        
+        public async Task<JsonResult>OnGetGraphComp(int ncompid)
         {
+            
+            await OnGet();
+
             //if (ncompid < 1)
             //{
             //    return new JsonResult("nok");
