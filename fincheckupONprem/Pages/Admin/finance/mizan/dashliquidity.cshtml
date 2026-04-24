@@ -7,9 +7,11 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 @using System.Threading
+@using System.Text.Json
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashLiquidity
 @using fincheckup.ApiClients.Services.Finance
+@using Microsoft.AspNetCore.Mvc
 @functions {
     public class IndexModel(IFinanceMizanDashLiquidityClient apiClient) : PageModel
     {
@@ -106,19 +108,30 @@
             return new JsonResult("Entegrasyon eksik finance/mizan/DashLiquidity OnGetSalerMain");
 
         }
-        public async Task<JsonResult> OnGetMarkupMarjin(DataSourceLoadOptions options, long compid)
+        public async Task<IActionResult> OnGetMarkupMarjin(DataSourceLoadOptions options, long compid)
         {
             try
             {
-                var response = await _apiClient.GetMarkupMarjinAsync(new MizanDashLiquidityOnGetMarkupMarjinRequest
+                await OnGet();
+
+                var response = await _apiClient.GetMarkupMarjinAsync(new MizanDashLiquidityOnGetMarkupMarjinQuery()
+                {
+                    Request = new MizanDashLiquidityOnGetMarkupMarjinRequest()
                     {
                         options = options,
                         compid = compid
-                    }, CancellationToken.None);
+                    },
+                    InitialModel = InitialModel
+                }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
-                    return new JsonResult(response.Data.Response);
+                    InitialModel = response.Data.InitialModel;
+                    if (response.Data.Response is JsonElement loadMarkupMarjin)
+                    {
+                        // Newtonsoft.Json JsonResult ile JsonElement'i {"ValueKind":...} yapar; DevExtreme ham LoadResult JSON bekler.
+                        return Content(loadMarkupMarjin.GetRawText(), "application/json");
+                    }
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -133,21 +146,28 @@
             //nRequestList = DashLikiditeMizan.Get_MAINRESULTMultiMain(compid);
             //return new JsonResult(DataSourceLoader.Load(nRequestList, options));
         }
-        public JsonResult OnGetPrio(DataSourceLoadOptions options)
+        public async Task<JsonResult> OnGetPrio(DataSourceLoadOptions options)
         {
+
+            await OnGet();
 
             //return new JsonResult(DataSourceLoader.Load(ShedulerCL.PriorityResources, options));
             return new JsonResult("Entegrasyon eksik finance/mizan/DashLiquidity OnGetPrio");
         }
-        public JsonResult OnGetGraphYear(int nyear)
+        public async Task<JsonResult> OnGetGraphYear(int nyear)
         {
+            
+            await OnGet();
+            
             //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //HhvnUsers.SetYear(nyear, UserID);
             //return new JsonResult("ok");
             return new JsonResult("Entegrasyon eksik finance/mizan/DashLiquidity OnGetGraphYear");
         }
-        public JsonResult OnGetGraphComp(int ncompid)
+        public async Task<JsonResult> OnGetGraphComp(int ncompid)
         {
+            await OnGet();
+
             //if (ncompid < 1)
             //{
             //    return new JsonResult("nok");

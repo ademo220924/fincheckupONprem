@@ -17,5 +17,5 @@ public interface IFinanceMizanDashLiquidityClient : IApiClientBase
     [Post("/api/finance/mizan/FinanceMizanDashLiquidity/OnGet")]
     Task<GenericResult<MizanDashLiquidityOnGetResponse>> GetAsync([Body] MizanDashLiquidityOnGetRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanDashLiquidity/OnGetMarkupMarjin")]
-    Task<GenericResult<MizanDashLiquidityOnGetMarkupMarjinResponse>> GetMarkupMarjinAsync([Body] MizanDashLiquidityOnGetMarkupMarjinRequest request, CancellationToken cancellationToken = default);
+    Task<GenericResult<MizanDashLiquidityOnGetMarkupMarjinResponse>> GetMarkupMarjinAsync([Body] MizanDashLiquidityOnGetMarkupMarjinQuery request, CancellationToken cancellationToken = default);
 }
