@@ -7,9 +7,11 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 @using System.Threading
+@using System.Text.Json
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashRasyo
 @using fincheckup.ApiClients.Services.Finance
+@using Microsoft.AspNetCore.Mvc
 
 @functions {
     public class IndexModel(IFinanceMizanDashRasyoClient apiClient) : PageModel
@@ -82,18 +84,21 @@
             ////OzetMaliView.SetResult(OzetMali, CurrentUser.SelectedYear);
 
         }
-        public async Task<JsonResult> OnGetCasino(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetCasino(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetCasinoAsync(new MizanDashRasyoOnGetCasinoRequest
                     {
                         options = options
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadCasino)
                 {
-                    return new JsonResult(response.Data.Response);
+                    // Newtonsoft.Json global formatter JsonElement'i {"ValueKind":...} diye bozar; DevExtreme ham LoadResult JSON bekler.
+                    return Content(loadCasino.GetRawText(), "application/json");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -110,18 +115,20 @@
             //return new JsonResult(DataSourceLoader.Load(dash, options));
         }
 
-        public async Task<JsonResult> OnGetChartRasyo(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetChartRasyo(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+                
                 var response = await _apiClient.GetChartRasyoAsync(new MizanDashRasyoOnGetChartRasyoRequest
                     {
                         options = options
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadChartRasyo)
                 {
-                    return new JsonResult(response.Data.Response);
+                    return Content(loadChartRasyo.GetRawText(), "application/json");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -142,18 +149,20 @@
             //
             //return new JsonResult(DataSourceLoader.Load(RasyoAnaliz.Where(x => x.TypeID == 1), options));
         }
-        public async Task<JsonResult> OnGetChartRasyoa(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetChartRasyoa(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetChartRasyoaAsync(new MizanDashRasyoOnGetChartRasyoaRequest
                     {
                         options = options
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadChartRasyoa)
                 {
-                    return new JsonResult(response.Data.Response);
+                    return Content(loadChartRasyoa.GetRawText(), "application/json");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -174,18 +183,20 @@
             //
             //return new JsonResult(DataSourceLoader.Load(RasyoAnaliz.Where(x => x.TypeID == 2), options));
         }
-        public async Task<JsonResult> OnGetChartRasyob(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetChartRasyob(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetChartRasyobAsync(new MizanDashRasyoOnGetChartRasyobRequest
                     {
                         options = options
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadChartRasyob)
                 {
-                    return new JsonResult(response.Data.Response);
+                    return Content(loadChartRasyob.GetRawText(), "application/json");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -207,18 +218,20 @@
             //
             //return new JsonResult(DataSourceLoader.Load(RasyoAnaliz.Where(x => x.TypeID == 3), options));
         }
-        public async Task<JsonResult> OnGetChartMali(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetChartMali(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetChartMaliAsync(new MizanDashRasyoOnGetChartMaliRequest
                     {
                         options = options
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadChartMali)
                 {
-                    return new JsonResult(response.Data.Response);
+                    return Content(loadChartMali.GetRawText(), "application/json");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -241,18 +254,20 @@
             //return new JsonResult(DataSourceLoader.Load(OzetMali, options));
         }
 
-        public async Task<JsonResult> OnGetChartLikid(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetChartLikid(DataSourceLoadOptions options)
         {
             try
             {
+                await OnGet();
+
                 var response = await _apiClient.GetChartLikidAsync(new MizanDashRasyoOnGetChartLikidRequest
                     {
                         options = options
                     }, CancellationToken.None);
 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadChartLikid)
                 {
-                    return new JsonResult(response.Data.Response);
+                    return Content(loadChartLikid.GetRawText(), "application/json");
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -274,18 +289,27 @@
             //
             //return new JsonResult(DataSourceLoader.Load(LikiditeRiskTrend, options));
         }
-        public async Task<JsonResult> OnGetDashRasyo(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetDashRasyo(DataSourceLoadOptions options)
         {
+            await OnGet();
+
             try
             {
-                var response = await _apiClient.GetDashRasyoAsync(new MizanDashRasyoOnGetDashRasyoRequest
-                    {
+                var response = await _apiClient.GetDashRasyoAsync(new MizanDashRasyoOnGetDashRasyoQuery()
+                    { Request = new MizanDashRasyoOnGetDashRasyoRequest()
+                        {
                         options = options
+                        },
+                        InitialModel = InitialModel
                     }, CancellationToken.None);
 
                 if (response.IsSuccess)
                 {
-                    return new JsonResult(response.Data.Response);
+                    InitialModel = response.Data.InitialModel;
+                    if (response.Data.Response is JsonElement loadDashRasyo)
+                    {
+                        return Content(loadDashRasyo.GetRawText(), "application/json");
+                    }
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -301,15 +325,19 @@
             //
             //return new JsonResult(DataSourceLoader.Load(dashrasyo, options));
         }
-        public JsonResult OnGetGraphYear(int nyear)
+        public async Task<JsonResult> OnGetGraphYear(int nyear)
         {
+            await OnGet();
+
             //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //HhvnUsers.SetYear(nyear, UserID);
             //return new JsonResult("ok");
             return new JsonResult("Entegrasyon eksik finance/mizan/DashLiquidity OnGetGraphYear");
         }
-        public JsonResult OnGetGraphComp(int ncompid)
+        public async Task<JsonResult> OnGetGraphComp(int ncompid)
         {
+            await OnGet();
+
             //if (ncompid < 1)
             //{
             //    return new JsonResult("nok");
