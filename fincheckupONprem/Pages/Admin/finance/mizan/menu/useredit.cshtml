@@ -1,6 +1,7 @@
 ﻿@page
 
 @using System.Threading
+@using System.Text.Json
 @using fincheckup.ApiClients.Entities
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.UserEdit
 @model IndexModel
@@ -9,6 +10,8 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 @using fincheckup.ApiClients.Services.Finance
+@using Microsoft.AspNetCore.Mvc
+@using Refit
 
 
 @functions {
@@ -17,10 +20,12 @@
         
         private readonly IFinanceMizanMenuUserEditClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         public MizanUserEditRequestInitialModel InitialModel;
-         
+
+        public int RouteUserId { get; private set; }
 
         public async Task OnGet(int id = 0)
         {
+            RouteUserId = id;
             var response = await _apiClient.GetAsync(new  MizanUserEditOnGetRequest()
             {
                 id=id
@@ -38,13 +43,13 @@
             }
         }
 
-        public async Task<JsonResult> OnGetSalerMain(DataSourceLoadOptions options)
+        public async Task<JsonResult> OnGetSalerMain(DataSourceLoadOptions options, int id = 0)
         {
             return new JsonResult("Burada hata var finance/mizan/menu/UserEdit/OnGetSalerMain");
 
         }
         
-        public async Task<JsonResult> OnGetSalerCity(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetSalerCity(DataSourceLoadOptions options, int id = 0)
         {
             try
             {
@@ -55,13 +60,18 @@
                     }
                     , CancellationToken.None);
                 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadCity)
                 {
-                    return new JsonResult(response.Data!.Response);
+                    return Content(loadCity.GetRawText(), "application/json");
                 }
                 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/menu/UserEdit/OnGetSalerCity");
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new JsonResult(new { error = ex.Message, detail = ex.Content });
             }
             catch (Exception ex)
             {
@@ -71,24 +81,31 @@
 
         }
        
-        public async Task<JsonResult> OnGetSalerCompany(DataSourceLoadOptions options, string dt1)
+        public async Task<IActionResult> OnGetSalerCompany(DataSourceLoadOptions options, string dt1, int id = 0)
         {
             try
             {
                 var response = await _apiClient.GetSalerCompanyAsync(
                     new   MizanUserEditOnGetSalerCompanyRequest()
                     {
-                        options = options, dt1 = dt1
+                        options = options,
+                        dt1 = dt1,
+                        EditedUserId = id
                     }
                     , CancellationToken.None);
                 
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadCompany)
                 {
-                    return new JsonResult(response.Data!.Response);
+                    return Content(loadCompany.GetRawText(), "application/json");
                 }
                 
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/menu/UserEdit/OnGetSalerCompany");
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new JsonResult(new { error = ex.Message, detail = ex.Content });
             }
             catch (Exception ex)
             {
@@ -97,22 +114,30 @@
             }
 
         }
-        public async Task<JsonResult> OnGetUser(int id = 0, string ide = "0")
+        public async Task<IActionResult> OnGetUser(int id = 0, string ide = "0")
         {
-            var response = await apiClient.GetUserAsync(new MizanUserEditOnGetUserRequest()
-            {
-                id = id,
-                ide = ide
-            }, CancellationToken.None);
-            
             try
             {
-                return new JsonResult(response.Data.Response);
-            }
-            catch
-            {
+                await OnGet(RouteUserId);
+                
+                var response = await _apiClient.GetUserAsync(new MizanUserEditOnGetUserRequest()
+                {
+                    id = id,
+                    ide = ide
+                }, CancellationToken.None);
+
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadUser)
+                {
+                    return Content(loadUser.GetRawText(), "application/json");
+                }
+
                 Console.WriteLine(response.ProblemDetails.Detail);
                 return new JsonResult("Burada hata var finance/mizan/menu/UserEdit/OnGetUser");
+            }
+            catch (ApiException ex)
+            {
+                await OnGet(RouteUserId);
+                return new JsonResult(new { error = ex.Message, detail = ex.Content });
             }
         }
 
@@ -186,6 +211,7 @@
 
 
                         <form id="frm">
+                          <input type="hidden" name="routeUserId" id="txtRouteUserId" value="@Model.RouteUserId" />
                           <input type="hidden" value="@Model.InitialModel.mrequest.UserGuid"  id="UserGuid" name="UserGuid" />
 
                             @(Html.DevExtreme().Form<HhvnUsers>
@@ -217,13 +243,13 @@
                 secondGroupItems.AddSimpleFor(m => m.Phone).Editor(e => e.TextBox()).Label(l => l.Text(" Telefon"));
 
                 secondGroupItems.AddSimpleFor(m => m.UserTypeID).IsRequired(true).Label(l => l.Text("Kullanıcı Tipi")).IsRequired(true).Editor(e => e.SelectBox()
-               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerMain")).Key("ID"))
-               .DisplayExpr("Type")
-               .ValueExpr("ID"));
+               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerMain", new { id = Model.RouteUserId })).Key("id"))
+               .DisplayExpr("type")
+               .ValueExpr("id"));
                 secondGroupItems.AddSimpleFor(m => m.CityID).IsRequired(true).Label(l => l.Text("Şehir")).Editor(e => e.SelectBox()
-               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity")).Key("ID"))
-               .DisplayExpr("City")
-               .ValueExpr("ID"));
+               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity", new { id = Model.RouteUserId })).Key("id"))
+               .DisplayExpr("cityName")
+               .ValueExpr("id"));
 
 
                 secondGroupItems.AddSimpleFor(m => m.IsActive).Label(l => l.Text("Aktif Mi"));
@@ -234,8 +260,8 @@
             {
                 secondGroupItems.AddSimpleFor(m => m.CompanyList).Name("CompanyList").IsRequired(true).Label(l => l.Text("Şirket")).Editor(e => e.DropDownBox()
                  .ContentTemplate(new TemplateName("EmbeddedDataGridMultiple"))
-                            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCompany")).Key("ID").LoadMode(DataSourceLoadMode.Raw))
-                            .DisplayExpr("CompanyName").ValueExpr("ID").OnValueChanged("gridBox_valueChanged"))
+                            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCompany", new { id = Model.RouteUserId })).Key("id").LoadMode(DataSourceLoadMode.Raw))
+                            .DisplayExpr("companyName").ValueExpr("id").OnValueChanged("gridBox_valueChanged"))
                            ;
 
 
@@ -301,11 +327,11 @@
         .ID("embedded-datagrid")
         .DataSource(new JS(@"component.getDataSource()"))
         .Columns(columns => {
-            columns.Add().DataField("ID").Width(0);
-            columns.Add().DataField("CompanyName");
-            columns.Add().DataField("City");
+            columns.Add().DataField("id").Width(0);
+            columns.Add().DataField("companyName");
+            columns.Add().DataField("city");
         })
-        .HoverStateEnabled(true).KeyExpr("ID")
+        .HoverStateEnabled(true).KeyExpr("id")
         .Paging(p => p.PageSize(10))
         .FilterRow(f => f.Visible(true))
         .Scrolling(s => s.Mode(GridScrollingMode.Virtual))
