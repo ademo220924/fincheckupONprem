@@ -201,7 +201,7 @@ public class MizanController(IWebHostEnvironment environment, IMizanApiClient mi
             : Json(response.ProblemDetails);
     }
      
-    public async Task<JsonResult> moodUpdateBalance(ApiClients.Models.Aggregated.XMlookUpdate pageIndex)
+    public async Task<JsonResult> moodUpdateBalance([FromForm] ApiClients.Models.Aggregated.XMlookUpdate pageIndex)
     {
         if (!ModelState.IsValid)
             return Json("nok");

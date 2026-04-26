@@ -1,10 +1,12 @@
 @page
 
 @using System.Threading
+@using Microsoft.Extensions.Options
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalance
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.UpBalanceNew
 @using fincheckup.ApiClients.Models.ViewModel
 @using fincheckup.ApiClients.Services.Finance
+@using fincheckup.Configuration
 @model IndexModel
 @{
     ViewData["Title"] = "Giriş Ekranı";
@@ -14,12 +16,23 @@
 @functions {
     public class IndexModel(
         IFinanceMizanUpBalanceNewClient apiClient,
-        IFinanceMizanUpBalanceClient mizanUpBalanceClient) : PageModel
+        IFinanceMizanUpBalanceClient mizanUpBalanceClient,
+        IOptions<PublicFileHostingSettings> publicFileHosting) : PageModel
     {
         private readonly IFinanceMizanUpBalanceNewClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
         private readonly IFinanceMizanUpBalanceClient _mizanUpBalanceClient = mizanUpBalanceClient ?? throw new ArgumentNullException(nameof(mizanUpBalanceClient));
+        private readonly PublicFileHostingSettings _publicFiles = publicFileHosting?.Value ?? new PublicFileHostingSettings();
 
         public MizanUpBalanceNewRequestInitialModel InitialModel{ get; set; }
+
+        public string PublicFileBaseUrl => (_publicFiles.BaseUrl ?? string.Empty).TrimEnd('/');
+
+        private static string NormalizeMizanRelativePath(string? path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return string.Empty;
+            return path.Trim().TrimStart('/', '\\').Replace('\\', '/');
+        }
 
         public async Task OnGet()
         {
@@ -137,7 +150,11 @@
                 if (response.IsSuccess)
                 {
                     InitialModel = response.Data!.InitialModel;
-                    return new JsonResult(response.Data.Response);
+                    var rel = NormalizeMizanRelativePath(response.Data.Response);
+                    if (string.IsNullOrEmpty(rel))
+                        return new JsonResult("nok");
+                    // Göreli yol: tarayıcıda buildMizanFileDownloadUrl + hidPublicFileBaseUrl ile tam URL (reportmaintestmizan funczone ile aynı fikir).
+                    return new JsonResult(rel);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -163,7 +180,10 @@
 
                 if (response.IsSuccess)
                 {
-                    return new JsonResult(response.Data.Response);
+                    var rel = NormalizeMizanRelativePath(response.Data.Response);
+                    if (string.IsNullOrEmpty(rel))
+                        return new JsonResult("nok");
+                    return new JsonResult(rel);
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
@@ -432,6 +452,7 @@
 <input type="hidden" style="display:none" id="txtcompname" value="@Model.InitialModel.currentcompname" />
 <input type="hidden" style="display:none" id="txtcurcomCount" value="@Model.InitialModel.curcomCount" />
 <input type="hidden" style="display:none" id="txtcurcomide" value="@Model.InitialModel.curcomID" />
+<input type="hidden" id="hidPublicFileBaseUrl" value="@Model.PublicFileBaseUrl" />
 <section class="content home" id="">
     <div class="container-fluid">
         <div class="block-header">
@@ -581,13 +602,36 @@
 
                     };
 
-                    function functionupdatetax(data) {
+                    function onGrdContYearDefterCellClick(e) {
+                        if (e.rowType !== "data" || !e.column) return;
+                        var caption = String(e.column.caption || "").trim();
+                        var d = e.data || {};
+                        var y = Number(d.mainYear != null ? d.mainYear : d.MainYear);
+                        var m = Number(d.mainMonth != null ? d.mainMonth : d.MainMonth);
+                        if (isNaN(y)) y = parseInt(String($("#txtmyear").val()), 10) || 0;
+                        if (isNaN(m)) m = 0;
+                        if (caption === "Aksiyon") {
+                            functionupdatetax(y, m);
+                        } else if (caption === "Rapor Çıktısı") {
+                            if (typeof selectrep_valuepdf === "function") {
+                                selectrep_valuepdf(y);
+                            }
+                        }
+                    }
+
+                    function functionupdatetax(mainYear, mainMonth) {
                         startit();
-                        monthid = data;
+                        var y = parseInt(String(mainYear != null && mainYear !== '' ? mainYear : $("#txtmyear").val()), 10);
+                        var m = parseInt(String(mainMonth != null && mainMonth !== '' ? mainMonth : 0), 10);
+                        if (isNaN(y)) { y = parseInt(String($("#txtmyear").val()), 10) || 0; }
+                        if (isNaN(m)) { m = 0; }
+                        monthid = m;
                         var fdatam = new FormData();
-                        fdatam.append('companyid', $("#txtcurcomide").val());
-                        fdatam.append('month', data);
-                        fdatam.append('year', data);
+                        var compId = $("#txtcurcomide").val() || $("#txtmcomp").val() || "0";
+                        fdatam.append('caplist', '');
+                        fdatam.append('companyid', compId);
+                        fdatam.append('month', m);
+                        fdatam.append('year', y);
 
                         $.ajax({
                             url: "/JsonService/Mizan/moodUpdateBalance",
@@ -694,7 +738,7 @@
 
                                 <div class="card">
                                     <div class="body">
-                                        @(Html.DevExtreme().DataGrid<YearlyErrorResult>().ColumnHidingEnabled(true).ID("grdContYearDefter").OnCellPrepared("onCellPrepared").OnRowPrepared("onRowPrepared").ShowColumnLines(false)
+                                        @(Html.DevExtreme().DataGrid<YearlyErrorResult>().ColumnHidingEnabled(true).ID("grdContYearDefter").OnCellPrepared("onCellPrepared").OnRowPrepared("onRowPrepared").OnCellClick("onGrdContYearDefterCellClick").ShowColumnLines(false)
                                             .ColumnMinWidth(50)
                                             .ColumnAutoWidth(true).ShowBorders(false).Height(440).Columns(columns =>
                                             {
@@ -703,7 +747,7 @@
                                                 columns.AddFor(m => m.MainMonth).Visible(false).SortOrder(SortOrder.Asc);
 
                                                 columns.Add().CssClass("custom").Caption("Aksiyon").CellTemplate(@<text>
-                                            <div onclick="functionupdatetax('[%= data.MainYear %]')" class="dxmain dx-link-edit dx-button dx-button-normal dx-button-mode-contained dx-widget dx-button-has-text" aria-label="Yükle" tabindex="0" role="button"><div class="dx-button-content" style="background-color:#870052 "><span class="dx-button-text" style="color:white ">Mizan Raporu Hazırla</span></div></div>
+                                            <div class="dxmain dx-link-edit dx-button dx-button-normal dx-button-mode-contained dx-widget dx-button-has-text" style="cursor:pointer" aria-label="Yükle" tabindex="0" role="button"><div class="dx-button-content" style="background-color:#870052 "><span class="dx-button-text" style="color:white ">Mizan Raporu Hazırla</span></div></div>
 
 
                                         </text>);
@@ -711,7 +755,7 @@
 
 
                                             <p style='text-align:center;margin-bottom:0'>
-                                                <button style="height: 35px;background:#375e99" onclick="selectrep_valuepdf('[%=data.MainYear %]')" data-id='<%= data.ID %>' class="btn btn-primary dx-link-edit">Pdf</button>
+                                                <button type="button" style="height: 35px;background:#375e99;cursor:pointer" class="btn btn-primary dx-link-edit">Pdf</button>
                                             </p>
                                         </text>);
 
@@ -767,6 +811,32 @@
     <script src="~/js/polyfill.min.js"></script>
 
     <script>
+        function buildMizanFileDownloadUrl(response) {
+            var raw = response;
+            if (response && typeof response === "object") {
+                if (response.value !== undefined)
+                    raw = response.value;
+                else if (response.fileUrl !== undefined)
+                    raw = response.fileUrl;
+                else
+                    raw = "";
+            }
+            if (typeof raw === "string" && raw.length > 0 && raw.charAt(0) === "{") {
+                try {
+                    var j = JSON.parse(raw);
+                    raw = j.value || j.url || raw;
+                } catch (e) { }
+            }
+            if (!raw || typeof raw !== "string")
+                return "";
+            raw = raw.replace(/\\/g, "/");
+            if (raw.indexOf("http://") === 0 || raw.indexOf("https://") === 0)
+                return raw;
+            var base = ($("#hidPublicFileBaseUrl").val() || "").trim().replace(/\/$/, "");
+            if (base)
+                return base + "/" + raw.replace(/^\//, "");
+            return window.location.protocol + "//" + $(location).attr("host") + "/" + raw.replace(/^\//, "");
+        }
 
         function selectrep_valuexls(data) {
 
@@ -797,23 +867,13 @@
                         return;
                     }
                     else {
-
-
-                        var chkdomain = $(location).attr('host');
-
-
-                        const myArray = response.split("/");
-                        let word = myArray[1];
-                        var url = 'https://' + chkdomain + '/' + response;
-                        // window.location.href = 'https://' + chkdomain + response;
-                        console.log(url);
-                        var link = document.createElement('a');
-                        link.href = url;
-                        link.download = word;
-                        link.dispatchEvent(new MouseEvent('click'));
+                        var url = buildMizanFileDownloadUrl(response);
+                        if (!url) {
+                            Swal.fire('Uyarı!', 'Dosya yolu alınamadı.', 'error');
+                            return;
+                        }
+                        window.open(url, "_blank");
                     }
-
-
 
                 },
                 failure: function (response) {
@@ -850,20 +910,12 @@
                         return;
                     }
                     else {
-
-
-                        var chkdomain = $(location).attr('host');
-
-
-                        const myArray = response.split("/");
-                        let word = myArray[1];
-                        var url = 'https://' + chkdomain + '/' + response;
-                        // window.location.href = 'https://' + chkdomain + response;
-                        console.log(url);
-                        var link = document.createElement('a');
-                        link.href = url;
-                        link.download = word;
-                        link.dispatchEvent(new MouseEvent('click'));
+                        var url = buildMizanFileDownloadUrl(response);
+                        if (!url) {
+                            Swal.fire('Uyarı!', 'Dosya yolu alınamadı.', 'error');
+                            return;
+                        }
+                        window.open(url, "_blank");
                     }
 
                 },

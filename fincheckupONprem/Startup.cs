@@ -21,6 +21,7 @@ using fincheckup.ApiClients.Helpers;
 using fincheckup.ApiClients.Models.Aggregated;
 using fincheckup.ApiClients.Models.SignOperation;
 using fincheckup.ApiClients.Services.Base;
+using fincheckup.Configuration;
 using fincheckup.StartupConfigurations;
 
 namespace fincheckup
@@ -34,6 +35,7 @@ namespace fincheckup
             services.AddScoped<IAuthenticationHelperService, AuthenticationHelperService>();
             services.AddFinanceApiCLientWithRefit(Configuration);
             services.Configure<TokenOptions>(Configuration.GetSection(nameof(TokenOptions)));
+            services.Configure<PublicFileHostingSettings>(Configuration.GetSection(nameof(PublicFileHostingSettings)));
             services.AddHttpContextAccessor();
             DatabaseApp.ConnectionApp = Configuration["QNBpay:AppID"];
             services.AddSession(opts =>
