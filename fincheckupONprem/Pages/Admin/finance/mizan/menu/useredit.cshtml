@@ -43,10 +43,32 @@
             }
         }
 
-        public async Task<JsonResult> OnGetSalerMain(DataSourceLoadOptions options, int id = 0)
+        public async Task<IActionResult> OnGetSalerMain(DataSourceLoadOptions options, int id = 0)
         {
-            return new JsonResult("Burada hata var finance/mizan/menu/UserEdit/OnGetSalerMain");
+            try
+            {
+                var response = await _apiClient.GetSalerMainAsync(
+                    new MizanUserEditOnGetSalerMainRequest { options = options },
+                    CancellationToken.None);
 
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadMain)
+                {
+                    return Content(loadMain.GetRawText(), "application/json");
+                }
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult(new { error = "SalerMain load failed", detail = response.ProblemDetails?.Detail });
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new JsonResult(new { error = ex.Message, detail = ex.Content });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
         
         public async Task<IActionResult> OnGetSalerCity(DataSourceLoadOptions options, int id = 0)
@@ -243,13 +265,13 @@
                 secondGroupItems.AddSimpleFor(m => m.Phone).Editor(e => e.TextBox()).Label(l => l.Text(" Telefon"));
 
                 secondGroupItems.AddSimpleFor(m => m.UserTypeID).IsRequired(true).Label(l => l.Text("Kullanıcı Tipi")).IsRequired(true).Editor(e => e.SelectBox()
-               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerMain", new { id = Model.RouteUserId })).Key("Id"))
-               .DisplayExpr("Type")
-               .ValueExpr("Id"));
+               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerMain", new { id = Model.RouteUserId })).Key("id"))
+               .DisplayExpr("type")
+               .ValueExpr("id"));
                 secondGroupItems.AddSimpleFor(m => m.CityID).IsRequired(true).Label(l => l.Text("Şehir")).Editor(e => e.SelectBox()
-               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity", new { id = Model.RouteUserId })).Key("Id"))
-               .DisplayExpr("CityName")
-               .ValueExpr("Id"));
+               .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity", new { id = Model.RouteUserId })).Key("id"))
+               .DisplayExpr("cityName")
+               .ValueExpr("id"));
 
 
                 secondGroupItems.AddSimpleFor(m => m.IsActive).Label(l => l.Text("Aktif Mi"));
@@ -260,8 +282,8 @@
             {
                 secondGroupItems.AddSimpleFor(m => m.CompanyList).Name("CompanyList").IsRequired(true).Label(l => l.Text("Şirket")).Editor(e => e.DropDownBox()
                  .ContentTemplate(new TemplateName("EmbeddedDataGridMultiple"))
-                            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCompany", new { id = Model.RouteUserId })).Key("Id").LoadMode(DataSourceLoadMode.Raw))
-                            .DisplayExpr("CompanyName").ValueExpr("Id").OnValueChanged("gridBox_valueChanged"))
+                            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCompany", new { id = Model.RouteUserId })).Key("id").LoadMode(DataSourceLoadMode.Raw))
+                            .DisplayExpr("companyName").ValueExpr("id").OnValueChanged("gridBox_valueChanged"))
                            ;
 
 
@@ -327,11 +349,11 @@
         .ID("embedded-datagrid")
         .DataSource(new JS(@"component.getDataSource()"))
         .Columns(columns => {
-            columns.Add().DataField("Id").Width(0);
-            columns.Add().DataField("CompanyName");
-            columns.Add().DataField("City");
+            columns.Add().DataField("id").Width(0);
+            columns.Add().DataField("companyName");
+            columns.Add().DataField("cityId");
         })
-        .HoverStateEnabled(true).KeyExpr("Id")
+        .HoverStateEnabled(true).KeyExpr("id")
         .Paging(p => p.PageSize(10))
         .FilterRow(f => f.Visible(true))
         .Scrolling(s => s.Mode(GridScrollingMode.Virtual))

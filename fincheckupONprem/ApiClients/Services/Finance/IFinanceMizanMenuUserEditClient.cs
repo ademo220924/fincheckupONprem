@@ -16,6 +16,8 @@ public interface IFinanceMizanMenuUserEditClient : IApiClientBase
 {
     [Post("/api/finance/mizan/menu/FinanceMizanMenuUserEdit/OnGet")]
     Task<GenericResult<MizanUserEditOnGetResponse>> GetAsync([Body] MizanUserEditOnGetRequest request, CancellationToken cancellationToken = default);
+    [Post("/api/finance/mizan/menu/FinanceMizanMenuUserEdit/OnGetSalerMain")]
+    Task<GenericResult<MizanUserEditOnGetSalerMainResponse>> GetSalerMainAsync([Body] MizanUserEditOnGetSalerMainRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/menu/FinanceMizanMenuUserEdit/OnGetSalerCity")]
     Task<GenericResult<MizanUserEditOnGetSalerCityResponse>> GetSalerCityAsync([Body] MizanUserEditOnGetSalerCityRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/menu/FinanceMizanMenuUserEdit/OnGetSalerCompany")]
