@@ -100,7 +100,7 @@
     var usr =responseModel.Data?.HhvnUsers;
     var usrApp = responseModel.Data?.UserApp;
    
-    if (!string.IsNullOrEmpty(usr.qnbUserId))
+    if (!string.IsNullOrEmpty(usr?.qnbUserId))
     {
         Context.Response.Redirect("/admin/qnb/upload");
     }

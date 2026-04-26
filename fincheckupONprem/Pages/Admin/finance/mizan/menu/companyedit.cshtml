@@ -1,9 +1,12 @@
 ﻿@page
 @using System.Threading
+@using System.Text.Json
 @using fincheckup.ApiClients.Entities
 @model IndexModel
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Menu.CompanyEdit
 @using fincheckup.ApiClients.Services.Finance
+@using Microsoft.AspNetCore.Mvc
+@using Refit
 @{
     ViewData["Title"] = "Giriş Ekranı";
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
@@ -66,45 +69,50 @@
         }
        
   
-        public async Task<JsonResult> OnGetSalerEnteg(DataSourceLoadOptions options)
+        public async Task<IActionResult> OnGetSalerEnteg(DataSourceLoadOptions options)
         {
-            var response= await  companyEditClient
-                                                                              .GetSalerEntegAsync(new MizanCompanyEditOnGetSalerEntegRequest { options = options },
-                                                                                                  CancellationToken.None);
-
             try
             {
-                return new JsonResult(response.Data.Response);
-            }
-            catch
-            {
-                Console.WriteLine(response.ProblemDetails.Detail);
-                throw;
-            } 
-
-            // var mreqListCitiy = Companies.GetCompany_Entegrator();
-            // return new JsonResult(DataSourceLoader.Load(mreqListCitiy, options));
-
-        }
-        public async Task<JsonResult> OnGetSalerCity(DataSourceLoadOptions options)
-        {
-            var response= await  companyEditClient
-                .GetSalerCityAsync(new MizanCompanyEditOnGetSalerCityRequest { options = options },
+                var response = await companyEditClient.GetSalerEntegAsync(
+                    new MizanCompanyEditOnGetSalerEntegRequest { options = options },
                     CancellationToken.None);
 
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadEnteg)
+                {
+                    return Content(loadEnteg.GetRawText(), "application/json");
+                }
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult("Burada hata var mizan/menu/companyedit OnGetSalerEnteg");
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new JsonResult(new { error = ex.Message, detail = ex.Content });
+            }
+        }
+
+        public async Task<IActionResult> OnGetSalerCity(DataSourceLoadOptions options)
+        {
             try
             {
-                return new JsonResult(response.Data?.Response);
+                var response = await companyEditClient.GetSalerCityAsync(
+                    new MizanCompanyEditOnGetSalerCityRequest { options = options },
+                    CancellationToken.None);
+
+                if (response.IsSuccess && response.Data?.Response is JsonElement loadCity)
+                {
+                    return Content(loadCity.GetRawText(), "application/json");
+                }
+
+                Console.WriteLine(response.ProblemDetails?.Detail);
+                return new JsonResult("Burada hata var mizan/menu/companyedit OnGetSalerCity");
             }
-            catch
+            catch (ApiException ex)
             {
-                Console.WriteLine(response.ProblemDetails.Detail);
-                throw;
-            } 
-
-            // var  mreqListCitiy = Cities.Get_Cities();
-            // return new JsonResult(DataSourceLoader.Load(mreqListCitiy, options));
-
+                Console.WriteLine(ex.Message);
+                return new JsonResult(new { error = ex.Message, detail = ex.Content });
+            }
         }
 
     }
@@ -207,9 +215,9 @@
                 secondGroupItems.AddSimpleFor(m => m.ContactMail).Editor(e => e.TextBox()).IsRequired(true).Label(l => l.Text("Yetkili E-mail"));
                 secondGroupItems.AddSimpleFor(m => m.NaceCode).Editor(e => e.TextBox()).IsRequired(true).Label(l => l.Text("Nace Kodu"));
                 secondGroupItems.AddSimpleFor(m => m.CityId).Label(l => l.Text("Şehir")).IsRequired(true).Editor(e => e.SelectBox()
-            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity")).Key("ID"))
-            .DisplayExpr("City")
-            .ValueExpr("ID"));
+            .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerCity")).Key("id"))
+            .DisplayExpr("cityName")
+            .ValueExpr("id"));
 
             });
             groupItems.AddGroup().ColSpan(2).Items(secondGroupItems =>
@@ -218,9 +226,9 @@
                 secondGroupItems.AddSimpleFor(m => m.TaxOffice).IsRequired(true).Label(l => l.Text("Vergi Dairesi"));
                 secondGroupItems.AddSimpleFor(m => m.TaxId).IsRequired(true).Label(l => l.Text("Vergi Numarası"));
                 secondGroupItems.AddSimpleFor(m => m.XmlSourceId).Label(l => l.Text("XML Entegratör")).IsRequired(true).Editor(e => e.SelectBox()
-          .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerEnteg")).Key("ID"))
-          .DisplayExpr("XmlSource")
-          .ValueExpr("ID"));
+          .DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "SalerEnteg")).Key("id"))
+          .DisplayExpr("xmlSource")
+          .ValueExpr("id"));
 
 
 
