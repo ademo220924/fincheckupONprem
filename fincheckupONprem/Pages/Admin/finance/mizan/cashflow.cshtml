@@ -11,6 +11,7 @@
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.CashFlow
 @using fincheckup.ApiClients.Models.ViewModel.Reports
 @using fincheckup.ApiClients.Services.Finance
+@using fincheckup.Helper
 
 @functions {
     public class IndexModel(IFinanceMizanCashFlowClient apiClient) : PageModel
@@ -190,17 +191,20 @@
 
                 if (response.IsSuccess && response.Data?.Response is JsonElement je)
                 {
+                    // API camelCase; PivotGrid CashflowView alanlari PropertyNamingPolicy=null nedeniyle PascalCase bekler.
                     if (je.ValueKind == JsonValueKind.String)
                     {
                         var inner = je.GetString();
                         if (!string.IsNullOrEmpty(inner))
                         {
-                            return new ContentResult { Content = inner, ContentType = "application/json" };
+                            var normalizedInner = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeCashflowViewPayload(inner);
+                            return new ContentResult { Content = normalizedInner ?? inner, ContentType = "application/json" };
                         }
                     }
                     else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
                     {
-                        return new ContentResult { Content = je.GetRawText(), ContentType = "application/json" };
+                        var normalized = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeCashflowViewPayload(je.GetRawText());
+                        return new ContentResult { Content = normalized ?? je.GetRawText(), ContentType = "application/json" };
                     }
                 }
 

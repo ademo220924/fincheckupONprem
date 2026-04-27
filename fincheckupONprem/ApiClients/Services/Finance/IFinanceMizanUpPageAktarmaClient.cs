@@ -26,4 +26,7 @@ public interface IFinanceMizanUpPageAktarmaClient : IApiClientBase
     Task<GenericResult<MizanUpPageAktarmaOnGetSalerCompResponse>> GetSalerCompAsync([Body] MizanUpPageAktarmaOnGetSalerCompRequest request, CancellationToken cancellationToken = default);
     [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGetCheckRepPdf")]
     Task<GenericResult<MizanUpPageAktarmaOnGetCheckRepPdfResponse>> GetCheckRepPdfAsync([Body] MizanUpPageAktarmaOnGetCheckRepPdfRequest request, CancellationToken cancellationToken = default);
+
+    [Post("/api/finance/mizan/FinanceMizanUpPageAktarma/OnGetMarkupMarjin")]
+    Task<GenericResult<MizanUpPageAktarmaOnGetMarkupMarjinResponse>> GetMarkupMarjinAsync([Body] MizanUpPageAktarmaOnGetMarkupMarjinQuery request, CancellationToken cancellationToken = default);
 }

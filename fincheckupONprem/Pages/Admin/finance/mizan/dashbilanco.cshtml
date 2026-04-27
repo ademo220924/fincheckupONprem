@@ -8,6 +8,7 @@
 @using System.Text.Json
 @using System.Threading
 @using fincheckup.ApiClients.Models
+@using fincheckup.Helper
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashBilanco
 @using fincheckup.ApiClients.Services.Finance
 
@@ -186,17 +187,20 @@
                 if (response.IsSuccess && response.Data?.Response is JsonElement je)
                 {
                     // JsonResult(JsonElement) bazen çift serileştirme yapar; DevExtreme kökte { "data": [...] } bekler.
+                    // API camelCase (groupName, year) döner; Startup'ta PropertyNamingPolicy=null olduğu için PivotGrid alanları PascalCase bekler — eşleşmezse grid boş kalır.
                     if (je.ValueKind == JsonValueKind.String)
                     {
                         var inner = je.GetString();
                         if (!string.IsNullOrEmpty(inner))
                         {
-                            return new ContentResult { Content = inner, ContentType = "application/json" };
+                            var normalizedInner = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMultiPayload(inner);
+                            return new ContentResult { Content = normalizedInner ?? inner, ContentType = "application/json" };
                         }
                     }
                     else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
                     {
-                        return new ContentResult { Content = je.GetRawText(), ContentType = "application/json" };
+                        var normalized = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMultiPayload(je.GetRawText());
+                        return new ContentResult { Content = normalized ?? je.GetRawText(), ContentType = "application/json" };
                     }
                 }
 
@@ -215,6 +219,7 @@
             //var chk = DashGelirTablosu.Get_MAINRESULTMultiMain(compid).Where(x => x.IsHidden == 0);
             //return new JsonResult(DataSourceLoader.Load(chk, options));
         }
+
         public JsonResult OnGetGraphComp(int ncompid)
         {
             //if (ncompid < 1)

@@ -6,12 +6,14 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 
+@using System.Text.Json
 @using System.Threading
 @using System.Collections.Generic
 @using Microsoft.AspNetCore.Mvc
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Konsol.DashRevenueKon
 @using fincheckup.ApiClients.Services.Finance
+@using fincheckup.Helper
 @functions {
     public class IndexModel(IFinanceMizanKonsolDashRevenueKonClient apiClient) : PageModel
     {
@@ -188,10 +190,23 @@
                     compid = compid, options = options
                 }, CancellationToken.None);
                
-                if (response.IsSuccess && response.Data?.Response != null)
+                if (response.IsSuccess && response.Data?.Response is JsonElement je)
                 {
-                    var payload = response.Data.Response.Value.GetRawText();
-                    return Content(payload, "application/json");
+                    // API camelCase; PivotGrid DashBilancoViewMznShort alanlari PropertyNamingPolicy=null ile PascalCase bekler.
+                    if (je.ValueKind == JsonValueKind.String)
+                    {
+                        var inner = je.GetString();
+                        if (!string.IsNullOrEmpty(inner))
+                        {
+                            var normalizedInner = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMznShortPayload(inner);
+                            return new ContentResult { Content = normalizedInner ?? inner, ContentType = "application/json" };
+                        }
+                    }
+                    else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
+                    {
+                        var normalized = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMznShortPayload(je.GetRawText());
+                        return new ContentResult { Content = normalized ?? je.GetRawText(), ContentType = "application/json" };
+                    }
                 }
 
                 Console.WriteLine(response.ProblemDetails?.Detail);

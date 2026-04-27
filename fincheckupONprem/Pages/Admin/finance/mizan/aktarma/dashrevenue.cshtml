@@ -11,6 +11,7 @@
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.Aktarma.DashRevenue
 @using fincheckup.ApiClients.Services.Finance
+@using fincheckup.Helper
 
 @functions {
     public class IndexModel(IFinanceMizanAktarmaDashRevenueClient apiClient) : PageModel
@@ -104,17 +105,20 @@
 
                 if (response.IsSuccess && response.Data?.Response is JsonElement je)
                 {
+                    // API camelCase; PivotGrid DashBilancoViewMznShort alanlari PropertyNamingPolicy=null ile PascalCase bekler.
                     if (je.ValueKind == JsonValueKind.String)
                     {
                         var inner = je.GetString();
                         if (!string.IsNullOrEmpty(inner))
                         {
-                            return new ContentResult { Content = inner, ContentType = "application/json" };
+                            var normalizedInner = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMznShortPayload(inner);
+                            return new ContentResult { Content = normalizedInner ?? inner, ContentType = "application/json" };
                         }
                     }
                     else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
                     {
-                        return new ContentResult { Content = je.GetRawText(), ContentType = "application/json" };
+                        var normalized = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMznShortPayload(je.GetRawText());
+                        return new ContentResult { Content = normalized ?? je.GetRawText(), ContentType = "application/json" };
                     }
                 }
 
@@ -168,7 +172,7 @@
                     <h2>Gelir Tablosu</h2>
                     <ul class="breadcrumb padding-0">
                         <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i></a></li>
-                        <li class="breadcrumb-item active">Gelir Tablosu Aktarma- Arındırma<</li>
+                        <li class="breadcrumb-item active">Gelir Tablosu Aktarma- Arındırma</li>
                     </ul>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">

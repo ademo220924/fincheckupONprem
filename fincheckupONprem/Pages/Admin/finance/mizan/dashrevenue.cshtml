@@ -9,6 +9,7 @@
 @using System.Threading
 @using fincheckup.ApiClients.Entities
 @using fincheckup.ApiClients.Models
+@using fincheckup.Helper
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.DashRevenue
 @using fincheckup.ApiClients.Services.Finance
 
@@ -198,17 +199,20 @@
 
                 if (response.IsSuccess && response.Data?.Response is JsonElement je)
                 {
+                    // API camelCase; MVC PropertyNamingPolicy=null ile PivotGrid PascalCase bekler (dashbilanco ile aynı).
                     if (je.ValueKind == JsonValueKind.String)
                     {
                         var inner = je.GetString();
                         if (!string.IsNullOrEmpty(inner))
                         {
-                            return new ContentResult { Content = inner, ContentType = "application/json" };
+                            var normalizedInner = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMultiPayload(inner);
+                            return new ContentResult { Content = normalizedInner ?? inner, ContentType = "application/json" };
                         }
                     }
                     else if (je.ValueKind != JsonValueKind.Null && je.ValueKind != JsonValueKind.Undefined)
                     {
-                        return new ContentResult { Content = je.GetRawText(), ContentType = "application/json" };
+                        var normalized = DevExtremeMarkupMarjinPayloadNormalizer.TryNormalizeDashBilancoViewMultiPayload(je.GetRawText());
+                        return new ContentResult { Content = normalized ?? je.GetRawText(), ContentType = "application/json" };
                     }
                 }
 
