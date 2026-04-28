@@ -8,7 +8,9 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 
+@using System.Linq
 @using System.Threading
+@using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.ReportMain
 @using fincheckup.ApiClients.Services.Finance
 
@@ -802,10 +804,10 @@
                                     <div class="col-lg-4   col-sm-12">
                                         <div class="card">
                                             <div class="body">
-                                                @(Html.DevExtreme().Chart().ID("chaRevenue").CommonSeriesSettings(s => s.ArgumentField("Yeartx").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                @(Html.DevExtreme().Chart().ID("chaRevenue").CommonSeriesSettings(s => s.ArgumentField("Year").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
                     {
                         s.Add().ValueField("Amount").Name("Revenue");
-                    }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Gelirler").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "Revenue")).LoadParams(new {  compid = new JS("function() {return mcompid; }") }))
+                    }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Gelirler").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(Model.InitialModel?.dashRevenue ?? Enumerable.Empty<YearlyReportDashMizan>())
                                 )
 
                                             </div>
@@ -816,10 +818,10 @@
                                     <div class="col-lg-4  col-sm-12">
                                         <div class="card">
                                             <div class="body">
-                                                @(Html.DevExtreme().Chart().ID("chaGrossProfit").Rotated(true).CommonSeriesSettings(s => s.ArgumentField("Yeartx").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                @(Html.DevExtreme().Chart().ID("chaGrossProfit").Rotated(true).CommonSeriesSettings(s => s.ArgumentField("Year").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
                                             {
                                                 s.Add().ValueField("Amount").Name("Gross Profit");
-                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Brüt Kar Zarar").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "GrossProfit")).LoadParams(new {  compid = new JS("function() {return mcompid; }") }))
+                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Brüt Kar Zarar").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(Model.InitialModel?.dashGrossProfit ?? Enumerable.Empty<YearlyReportDashMizan>())
                                 )
 
                                             </div>
@@ -830,10 +832,10 @@
                                     <div class="col-lg-4   col-sm-12">
                                         <div class="card">
                                             <div class="body">
-                                                @(Html.DevExtreme().Chart().ID("chartzone").CommonSeriesSettings(s => s.ArgumentField("Yeartx").Type(SeriesType.Spline).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels).Grid(g => g.Visible(true))).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                @(Html.DevExtreme().Chart().ID("chartzone").CommonSeriesSettings(s => s.ArgumentField("Year").Type(SeriesType.Spline).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels).Grid(g => g.Visible(true))).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
                     {
                         s.Add().ValueField("Amount").Name("Markup");
-                    }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Brüt Kar Zarar Marjı").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new {  compid = new JS("function() {return mcompid; }") }))
+                    }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Brüt Kar Zarar Marjı").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(Model.InitialModel?.dDashFrossViewMarjBrut ?? Enumerable.Empty<YearlyReportDashMizanGrap>())
                                 )
 
 
@@ -851,10 +853,10 @@
                                     <div class="col-lg-4  col-sm-12">
                                         <div class="card">
                                             <div class="body">
-                                                @(Html.DevExtreme().Chart().ID("chaEbitMarjin").Rotated(true).CommonSeriesSettings(s => s.ArgumentField("Yeartx").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Format(Format.Year).Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                @(Html.DevExtreme().Chart().ID("chaEbitMarjin").Rotated(true).CommonSeriesSettings(s => s.ArgumentField("Year").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Format(Format.Year).Font(f => f.Color("#fff").Size(12)))).Series(s =>
                                             {
                                                 s.Add().ValueField("Amount").Name("Ebit");
-                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Faaliyet Kar Zarar").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "EbitMarjin")).LoadParams(new {   compid = new JS("function() {return mcompid; }") }))
+                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Faaliyet Kar Zarar").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(Model.InitialModel?.dashEbitMarjin ?? Enumerable.Empty<YearlyReportDashMizan>())
                                 )
 
                                             </div>
@@ -866,10 +868,10 @@
                                         <div class="card">
                                             <div class="body">
 
-                                                @(Html.DevExtreme().Chart().ID("chaWorkingCapital").CommonSeriesSettings(s => s.ArgumentField("Yeartx").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                @(Html.DevExtreme().Chart().ID("chaWorkingCapital").CommonSeriesSettings(s => s.ArgumentField("Year").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
                                             {
                                                 s.Add().ValueField("Amount").Name("Working Capital");
-                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("İşletme Sermayesi").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "WorkingCapital")).LoadParams(new {  compid = new JS("function() {return mcompid; }") }))
+                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("İşletme Sermayesi").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(Model.InitialModel?.dashWorkingCapital ?? Enumerable.Empty<YearlyReportDashMizan>())
                                 )
                                             </div>
                                         </div>
@@ -881,10 +883,10 @@
                                             <div class="body">
 
 
-                                                @(Html.DevExtreme().Chart().ID("chaDonemselKarZarar").Rotated(true).CommonSeriesSettings(s => s.ArgumentField("Yeartx").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
+                                                @(Html.DevExtreme().Chart().ID("chaDonemselKarZarar").Rotated(true).CommonSeriesSettings(s => s.ArgumentField("Year").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#949494").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#949494").Font(f => f.Color("#fff").Size(12)))).Series(s =>
                                             {
                                                 s.Add().ValueField("Amount").Name("Monthly Trend");
-                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Dönem Kar Zarar").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "DonemselKarZarar")).LoadParams(new {  compid = new JS("function() {return mcompid; }") }))
+                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Dönem Kar Zarar").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(Model.InitialModel?.dashDonemselKarzarar ?? Enumerable.Empty<YearlyReportDashMizan>())
                                 )
 
                                             </div>

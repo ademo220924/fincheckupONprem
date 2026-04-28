@@ -6,6 +6,8 @@
     ViewData["Title"] = "Giriş Ekranı";
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
+@using System.Collections.Generic
+@using System.Linq
 @using System.Threading
 @using System.Text.Json
 @using fincheckup.ApiClients.Models
@@ -102,7 +104,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetCasino");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetCasino");
             }
             catch (Exception ex)
             {
@@ -132,7 +134,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetChartRasyo");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetChartRasyo");
             }
             catch (Exception ex)
             {
@@ -166,7 +168,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetChartRasyoa");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetChartRasyoa");
             }
             catch (Exception ex)
             {
@@ -200,7 +202,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetChartRasyob");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetChartRasyob");
             }
             catch (Exception ex)
             {
@@ -235,7 +237,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetChartMali");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetChartMali");
             }
             catch (Exception ex)
             {
@@ -271,7 +273,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetChartLikid");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetChartLikid");
             }
             catch (Exception ex)
             {
@@ -313,7 +315,7 @@
                 }
 
                 Console.WriteLine(response.ProblemDetails.Detail);
-                return new JsonResult("Burada hata var finance/mizan/DashLiquidity OnGetDashRasyo");
+                return new JsonResult("Burada hata var finance/mizan/Dashrasyo OnGetDashRasyo");
             }
             catch (Exception ex)
             {
@@ -332,7 +334,7 @@
             //UserID = Int64.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //HhvnUsers.SetYear(nyear, UserID);
             //return new JsonResult("ok");
-            return new JsonResult("Entegrasyon eksik finance/mizan/DashLiquidity OnGetGraphYear");
+            return new JsonResult("Entegrasyon eksik finance/mizan/Dashrasyo OnGetGraphYear");
         }
         public async Task<JsonResult> OnGetGraphComp(int ncompid)
         {
@@ -353,7 +355,7 @@
             //UserCompany.Update_UserDefault(UserID, ncompid);
             //
             //return new JsonResult("ok");
-            return new JsonResult("Entegrasyon eksik finance/mizan/DashLiquidity OnGetGraphComp");
+            return new JsonResult("Entegrasyon eksik finance/mizan/Dashrasyo OnGetGraphComp");
         }
     }
 }
@@ -456,7 +458,7 @@
         .ShowColumnTotals(false)
         .FieldChooser(c => c.Enabled(false).Height(400))
         .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "ChartRasyo")))
+            .Store(s => s.Array().Data((Model.InitialModel?.RasyoAnaliz ?? new List<DashYearlyResultMizan>()).Where(x => x.TypeID == 1).ToList()))
             .Fields(fields => {
                 fields.AddFor(m => m.Description)
                     .Width(120)
@@ -523,7 +525,7 @@
         .ShowColumnTotals(false)
         .FieldChooser(c => c.Enabled(false).Height(400))
         .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "ChartRasyoa")))
+            .Store(s => s.Array().Data((Model.InitialModel?.RasyoAnaliz ?? new List<DashYearlyResultMizan>()).Where(x => x.TypeID == 2).ToList()))
             .Fields(fields => {
                 fields.AddFor(m => m.Description)
                     .Width(120)
@@ -590,7 +592,7 @@
         .ShowColumnTotals(false)
         .FieldChooser(c => c.Enabled(false).Height(400))
         .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "ChartRasyob")))
+            .Store(s => s.Array().Data((Model.InitialModel?.RasyoAnaliz ?? new List<DashYearlyResultMizan>()).Where(x => x.TypeID == 3).ToList()))
             .Fields(fields => {
                 fields.AddFor(m => m.Description)
                     .Width(120)
@@ -653,7 +655,7 @@
         .ShowColumnTotals(false)
         .FieldChooser(c => c.Enabled(false).Height(400))
         .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "ChartLikid")))
+            .Store(s => s.Array().Data(Model.InitialModel?.LikiditeRiskTrend ?? new List<DashYearlyResultMizan>()))
             .Fields(fields => {
                 fields.AddFor(m => m.Description)
                     .Width(295)
@@ -722,7 +724,7 @@
         .ShowColumnTotals(false)
         .FieldChooser(c => c.Enabled(false).Height(400))
         .DataSource(d => d
-            .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "ChartMali")))
+            .Store(s => s.Array().Data(Model.InitialModel?.OzetMali ?? new List<DashYearlyResultMizan>()))
             .Fields(fields => {
                 fields.AddFor(m => m.Description)
                     .Width(295)

@@ -6,6 +6,8 @@
     ViewData["Title"] = "Giriş Ekranı";
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
+@using System.Collections.Generic
+@using System.Linq
 @using System.Threading
 @using System.Text.Json
 @using fincheckup.ApiClients.Models
@@ -318,7 +320,7 @@
                                                         .ApplyChangesMode(ApplyChangesMode.Instantly)).FieldPanel(e=>e.ShowColumnFields(true).ShowDataFields(false).ShowFilterFields(false).ShowRowFields(false))
 
                                                     .DataSource(d => d
-                                                        .Store(s => s.RemoteController().LoadUrl(Url.Page(null, "MarkupMarjin")).LoadParams(new {  compid = new JS("function() {return mcompid; }") }))
+                                                        .Store(s => s.Array().Data(Model.InitialModel?.nRequestListChk ?? new List<DashBilancoViewMizan>()))
                                                         .Fields(fields => {
                                                             fields.AddFor(m => m.GroupName)
                                                                 .Width(170)
@@ -355,7 +357,7 @@
                                                         @(Html.DevExtreme().Chart()
                                                             .ID("chart")
                                                             .CommonSeriesSettings(s => s
-                                                                .ArgumentField("Yeartx")
+                                                                .ArgumentField("Year")
                                                                 .Type(SeriesType.Spline)
                                                                 .Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))
                                                             )
@@ -389,7 +391,7 @@
                                                             )
                                                             .Export(e => e.Enabled(true))
                                                             .Tooltip(t => t.Enabled(true))
-                                                                .DataSource(Model.InitialModel.nRequestChart)
+                                                                .DataSource(Model.InitialModel?.nRequestChart ?? new List<DashYearlyResultMizan>())
                                                         )
 
                                                     </div>

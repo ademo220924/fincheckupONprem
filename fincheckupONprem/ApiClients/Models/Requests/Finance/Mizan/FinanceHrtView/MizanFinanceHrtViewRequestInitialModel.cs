@@ -23,6 +23,7 @@ namespace fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrtView
         public IEnumerable<DashBilancoViewMarj> dashFinancialOzkaynakAktif { get; set; }
         public IEnumerable<YearlyReportDash> dashFinancialCariOran { get; set; }
         public IEnumerable<YearlyReportDash> dashRevenue { get; set; }
+        public IEnumerable<YearlyReportDash> dashNetSatisByYear { get; set; }
         public IEnumerable<YearlyReportDash> dashDonemselKarzarar { get; set; }
         public IEnumerable<DashYearlyResultMain> dashWorkingCapital { get; set; }
         public IEnumerable<YearlyReportDashGraphic> dDashFrossViewMarjBrut { get; set; }

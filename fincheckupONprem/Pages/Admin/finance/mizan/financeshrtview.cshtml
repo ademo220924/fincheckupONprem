@@ -8,6 +8,7 @@
     Layout = "~/Pages/Shared/_LayoutFinanceMzn.cshtml";
 }
 
+@using System.Linq
 @using System.Threading
 @using fincheckup.ApiClients.Models
 @using fincheckup.ApiClients.Models.Requests.Finance.Mizan.FinanceHrtView
@@ -770,13 +771,54 @@
                                                 <div class="row">
 
                                                     <div class="col-6">
-                                                      
-                                                        @(Html.DevExtreme().Chart().ID("chaRevenue").CommonSeriesSettings(s => s.ArgumentField("YearTx").Color("#4f7af6").Type(SeriesType.Bar).Point(p => p.HoverMode(ChartPointInteractionMode.AllArgumentPoints))).ArgumentAxis(a => a.ValueMarginsEnabled(false).DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)).Crosshair(c => c.Enabled(true).Color("#4f7af6").Width(3).DashStyle(DashStyle.Dot).Label(l => l.Visible(true).BackgroundColor("#4f7af6").Font(f => f.Color("#fff").Size(12)))).Series(s =>
-                                                            {
-                                                                s.Add().ValueField("Amount").Name("Revenue");
-                                                            }).Legend(l => l.VerticalAlignment(VerticalEdge.Bottom).HorizontalAlignment(HorizontalAlignment.Center).ItemTextPosition(Position.Bottom)).Title(t => t.Text("Gelirler").Subtitle(s => s.Text(""))).Export(e => e.Enabled(false)).Tooltip(t => t.Enabled(true)).DataSource(d => d.RemoteController().LoadUrl(Url.Page(null, "Revenue")).LoadParams(new { myear = new JS("function() {return tyear; }"), compid = new JS("function() {return mcompid; }") }))
+                                                        @(
+                                                        Html.DevExtreme().Chart()
+                                                            .ID("chaRevenue")
+                                                            .CommonSeriesSettings(s => s
+                                                                .ArgumentField("YearTx")
+                                                                .Color("#4f7af6")
+                                                                .Type(SeriesType.Bar)
+                                                                .Point(p => p
+                                                                    .HoverMode(ChartPointInteractionMode.AllArgumentPoints)
+                                                                )
                                                             )
-
+                                                            .ArgumentAxis(a => a
+                                                                .ValueMarginsEnabled(false)
+                                                                .DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)
+                                                            )
+                                                            .Crosshair(c => c
+                                                                .Enabled(true)
+                                                                .Color("#4f7af6")
+                                                                .Width(3)
+                                                                .DashStyle(DashStyle.Dot)
+                                                                .Label(l => l
+                                                                    .Visible(true)
+                                                                    .BackgroundColor("#4f7af6")
+                                                                    .Font(f => f
+                                                                        .Color("#fff")
+                                                                        .Size(12)
+                                                                    )
+                                                                )
+                                                            )
+                                                            .Series(s =>
+                                                            {
+                                                                s.Add()
+                                                                    .ValueField("Amount")
+                                                                    .Name("Revenue");
+                                                            })
+                                                            .Legend(l => l
+                                                                .VerticalAlignment(VerticalEdge.Bottom)
+                                                                .HorizontalAlignment(HorizontalAlignment.Center)
+                                                                .ItemTextPosition(Position.Bottom)
+                                                            )
+                                                            .Title(t => t
+                                                                .Text("Gelirler")
+                                                                .Subtitle(s => s.Text(""))
+                                                            )
+                                                            .Export(e => e.Enabled(false))
+                                                            .Tooltip(t => t.Enabled(true))
+                                                            .DataSource(Model.InitialModel?.dashNetSatisByYear ?? Enumerable.Empty<YearlyReportDash>())
+                                                        )
                                                     </div>
                                                     <div class="col-6">
                                                         @(
